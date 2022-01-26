@@ -2,7 +2,7 @@
 #define DATASERVICE_H
 
 #include <iostream>
-#include <QSqlDatabase>
+#include <QtSql>
 #include <QFileInfo>
 #include <QDir>
 

@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QMessageBox>
+#include "loginform.h"
+#include "registerForm.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,5 +22,6 @@ private:
 
 private slots:
     void onLoginPressed();
+    void onRegisterPressed();
 };
 #endif // MAINWINDOW_H

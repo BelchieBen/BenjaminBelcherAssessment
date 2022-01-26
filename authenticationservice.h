@@ -2,6 +2,8 @@
 
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <QtDebug>
+#include <QSqlError>
 
 using namespace std;
 
@@ -18,8 +20,8 @@ public:
 //    }
 
     //int hashPassword(string const &Combine);
-    int login(QString username, QString password);
-    //int registerUsr();
+    int login(QString email, QString password);
+    int registerUsr(QString firstname, QString surname, QString email, QString password, QString password2);
     //int forgotPassword(string email);
 
 

@@ -11,16 +11,25 @@ CONFIG += c++11
 SOURCES += \
     authenticationservice.cpp \
     dataservice.cpp \
+    loginform.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    registerform.cpp \
+    user.cpp
 
 HEADERS += \
     authenticationservice.h \
     dataservice.h \
-    mainwindow.h
+    loginform.h \
+    mainwindow.h \
+    registerform.h \
+    user.h
 
 FORMS += \
-    mainwindow.ui
+    loginform.ui \
+    mainwindow.ui \
+    mainwindow.ui \
+    registerform.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
