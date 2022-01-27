@@ -1,5 +1,6 @@
 #include "loginform.h"
 #include "ui_loginform.h"
+#include "user.h"
 
 LoginForm::LoginForm(QWidget *parent) :
     QDialog(parent),
