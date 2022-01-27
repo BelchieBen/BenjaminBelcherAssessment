@@ -21,7 +21,7 @@ void RegisterForm::onAlreadyGotAccountPressed(){
 void RegisterForm::onRegisterPressed(){
     QMessageBox messageBox;
     authenticationservice _auth;
-    if(_auth.registerUsr(ui->Firstname->text(), ui->Surname->text(), ui->Email->text(), ui->Password->text(), ui->ConfirmPass->text()) ==1){
+    if(_auth.registerUsr(ui->Firstname->text(), ui->Surname->text(), ui->Email->text(), ui->Password->text(), ui->ConfirmPass->text()) == 1){
         messageBox.addButton("Login",QMessageBox::YesRole);
         messageBox.setText("Thankyou for signing up");
         messageBox.setWindowTitle("Success!");
@@ -33,8 +33,6 @@ void RegisterForm::onRegisterPressed(){
     }
     else{
 
-        messageBox.critical(0,"Error","An error has occured !");
-        messageBox.setFixedSize(500,200);
     }
 }
 

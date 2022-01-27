@@ -21,8 +21,8 @@ void LoginForm::onLoginPressed(){
         popup.exec();
     }
     else{
-        popup.setText("Login Failed");
-        popup.exec();
+        popup.critical(0,"Login Failed","Your Email or Password is incorrect!");
+        popup.setFixedSize(500,200);
     }
 }
 

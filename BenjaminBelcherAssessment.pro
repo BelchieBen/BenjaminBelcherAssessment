@@ -15,7 +15,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     registerform.cpp \
-    user.cpp
+    user.cpp \
+    validator.cpp
 
 HEADERS += \
     authenticationservice.h \
@@ -23,7 +24,8 @@ HEADERS += \
     loginform.h \
     mainwindow.h \
     registerform.h \
-    user.h
+    user.h \
+    validator.h
 
 FORMS += \
     loginform.ui \

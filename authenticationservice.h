@@ -4,6 +4,7 @@
 #include <QSqlQuery>
 #include <QtDebug>
 #include <QSqlError>
+#include "validator.h"
 
 using namespace std;
 
