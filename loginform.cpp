@@ -1,6 +1,7 @@
 #include "loginform.h"
 #include "ui_loginform.h"
 #include "user.h"
+#include "maindashboard.h"
 
 LoginForm::LoginForm(QWidget *parent) :
     QDialog(parent),
@@ -20,6 +21,13 @@ void LoginForm::onLoginPressed(){
     if(_auth.login(email, password) == 1){
         popup.setText("Login success");
         popup.exec();
+        this->hide();
+        MainDashboard dashboard;
+        dashboard.setModal(true);
+        dashboard.showFullScreen();
+        dashboard.setWindowFlags(Qt::Window);
+        dashboard.exec();
+
     }
     else{
         popup.critical(0,"Login Failed","Your Email or Password is incorrect!");

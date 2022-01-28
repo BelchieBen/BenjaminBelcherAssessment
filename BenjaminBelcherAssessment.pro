@@ -14,6 +14,7 @@ SOURCES += \
     dataservice.cpp \
     loginform.cpp \
     main.cpp \
+    maindashboard.cpp \
     mainwindow.cpp \
     registerform.cpp \
     user.cpp \
@@ -24,6 +25,7 @@ HEADERS += \
     dashboard.h \
     dataservice.h \
     loginform.h \
+    maindashboard.h \
     mainwindow.h \
     registerform.h \
     user.h \
@@ -32,6 +34,7 @@ HEADERS += \
 FORMS += \
     dashboard.ui \
     loginform.ui \
+    maindashboard.ui \
     mainwindow.ui \
     mainwindow.ui \
     registerform.ui
