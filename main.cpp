@@ -7,6 +7,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    // Assigning resources
+
     dataservice _data;
     user usr;
 
@@ -15,6 +17,9 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
     int ret = a.exec();
+
+    // Freeing resouces & shutdown tasks
+
     usr.removeCurrentUsr();;
     return ret;
 }
