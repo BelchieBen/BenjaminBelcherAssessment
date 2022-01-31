@@ -10,29 +10,30 @@ CONFIG += c++11
 
 SOURCES += \
     authenticationservice.cpp \
-    dashboard.cpp \
     dataservice.cpp \
     loginform.cpp \
     main.cpp \
     maindashboard.cpp \
     mainwindow.cpp \
     registerform.cpp \
+    task.cpp \
+    taskdelegate.cpp \
     user.cpp \
     validator.cpp
 
 HEADERS += \
     authenticationservice.h \
-    dashboard.h \
     dataservice.h \
     loginform.h \
     maindashboard.h \
     mainwindow.h \
     registerform.h \
+    task.h \
+    taskdelegate.h \
     user.h \
     validator.h
 
 FORMS += \
-    dashboard.ui \
     loginform.ui \
     maindashboard.ui \
     mainwindow.ui \

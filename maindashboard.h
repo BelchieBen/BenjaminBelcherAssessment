@@ -2,6 +2,7 @@
 #define MAINDASHBOARD_H
 
 #include <QDialog>
+#include "taskdelegate.h"
 
 namespace Ui {
 class MainDashboard;
@@ -17,6 +18,9 @@ public:
 
 private:
     Ui::MainDashboard *ui;
+
+private slots:
+    void onAddTestTaskClicked();
 };
 
 #endif // MAINDASHBOARD_H
