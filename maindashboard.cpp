@@ -6,16 +6,34 @@ MainDashboard::MainDashboard(QWidget *parent) :
     ui(new Ui::MainDashboard)
 {
     ui->setupUi(this);
-    connect(ui->addItm, SIGNAL(released()), this, SLOT(onAddTestTaskClicked()));
+    connect(ui->CreateTask, SIGNAL(released()), this, SLOT(openCreateTask()));
+    connect(&newTask, SIGNAL(addedItem()), this, SLOT(loadTasks()));
+    loadTasks();
+}
+
+void MainDashboard::openCreateTask(){
+    newTask.setModal(true);
+    newTask.exec();
+}
+
+void MainDashboard::loadTasks(){
+    QSqlQuery q;
+    q.prepare("SELECT * FROM tasks");
+    if(q.exec()){
+        while(q.next()){
+            QListWidget *taskList = ui->TaskList;
+            taskList->setItemDelegate(new TaskDelegate(taskList));
+            QListWidgetItem *item = new QListWidgetItem();
+            item->setData(Qt::DisplayRole, q.value(1).toString());
+            item->setData(Qt::UserRole + 1, q.value(2).toString());
+            taskList->addItem(item);
+        }
+    }
 }
 
 void MainDashboard::onAddTestTaskClicked(){
-    QListWidget *taskList = ui->TaskList;
-    taskList->setItemDelegate(new TaskDelegate(taskList));
-    QListWidgetItem *item = new QListWidgetItem();
-    item->setData(Qt::DisplayRole, "Title");
-    item->setData(Qt::UserRole + 1, "Description");
-    taskList->addItem(item);
+
+
 }
 
 MainDashboard::~MainDashboard()

@@ -292,7 +292,7 @@ background-color: blue;
         </rect>
        </property>
       </widget>
-      <widget class="QPushButton" name="addItm">
+      <widget class="QPushButton" name="CreateTask">
        <property name="geometry">
         <rect>
          <x>560</x>
@@ -302,7 +302,7 @@ background-color: blue;
         </rect>
        </property>
        <property name="text">
-        <string>Add Item</string>
+        <string>Create Task</string>
        </property>
       </widget>
      </widget>

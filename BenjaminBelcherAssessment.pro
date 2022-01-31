@@ -15,6 +15,7 @@ SOURCES += \
     main.cpp \
     maindashboard.cpp \
     mainwindow.cpp \
+    newtaskform.cpp \
     registerform.cpp \
     task.cpp \
     taskdelegate.cpp \
@@ -27,6 +28,7 @@ HEADERS += \
     loginform.h \
     maindashboard.h \
     mainwindow.h \
+    newtaskform.h \
     registerform.h \
     task.h \
     taskdelegate.h \
@@ -38,6 +40,7 @@ FORMS += \
     maindashboard.ui \
     mainwindow.ui \
     mainwindow.ui \
+    newtaskform.ui \
     registerform.ui
 
 # Default rules for deployment.

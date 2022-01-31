@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "taskdelegate.h"
+#include "newtaskform.h"
 
 namespace Ui {
 class MainDashboard;
@@ -18,9 +19,14 @@ public:
 
 private:
     Ui::MainDashboard *ui;
+    NewTaskForm newTask;
 
 private slots:
     void onAddTestTaskClicked();
+    void openCreateTask();
+
+public slots:
+    void loadTasks();
 };
 
 #endif // MAINDASHBOARD_H
