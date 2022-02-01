@@ -15,10 +15,13 @@ LoginForm::LoginForm(QWidget *parent) :
 
 void LoginForm::onLoginPressed(){
     QMessageBox popup;
+    user usr;
     authenticationservice _auth;
+    int remMe = ui->RememberMe->isChecked();
     QString email = ui->Email->text();
     QString password = ui->Password->text();
-    if(_auth.login(email, password) == 1){
+
+    if(_auth.login(email, password, remMe) == 1){
         popup.setText("Login success");
         popup.exec();
         this->hide();
@@ -33,6 +36,7 @@ void LoginForm::onLoginPressed(){
         popup.critical(0,"Login Failed","Your Email or Password is incorrect!");
         popup.setFixedSize(500,200);
     }
+
 }
 
 void LoginForm::onNewHerePressed(){

@@ -19,7 +19,11 @@ int main(int argc, char *argv[])
     int ret = a.exec();
 
     // Freeing resouces & shutdown tasks
+    if(!usr.isRememberMeTrue()){
+        usr.removeCurrentUsr();
+    }
+    else{
 
-    usr.removeCurrentUsr();;
+    }
     return ret;
 }

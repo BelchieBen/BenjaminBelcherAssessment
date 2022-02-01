@@ -21,7 +21,7 @@ public:
 //    }
 
     //int hashPassword(string const &Combine);
-    int login(QString email, QString password);
+    int login(QString email, QString password, int rememberMe);
     int registerUsr(QString firstname, QString surname, QString email, QString password, QString password2);
     //int forgotPassword(string email);
 

@@ -5,7 +5,7 @@
 dataservice _data;
 
 
-int authenticationservice::login(QString eml, QString pssword){
+int authenticationservice::login(QString eml, QString pssword, int rememberMe){
     if(QSqlDatabase::database().isOpen()){
         QSqlQuery q;
         QString query = "SELECT * FROM users WHERE email='"+eml+"' AND password='"+pssword+"'";
@@ -23,7 +23,7 @@ int authenticationservice::login(QString eml, QString pssword){
 
             if(count==1){
                 cout << "Foud user!";
-                user usr(id, fname, sname, eml);
+                user usr(id, fname, sname, eml, rememberMe);
                 usr.setCurrentUser(usr);
                 return 1;
             }

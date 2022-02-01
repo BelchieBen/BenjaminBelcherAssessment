@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "maindashboard.h"
+#include "user.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -12,10 +14,21 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::onLoginPressed(){
-    this->hide();
-    LoginForm login;
-    login.setModal(true);
-    login.exec();
+    user usr;
+    if(usr.isRememberMeTrue()){
+        this->hide();
+        MainDashboard dashboard;
+        dashboard.setModal(true);
+        dashboard.showFullScreen();
+        dashboard.setWindowFlags(Qt::Window);
+        dashboard.exec();
+    }
+    else{
+        this->hide();
+        LoginForm login;
+        login.setModal(true);
+        login.exec();
+    }
 }
 
 void MainWindow::onRegisterPressed(){

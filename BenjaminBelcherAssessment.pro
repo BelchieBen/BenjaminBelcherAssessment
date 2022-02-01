@@ -18,6 +18,7 @@ SOURCES += \
     newtaskform.cpp \
     registerform.cpp \
     task.cpp \
+    taskdataservice.cpp \
     taskdelegate.cpp \
     user.cpp \
     validator.cpp
@@ -31,6 +32,7 @@ HEADERS += \
     newtaskform.h \
     registerform.h \
     task.h \
+    taskdataservice.h \
     taskdelegate.h \
     user.h \
     validator.h

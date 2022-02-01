@@ -1,5 +1,6 @@
 #include "newtaskform.h"
 #include "ui_newtaskform.h"
+#include "taskdataservice.h"
 
 NewTaskForm::NewTaskForm(QWidget *parent) :
     QDialog(parent),
@@ -13,27 +14,20 @@ NewTaskForm::NewTaskForm(QWidget *parent) :
     connect(ui->CreateTaskBtn, SIGNAL(released()), this, SLOT(onCreateTaskBtnPressed()));
 }
 
-QString getTime(){
-    time_t now = time(0);
-    tm* localtm = localtime(&now);
-    std::string localTime = asctime(localtm);
-    QString qTime = QString::fromStdString(localTime);
-    return qTime;
-}
-
 void NewTaskForm::onCreateTaskBtnPressed(){
-    QSqlQuery q;
-    q.prepare( "INSERT INTO tasks (title, description, effort, priority, created) "
-            "VALUES (:tle, :desc, :eff, :pri, :crted)");
-    q.bindValue(":tle", ui->Title->text());
-    q.bindValue(":desc", ui->Description->toPlainText());
-    q.bindValue(":eff", ui->EffortBox->itemData(ui->EffortBox->currentIndex()));
-    q.bindValue(":pri", ui->PriorityBox->itemData(ui->PriorityBox->currentIndex()));
-    q.bindValue(":crted", getTime());
+    QString title = ui->Title->text();
+    QString desc =  ui->Description->toPlainText();
+    QString effort = ui->EffortBox->currentText();
+    QString priority = ui->PriorityBox->currentText();
+    QString project = "test project";
+
+    TaskDataService _taskDataService;
+    bool result;
+    result = _taskDataService.createTask(title, desc, effort, priority, project);
 
     QMessageBox messageBox;
 
-    if(q.exec()){
+    if(result){
         qDebug() << "Added Task!";
         messageBox.setText("Added Task!");
         messageBox.exec();
@@ -41,7 +35,6 @@ void NewTaskForm::onCreateTaskBtnPressed(){
         this->hide();
     }
     else{
-        qDebug() << q.lastError().text();
         messageBox.critical(0,"Error","There was an error when creating the task, please try again!");
     }
 }

@@ -286,17 +286,17 @@ background-color: blue;
        <property name="geometry">
         <rect>
          <x>170</x>
-         <y>290</y>
-         <width>256</width>
-         <height>192</height>
+         <y>230</y>
+         <width>501</width>
+         <height>391</height>
         </rect>
        </property>
       </widget>
       <widget class="QPushButton" name="CreateTask">
        <property name="geometry">
         <rect>
-         <x>560</x>
-         <y>380</y>
+         <x>780</x>
+         <y>310</y>
          <width>80</width>
          <height>24</height>
         </rect>
