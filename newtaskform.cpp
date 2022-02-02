@@ -33,6 +33,10 @@ void NewTaskForm::onCreateTaskBtnPressed(){
         messageBox.exec();
         emit addedItem();
         this->hide();
+        ui->Title->setText("");
+        ui->Description->setPlainText("");
+        ui->EffortBox->setCurrentIndex(0);
+        ui->PriorityBox->setCurrentIndex(0);
     }
     else{
         messageBox.critical(0,"Error","There was an error when creating the task, please try again!");

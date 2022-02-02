@@ -15,7 +15,9 @@ SOURCES += \
     main.cpp \
     maindashboard.cpp \
     mainwindow.cpp \
+    newprojectform.cpp \
     newtaskform.cpp \
+    projectdataservice.cpp \
     registerform.cpp \
     task.cpp \
     taskdataservice.cpp \
@@ -29,7 +31,9 @@ HEADERS += \
     loginform.h \
     maindashboard.h \
     mainwindow.h \
+    newprojectform.h \
     newtaskform.h \
+    projectdataservice.h \
     registerform.h \
     task.h \
     taskdataservice.h \
@@ -42,6 +46,7 @@ FORMS += \
     maindashboard.ui \
     mainwindow.ui \
     mainwindow.ui \
+    newprojectform.ui \
     newtaskform.ui \
     registerform.ui
 
