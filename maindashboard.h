@@ -6,6 +6,7 @@
 #include "newtaskform.h"
 #include "newprojectform.h"
 #include <QMenu>
+#include <QListWidget>
 
 namespace Ui {
 class MainDashboard;
@@ -24,12 +25,16 @@ private:
     NewTaskForm newTask;
     NewProjectForm newProject;
 
+    QListWidget *taskList;
+    QListWidget *inProgress;;
+
 
 private slots:
     void onAddTestTaskClicked();
     void openCreateTask();
     void openCreateProject();
     void showContextMenu(const QPoint&);
+    void showInProgressMenu(const QPoint&);
     void moveTask();
     void populateLists(QString state, QString title, QString description);
     void clearLists();

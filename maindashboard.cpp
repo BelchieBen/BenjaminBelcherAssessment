@@ -11,18 +11,37 @@ MainDashboard::MainDashboard(QWidget *parent) :
     connect(ui->CreateProjectBtn, SIGNAL(released()), this, SLOT(openCreateProject()));
     connect(&newTask, SIGNAL(addedItem()), this, SLOT(loadTasks()));
     connect(this, SIGNAL(movedItem()), this, SLOT(loadTasks()));
-    ui->TaskList->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(ui->TaskList, SIGNAL(customContextMenuRequested(QPoint)),this, SLOT(showContextMenu(QPoint)));
+    //ui->TaskList->setContextMenuPolicy(Qt::CustomContextMenu);
+    ui->InProgressList->setContextMenuPolicy(Qt::CustomContextMenu);
+    //connect(ui->TaskList, SIGNAL(customContextMenuRequested(QPoint)),this, SLOT(showContextMenu(QPoint)));
+    connect(ui->InProgressList, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showInProgressMenu(QPoint)));
     loadTasks();
+
+    auto actMove = new QAction("Move", this);
+    connect(actMove, SIGNAL(triggered()), this, SLOT(moveTask()));
+    ui->TaskList->setContextMenuPolicy(Qt::ActionsContextMenu);
+    ui->TaskList->addActions({actMove});
+
+    taskList = ui->TaskList;
+    inProgress = ui->InProgressList;
 }
 
 void MainDashboard::showContextMenu(const QPoint &pos){
     QPoint globalPos = ui->TaskList->mapToGlobal(pos);
 
     QMenu editMenu;
-    editMenu.addAction("Move to in progress", this, SLOT(moveTask()));
+    editMenu.addAction("Move to in progress", this, SLOT(moveTask(&ui->TaskList)));
     editMenu.addAction("Delete", this, SLOT(deleteTask()));
 
+    editMenu.exec(globalPos);
+}
+
+void MainDashboard::showInProgressMenu(const QPoint &pos){
+    QPoint globalPos = ui->InProgressList->mapToGlobal(pos);
+
+
+    QMenu editMenu;
+    editMenu.addAction("Move to review", this, SLOT(moveTask(inProgress)));
     editMenu.exec(globalPos);
 }
 
@@ -51,9 +70,10 @@ void MainDashboard::openCreateProject(){
 }
 
 void MainDashboard::moveTask(){
+    QListWidget *list = ui->TaskList;
     TaskDataService _taskDataService;
-    for(int i=0; i<ui->TaskList->selectedItems().size(); i++){
-        QListWidgetItem *task = ui->TaskList->takeItem(ui->TaskList->currentRow());
+    for(int i=0; i<list->selectedItems().size(); i++){
+        QListWidgetItem *task = list->takeItem(list->currentRow());
         if(_taskDataService.updateTaskStatus(*task)){
             emit movedItem();
         }
