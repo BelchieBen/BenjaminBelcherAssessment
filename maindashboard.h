@@ -30,9 +30,15 @@ private slots:
     void openCreateTask();
     void openCreateProject();
     void showContextMenu(const QPoint&);
+    void moveTask();
+    void populateLists(QString state, QString title, QString description);
+    void clearLists();
 
 public slots:
     void loadTasks();
+
+signals:
+    void movedItem();
 };
 
 #endif // MAINDASHBOARD_H

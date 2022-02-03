@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <QSqlError>
 #include <QVariant>
+#include <QListWidgetItem>
 
 
 class TaskDataService
@@ -15,6 +16,7 @@ class TaskDataService
 public:
     TaskDataService();
     bool createTask(QString title, QString desc, QString effort, QString priority, QString project);
+    bool updateTaskStatus(QListWidgetItem task);
 };
 
 #endif // TASKDATASERVICE_H
