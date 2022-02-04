@@ -90,7 +90,7 @@ void MainDashboard::createListMenus(){
     auto MoveToDone = new QAction("Move to done", this);
     connect(MoveToDone, SIGNAL(triggered()), this, SLOT(moveTaskToDone()));
     ui->ReviewList->setContextMenuPolicy(Qt::ActionsContextMenu);
-    ui->Review->addActions({MoveToDone});
+    ui->ReviewList->addActions({MoveToDone});
 }
 
 void MainDashboard::populateLists(QString state, QString title, QString description){
