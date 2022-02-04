@@ -7,6 +7,7 @@
 #include "newprojectform.h"
 #include <QMenu>
 #include <QListWidget>
+#include "taskstates.h"
 
 namespace Ui {
 class MainDashboard;
@@ -24,18 +25,17 @@ private:
     Ui::MainDashboard *ui;
     NewTaskForm newTask;
     NewProjectForm newProject;
-
-    QListWidget *taskList;
-    QListWidget *inProgress;;
+    TaskStates taskStates;
 
 
 private slots:
     void onAddTestTaskClicked();
     void openCreateTask();
     void openCreateProject();
-    void showContextMenu(const QPoint&);
-    void showInProgressMenu(const QPoint&);
-    void moveTask();
+    void createListMenus();
+    void moveTaskToInProgress();
+    void moveTaskToReview();
+    void moveTaskToDone();
     void populateLists(QString state, QString title, QString description);
     void clearLists();
 

@@ -15,8 +15,8 @@ class TaskDataService
 {
 public:
     TaskDataService();
-    bool createTask(QString title, QString desc, QString effort, QString priority, QString project);
-    bool updateTaskStatus(QListWidgetItem task);
+    bool createTask(QString title, QString desc, QString effort, QString priority, QString project, QString state);
+    bool updateTaskStatus(QListWidgetItem task, QString state);
 };
 
 #endif // TASKDATASERVICE_H

@@ -17,11 +17,14 @@ SOURCES += \
     mainwindow.cpp \
     newprojectform.cpp \
     newtaskform.cpp \
+    otherprojectsdialog.cpp \
+    profile.cpp \
     projectdataservice.cpp \
     registerform.cpp \
     task.cpp \
     taskdataservice.cpp \
     taskdelegate.cpp \
+    taskstates.cpp \
     user.cpp \
     validator.cpp
 
@@ -33,11 +36,14 @@ HEADERS += \
     mainwindow.h \
     newprojectform.h \
     newtaskform.h \
+    otherprojectsdialog.h \
+    profile.h \
     projectdataservice.h \
     registerform.h \
     task.h \
     taskdataservice.h \
     taskdelegate.h \
+    taskstates.h \
     user.h \
     validator.h
 
@@ -48,6 +54,8 @@ FORMS += \
     mainwindow.ui \
     newprojectform.ui \
     newtaskform.ui \
+    otherprojectsdialog.ui \
+    profile.ui \
     registerform.ui
 
 # Default rules for deployment.

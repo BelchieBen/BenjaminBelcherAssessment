@@ -2,47 +2,21 @@
 #include "ui_maindashboard.h"
 #include "taskdataservice.h"
 
+
+
 MainDashboard::MainDashboard(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MainDashboard)
 {
     ui->setupUi(this);
+
     connect(ui->CreateTask, SIGNAL(released()), this, SLOT(openCreateTask()));
     connect(ui->CreateProjectBtn, SIGNAL(released()), this, SLOT(openCreateProject()));
     connect(&newTask, SIGNAL(addedItem()), this, SLOT(loadTasks()));
     connect(this, SIGNAL(movedItem()), this, SLOT(loadTasks()));
-    //ui->TaskList->setContextMenuPolicy(Qt::CustomContextMenu);
-    ui->InProgressList->setContextMenuPolicy(Qt::CustomContextMenu);
-    //connect(ui->TaskList, SIGNAL(customContextMenuRequested(QPoint)),this, SLOT(showContextMenu(QPoint)));
-    connect(ui->InProgressList, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showInProgressMenu(QPoint)));
+
     loadTasks();
-
-    auto actMove = new QAction("Move", this);
-    connect(actMove, SIGNAL(triggered()), this, SLOT(moveTask()));
-    ui->TaskList->setContextMenuPolicy(Qt::ActionsContextMenu);
-    ui->TaskList->addActions({actMove});
-
-    taskList = ui->TaskList;
-    inProgress = ui->InProgressList;
-}
-
-void MainDashboard::showContextMenu(const QPoint &pos){
-    QPoint globalPos = ui->TaskList->mapToGlobal(pos);
-
-    QMenu editMenu;
-    editMenu.addAction("Move to in progress", this, SLOT(moveTask(&ui->TaskList)));
-    editMenu.addAction("Delete", this, SLOT(deleteTask()));
-
-    editMenu.exec(globalPos);
-}
-
-void MainDashboard::showInProgressMenu(const QPoint &pos){
-    QPoint globalPos = ui->InProgressList->mapToGlobal(pos);
-
-
-    QMenu editMenu;
-    editMenu.addAction("Move to review", this, SLOT(moveTask(inProgress)));
-    editMenu.exec(globalPos);
+    createListMenus();
 }
 
 void MainDashboard::openCreateTask(){
@@ -69,15 +43,54 @@ void MainDashboard::openCreateProject(){
     newProject.exec();
 }
 
-void MainDashboard::moveTask(){
+void MainDashboard::moveTaskToInProgress(){
     QListWidget *list = ui->TaskList;
     TaskDataService _taskDataService;
     for(int i=0; i<list->selectedItems().size(); i++){
         QListWidgetItem *task = list->takeItem(list->currentRow());
-        if(_taskDataService.updateTaskStatus(*task)){
+        if(_taskDataService.updateTaskStatus(*task, taskStates.InProgressState())){
             emit movedItem();
         }
     }
+}
+
+void MainDashboard::moveTaskToReview(){
+    QListWidget *list = ui->InProgressList;
+    TaskDataService _taskDataService;
+    for(int i=0; i<list->selectedItems().size(); i++){
+        QListWidgetItem *task = list->takeItem(list->currentRow());
+        if(_taskDataService.updateTaskStatus(*task, taskStates.InReviewState())){
+            emit movedItem();
+        }
+    }
+}
+
+void MainDashboard::moveTaskToDone(){
+    QListWidget *list = ui->ReviewList;
+    TaskDataService _taskDataService;
+    for(int i=0; i<list->selectedItems().size(); i++){
+        QListWidgetItem *task = list->takeItem(list->currentRow());
+        if(_taskDataService.updateTaskStatus(*task, taskStates.InDoneState())){
+            emit movedItem();
+        }
+    }
+}
+
+void MainDashboard::createListMenus(){
+    auto MoveToInProgress = new QAction("Move to in progress", this);
+    connect(MoveToInProgress, SIGNAL(triggered()), this, SLOT(moveTaskToInProgress()));
+    ui->TaskList->setContextMenuPolicy(Qt::ActionsContextMenu);
+    ui->TaskList->addActions({MoveToInProgress});
+
+    auto MoveToReview = new QAction("Move to review", this);
+    connect(MoveToReview, SIGNAL(triggered()), this, SLOT(moveTaskToReview()));
+    ui->InProgressList->setContextMenuPolicy(Qt::ActionsContextMenu);
+    ui->InProgressList->addActions({MoveToReview});
+
+    auto MoveToDone = new QAction("Move to done", this);
+    connect(MoveToDone, SIGNAL(triggered()), this, SLOT(moveTaskToDone()));
+    ui->ReviewList->setContextMenuPolicy(Qt::ActionsContextMenu);
+    ui->Review->addActions({MoveToDone});
 }
 
 void MainDashboard::populateLists(QString state, QString title, QString description){

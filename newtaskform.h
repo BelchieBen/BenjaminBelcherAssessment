@@ -7,6 +7,7 @@
 #include <ctime>
 #include <QMessageBox>
 #include <QSqlError>
+#include "taskstates.h"
 
 namespace Ui {
 class NewTaskForm;
@@ -22,6 +23,7 @@ public:
 
 private:
     Ui::NewTaskForm *ui;
+    TaskStates taskStates;
 
 private slots:
     void onCreateTaskBtnPressed();

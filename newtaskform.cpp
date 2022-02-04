@@ -2,11 +2,13 @@
 #include "ui_newtaskform.h"
 #include "taskdataservice.h"
 
+
 NewTaskForm::NewTaskForm(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::NewTaskForm)
 {
     ui->setupUi(this);
+
     QStringList effortPoints = (QStringList()<<"1"<<"2"<<"3"<<"5"<<"8"<<"10");
     QStringList priority = (QStringList()<<"Minor"<<"Medium"<<"Major");
     ui->EffortBox->addItems(effortPoints);
@@ -23,7 +25,7 @@ void NewTaskForm::onCreateTaskBtnPressed(){
 
     TaskDataService _taskDataService;
     bool result;
-    result = _taskDataService.createTask(title, desc, effort, priority, project);
+    result = _taskDataService.createTask(title, desc, effort, priority, project, taskStates.TodoState());
 
     QMessageBox messageBox;
 

@@ -1,13 +1,9 @@
 #include "taskdataservice.h"
 
-QMap<QString, QString> states;
+
 
 TaskDataService::TaskDataService()
 { 
-    states["Todo"] = "Todo";
-    states["InProgress"] = "In Progress";
-    states["InReview"] = "In Review";
-    states["Done"] = "Done";
 
 }
 
@@ -20,7 +16,7 @@ QString getTime(){
     return qTime;
 }
 
-bool TaskDataService::createTask(QString title, QString desc, QString effort, QString priority, QString project){
+bool TaskDataService::createTask(QString title, QString desc, QString effort, QString priority, QString project, QString state){
     QSqlQuery q;
     q.prepare( "INSERT INTO tasks (title, description, effort, priority, created, project, state) "
             "VALUES (:tle, :desc, :eff, :pri, :crted, :prj, :ste)");
@@ -30,7 +26,7 @@ bool TaskDataService::createTask(QString title, QString desc, QString effort, QS
     q.bindValue(":pri", priority);
     q.bindValue(":crted", getTime());
     q.bindValue(":prj", "Test Project");
-    q.bindValue(":ste", states["Todo"]);
+    q.bindValue(":ste", state);
 
     if(q.exec()){
         return true;
@@ -39,11 +35,11 @@ bool TaskDataService::createTask(QString title, QString desc, QString effort, QS
         return false;
 }
 
-bool TaskDataService::updateTaskStatus(QListWidgetItem task){
+bool TaskDataService::updateTaskStatus(QListWidgetItem task, QString state){
     QString titleStr = task.data(0).toString();
     QSqlQuery q;
     q.prepare("UPDATE tasks SET state = :sts WHERE title = :tle");
-    q.bindValue(":sts", states["InProgress"]);
+    q.bindValue(":sts", state);
     q.bindValue(":tle", titleStr);
 
     if(q.exec()){
