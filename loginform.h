@@ -6,6 +6,7 @@
 #include "registerform.h"
 #include "dataservice.h"
 #include "authenticationservice.h"
+#include "loginlandingpage.h"
 
 namespace Ui {
 class LoginForm;

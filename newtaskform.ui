@@ -75,6 +75,16 @@
       <widget class="QComboBox" name="PriorityBox"/>
      </item>
      <item>
+      <widget class="QLabel" name="ProjectLbl">
+       <property name="text">
+        <string>Project</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="ProjectBox"/>
+     </item>
+     <item>
       <widget class="QPushButton" name="CreateTaskBtn">
        <property name="text">
         <string>Create Task</string>

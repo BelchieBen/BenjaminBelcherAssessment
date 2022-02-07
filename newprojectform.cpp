@@ -8,6 +8,19 @@ NewProjectForm::NewProjectForm(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->CreateProjectBtn, SIGNAL(released()), this, SLOT(onCreateProjectBtnClicked()));
+
+    createListMenus();
+
+    // Populating the available users list with users from database
+    QSqlQuery q;
+    q.prepare("SELECT * from users");
+    if(q.exec()){
+        QString email;
+        while(q.next()){
+            email = q.value(1).toString();
+            ui->AvailableUsersList->addItem(email);
+        }
+    }
 }
 
 void NewProjectForm::onCreateProjectBtnClicked(){
@@ -39,6 +52,34 @@ void NewProjectForm::onCreateProjectBtnClicked(){
     }
     else{
         _messageBox.critical(0,"Error","There was an error when creating the project, please try again!");
+    }
+}
+
+void NewProjectForm::createListMenus(){
+    auto AssignUser = new QAction("Assign to project", this);
+    connect(AssignUser, SIGNAL(triggered()), this, SLOT(assignUser()));
+    ui->AvailableUsersList->setContextMenuPolicy(Qt::ActionsContextMenu);
+    ui->AvailableUsersList->addActions({AssignUser});
+
+    auto RemoveUser = new QAction("Remove from project", this);
+    connect(RemoveUser, SIGNAL(triggered()), this, SLOT(removeUser()));
+    ui->AssignedUsersList->setContextMenuPolicy(Qt::ActionsContextMenu);
+    ui->AssignedUsersList->addActions({RemoveUser});
+}
+
+void NewProjectForm::assignUser(){
+    QListWidget *list = ui->AvailableUsersList;
+    for(int i=0; i<list->selectedItems().size(); i++){
+        QListWidgetItem *user = list->takeItem(list->currentRow());
+        ui->AssignedUsersList->addItem(user);
+    }
+}
+
+void NewProjectForm::removeUser(){
+    QListWidget *list = ui->AssignedUsersList;
+    for(int i=0; i<list->selectedItems().size(); i++){
+        QListWidgetItem *user = list->takeItem(list->currentRow());
+        ui->AvailableUsersList->addItem(user);
     }
 }
 

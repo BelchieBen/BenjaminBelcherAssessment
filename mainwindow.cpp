@@ -17,11 +17,14 @@ void MainWindow::onLoginPressed(){
     user usr;
     if(usr.isRememberMeTrue()){
         this->hide();
-        MainDashboard dashboard;
-        dashboard.setModal(true);
-        dashboard.showFullScreen();
-        dashboard.setWindowFlags(Qt::Window);
-        dashboard.exec();
+        LoginLandingPage landingPg;
+        landingPg.setModal(true);
+        landingPg.exec();
+//        MainDashboard dashboard;
+//        dashboard.setModal(true);
+//        dashboard.showFullScreen();
+//        dashboard.setWindowFlags(Qt::Window);
+//        dashboard.exec();
     }
     else{
         this->hide();

@@ -14,6 +14,8 @@ NewTaskForm::NewTaskForm(QWidget *parent) :
     ui->EffortBox->addItems(effortPoints);
     ui->PriorityBox->addItems(priority);
     connect(ui->CreateTaskBtn, SIGNAL(released()), this, SLOT(onCreateTaskBtnPressed()));
+
+    populateProjectBox();
 }
 
 void NewTaskForm::onCreateTaskBtnPressed(){
@@ -21,7 +23,7 @@ void NewTaskForm::onCreateTaskBtnPressed(){
     QString desc =  ui->Description->toPlainText();
     QString effort = ui->EffortBox->currentText();
     QString priority = ui->PriorityBox->currentText();
-    QString project = "test project";
+    QString project =  ui->ProjectBox->currentText();
 
     TaskDataService _taskDataService;
     bool result;
@@ -39,9 +41,22 @@ void NewTaskForm::onCreateTaskBtnPressed(){
         ui->Description->setPlainText("");
         ui->EffortBox->setCurrentIndex(0);
         ui->PriorityBox->setCurrentIndex(0);
+        ui->ProjectBox->setCurrentIndex(0);
     }
     else{
         messageBox.critical(0,"Error","There was an error when creating the task, please try again!");
+    }
+}
+
+void NewTaskForm::populateProjectBox(){
+    QSqlQuery q;
+    q.prepare("SELECT * FROM projects");
+    if(q.exec()){
+        int count = 0;
+        while(q.next()){
+            ui->ProjectBox->insertItem(count, q.value(1).toString());
+            count++;
+        }
     }
 }
 

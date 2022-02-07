@@ -4,16 +4,20 @@
 
 
 
-MainDashboard::MainDashboard(QWidget *parent) :
+MainDashboard::MainDashboard(QWidget *parent, int projectId) :
     QDialog(parent),
     ui(new Ui::MainDashboard)
 {
     ui->setupUi(this);
-
+    this->projId = projectId;
+    QString tle = _projDataService.getProjectTitle(projId);
+    ui->BoardTitle->setText(tle);
     connect(ui->CreateTask, SIGNAL(released()), this, SLOT(openCreateTask()));
     connect(ui->CreateProjectBtn, SIGNAL(released()), this, SLOT(openCreateProject()));
     connect(&newTask, SIGNAL(addedItem()), this, SLOT(loadTasks()));
     connect(this, SIGNAL(movedItem()), this, SLOT(loadTasks()));
+    connect(ui->SearchCurrentBtn, SIGNAL(released()), this, SLOT(loadListsFromSearch()));
+    connect(ui->OtherProjectsBtn, SIGNAL(released()), this, SLOT(openProjectsDialog()));
 
     loadTasks();
     createListMenus();
@@ -26,8 +30,10 @@ void MainDashboard::openCreateTask(){
 
 void MainDashboard::loadTasks(){
     clearLists();
+    QString tle = _projDataService.getProjectTitle(projId);
     QSqlQuery q;
-    q.prepare("SELECT * FROM tasks");
+    q.prepare("SELECT * FROM tasks WHERE project = :title");
+    q.bindValue(":title", tle);
     if(q.exec()){
         while(q.next()){
             QString state = q.value(7).toString();
@@ -36,6 +42,24 @@ void MainDashboard::loadTasks(){
             populateLists(state, title, description);
         }
     }
+}
+
+void MainDashboard::loadListsFromSearch(){
+    clearLists();
+    QSqlQuery q;
+    //QString query = "SELECT * FROM tasks WHERE title LIKE '%"+ui->SearchCurrentBoard->text()+"%'";
+    q.prepare("SELECT * FROM tasks WHERE title LIKE '%'||:search||'%'");
+    q.bindValue(":search", ui->SearchCurrentBoard->text());
+    if(q.exec()){
+        while(q.next()){
+            QString state = q.value(7).toString();
+            QString title = q.value(1).toString();
+            QString description = q.value(2).toString();
+            populateLists(state, title, description);
+        }
+    }
+    else
+        qDebug()<<q.lastError().text();
 }
 
 void MainDashboard::openCreateProject(){
@@ -141,6 +165,31 @@ void MainDashboard::clearLists(){
 void MainDashboard::onAddTestTaskClicked(){
 
 
+}
+
+void MainDashboard::searchCurrentBoard(){
+    QSqlQuery q;
+    q.prepare("SELECT * FROM tasks WHERE title LIKE %:search%");
+    q.bindValue(":search", ui->SearchCurrentBoard->text());
+    if(q.exec()){
+
+
+        while(q.next()){
+
+        }
+    }
+    else{
+        QMessageBox _msgBox;
+        _msgBox.critical(0, "Error", "Invalid search, try again");
+        _msgBox.setFixedSize(500,200);
+    }
+}
+
+void MainDashboard::openProjectsDialog(){
+    LoginLandingPage otherProjects;
+    this->hide();
+    otherProjects.setModal(true);
+    otherProjects.exec();
 }
 
 MainDashboard::~MainDashboard()

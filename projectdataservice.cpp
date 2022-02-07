@@ -38,7 +38,6 @@ bool ProjectDataService::insertProjUsers(QVector<QString> users, int project){
 
 bool ProjectDataService::createProject(QString title, QString desc, QString status, QString manager){
     QSqlQuery q;
-    //QString query = "INSERT INTO projects (title, description, status, manager) VALUES ('"+title+"', '"+desc+"', '"+status+"', '"+manager+"')";
     q.prepare("INSERT INTO projects (title, description, status, manager) "
               "VALUES (:tle, :descrip, :stat, :mgr)");
     q.bindValue(":tle", title);
@@ -54,4 +53,19 @@ bool ProjectDataService::createProject(QString title, QString desc, QString stat
         qDebug() << q.lastError().text();
         return false;
     }
+}
+
+QString ProjectDataService::getProjectTitle(int id){
+    QSqlQuery q;
+    q.prepare("SELECT * FROM projects WHERE id = :id");
+    q.bindValue(":id", id);
+    if(q.exec()){
+        QString title;
+        while(q.next()){
+            title = q.value(1).toString();
+        }
+        return title;
+    }
+    else
+        return "";
 }

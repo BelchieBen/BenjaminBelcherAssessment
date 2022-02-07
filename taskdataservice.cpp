@@ -25,7 +25,7 @@ bool TaskDataService::createTask(QString title, QString desc, QString effort, QS
     q.bindValue(":eff", effort);
     q.bindValue(":pri", priority);
     q.bindValue(":crted", getTime());
-    q.bindValue(":prj", "Test Project");
+    q.bindValue(":prj", project);
     q.bindValue(":ste", state);
 
     if(q.exec()){

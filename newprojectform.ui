@@ -91,23 +91,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QListWidget" name="AssignedUsersList">
-         <item>
-          <property name="text">
-           <string>test1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>test2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>test3</string>
-          </property>
-         </item>
-        </widget>
+        <widget class="QListWidget" name="AssignedUsersList"/>
        </item>
        <item>
         <widget class="QListWidget" name="AvailableUsersList"/>

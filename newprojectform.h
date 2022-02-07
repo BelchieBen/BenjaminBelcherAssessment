@@ -2,6 +2,7 @@
 #define NEWPROJECTFORM_H
 
 #include <QDialog>
+#include <QAction>
 #include <QMessageBox>
 
 namespace Ui {
@@ -21,6 +22,9 @@ private:
 
 private slots:
     void onCreateProjectBtnClicked();
+    void createListMenus();
+    void assignUser();
+    void removeUser();
 };
 
 #endif // NEWPROJECTFORM_H

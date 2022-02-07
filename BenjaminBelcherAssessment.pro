@@ -12,6 +12,7 @@ SOURCES += \
     authenticationservice.cpp \
     dataservice.cpp \
     loginform.cpp \
+    loginlandingpage.cpp \
     main.cpp \
     maindashboard.cpp \
     mainwindow.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
     newtaskform.cpp \
     otherprojectsdialog.cpp \
     profile.cpp \
+    projectbtn.cpp \
     projectdataservice.cpp \
     registerform.cpp \
     task.cpp \
@@ -32,12 +34,14 @@ HEADERS += \
     authenticationservice.h \
     dataservice.h \
     loginform.h \
+    loginlandingpage.h \
     maindashboard.h \
     mainwindow.h \
     newprojectform.h \
     newtaskform.h \
     otherprojectsdialog.h \
     profile.h \
+    projectbtn.h \
     projectdataservice.h \
     registerform.h \
     task.h \
@@ -49,6 +53,7 @@ HEADERS += \
 
 FORMS += \
     loginform.ui \
+    loginlandingpage.ui \
     maindashboard.ui \
     mainwindow.ui \
     mainwindow.ui \

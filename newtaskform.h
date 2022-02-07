@@ -27,6 +27,7 @@ private:
 
 private slots:
     void onCreateTaskBtnPressed();
+    void populateProjectBox();
 
 signals:
     void addedItem();

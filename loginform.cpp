@@ -25,11 +25,14 @@ void LoginForm::onLoginPressed(){
         popup.setText("Login success");
         popup.exec();
         this->hide();
-        MainDashboard dashboard;
-        dashboard.setModal(true);
-        dashboard.showFullScreen();
-        dashboard.setWindowFlags(Qt::Window);
-        dashboard.exec();
+        LoginLandingPage landingPg;
+        landingPg.setModal(true);
+        landingPg.exec();
+//        MainDashboard dashboard;
+//        dashboard.setModal(true);
+//        dashboard.showFullScreen();
+//        dashboard.setWindowFlags(Qt::Window);
+//        dashboard.exec();
 
     }
     else{
