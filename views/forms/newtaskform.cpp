@@ -1,6 +1,6 @@
-#include "newtaskform.h"
+#include "views/forms/newtaskform.h"
 #include "ui_newtaskform.h"
-#include "taskdataservice.h"
+#include "services/taskdataservice.h"
 
 
 NewTaskForm::NewTaskForm(QWidget *parent) :

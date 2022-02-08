@@ -2,15 +2,16 @@
 #define MAINDASHBOARD_H
 
 #include <QDialog>
-#include "taskdelegate.h"
-#include "newtaskform.h"
-#include "newprojectform.h"
+#include "delegates/taskdelegate.h"
+#include "views/forms/newtaskform.h"
+#include "views/forms/newprojectform.h"
 #include <QMenu>
 #include <QListWidget>
-#include "taskstates.h"
+#include "globals/taskstates.h"
 #include <QTreeWidget>
-#include "projectdataservice.h"
-#include "loginlandingpage.h"
+#include "services/projectdataservice.h"
+#include "views/loginlandingpage.h"
+#include "services/taskdataservice.h"
 
 namespace Ui {
 class MainDashboard;

@@ -4,6 +4,8 @@
 #include <QDialog>
 #include <QAction>
 #include <QMessageBox>
+#include "services/projectdataservice.h"
+#include "models/user.h"
 
 namespace Ui {
 class NewProjectForm;
@@ -19,12 +21,17 @@ public:
 
 private:
     Ui::NewProjectForm *ui;
+    ProjectDataService _dataService;
+    user usr;
 
 private slots:
     void onCreateProjectBtnClicked();
     void createListMenus();
     void assignUser();
     void removeUser();
+    void populateAvailableUsrsList();
+signals:
+    void projectCreated();
 };
 
 #endif // NEWPROJECTFORM_H

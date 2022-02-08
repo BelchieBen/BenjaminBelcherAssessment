@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "maindashboard.h"
-#include "user.h"
+#include "views/maindashboard.h"
+#include "models/user.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,9 +17,8 @@ void MainWindow::onLoginPressed(){
     user usr;
     if(usr.isRememberMeTrue()){
         this->hide();
-        LoginLandingPage landingPg;
-        landingPg.setModal(true);
-        landingPg.exec();
+        quickLoginPage.setModal(true);
+        quickLoginPage.exec();
 //        MainDashboard dashboard;
 //        dashboard.setModal(true);
 //        dashboard.showFullScreen();

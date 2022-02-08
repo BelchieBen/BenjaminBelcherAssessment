@@ -2,8 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "loginform.h"
-#include "registerForm.h"
+#include "views/forms/registerform.h"
+#include "views/forms/loginform.h"
+#include "views/quickloginpage.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,6 +20,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QuickLoginPage quickLoginPage;
 
 private slots:
     void onLoginPressed();

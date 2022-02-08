@@ -4,9 +4,9 @@
 #include <QDialog>
 #include <QMessageBox>
 #include "registerform.h"
-#include "dataservice.h"
-#include "authenticationservice.h"
-#include "loginlandingpage.h"
+#include "services/dataservice.h"
+#include "services/authenticationservice.h"
+#include "views/loginlandingpage.h"
 
 namespace Ui {
 class LoginForm;
@@ -22,6 +22,7 @@ public:
 
 private:
     Ui::LoginForm *ui;
+    authenticationservice _auth;
 
 private slots:
     void onLoginPressed();

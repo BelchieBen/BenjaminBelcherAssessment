@@ -9,59 +9,62 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    authenticationservice.cpp \
-    dataservice.cpp \
-    loginform.cpp \
-    loginlandingpage.cpp \
+    delegates/taskdelegate.cpp \
+    globals/taskstates.cpp \
+    globals/userroles.cpp \
     main.cpp \
-    maindashboard.cpp \
     mainwindow.cpp \
-    newprojectform.cpp \
-    newtaskform.cpp \
-    otherprojectsdialog.cpp \
-    profile.cpp \
-    projectbtn.cpp \
-    projectdataservice.cpp \
-    registerform.cpp \
-    task.cpp \
-    taskdataservice.cpp \
-    taskdelegate.cpp \
-    taskstates.cpp \
-    user.cpp \
-    validator.cpp
+    models/task.cpp \
+    models/user.cpp \
+    services/authenticationservice.cpp \
+    services/dataservice.cpp \
+    services/projectdataservice.cpp \
+    services/taskdataservice.cpp \
+    utils/validator.cpp \
+    views/forms/loginform.cpp \
+    views/forms/newprojectform.cpp \
+    views/forms/newtaskform.cpp \
+    views/forms/otherprojectsdialog.cpp \
+    views/forms/registerform.cpp \
+    views/loginlandingpage.cpp \
+    views/maindashboard.cpp \
+    views/profile.cpp \
+    views/quickloginpage.cpp
 
 HEADERS += \
-    authenticationservice.h \
-    dataservice.h \
-    loginform.h \
-    loginlandingpage.h \
-    maindashboard.h \
+    delegates/taskdelegate.h \
+    globals/taskstates.h \
+    globals/userroles.h \
     mainwindow.h \
-    newprojectform.h \
-    newtaskform.h \
-    otherprojectsdialog.h \
-    profile.h \
-    projectbtn.h \
-    projectdataservice.h \
-    registerform.h \
-    task.h \
-    taskdataservice.h \
-    taskdelegate.h \
-    taskstates.h \
-    user.h \
-    validator.h
+    models/task.h \
+    models/user.h \
+    services/authenticationservice.h \
+    services/dataservice.h \
+    services/projectdataservice.h \
+    services/taskdataservice.h \
+    utils/validator.h \
+    views/forms/loginform.h \
+    views/forms/newprojectform.h \
+    views/forms/newtaskform.h \
+    views/forms/otherprojectsdialog.h \
+    views/forms/registerform.h \
+    views/loginlandingpage.h \
+    views/maindashboard.h \
+    views/profile.h \
+    views/quickloginpage.h
 
 FORMS += \
-    loginform.ui \
-    loginlandingpage.ui \
-    maindashboard.ui \
     mainwindow.ui \
     mainwindow.ui \
-    newprojectform.ui \
-    newtaskform.ui \
-    otherprojectsdialog.ui \
-    profile.ui \
-    registerform.ui
+    views/forms/loginform.ui \
+    views/forms/newprojectform.ui \
+    views/forms/newtaskform.ui \
+    views/forms/otherprojectsdialog.ui \
+    views/forms/registerform.ui \
+    views/loginlandingpage.ui \
+    views/maindashboard.ui \
+    views/profile.ui \
+    views/quickloginpage.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

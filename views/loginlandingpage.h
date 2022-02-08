@@ -4,8 +4,11 @@
 #include <QDialog>
 #include <QPushButton>
 #include <QSqlQuery>
-#include "projectdataservice.h"
-#include "maindashboard.h"
+#include "services/projectdataservice.h"
+#include "views/maindashboard.h"
+#include "models/user.h"
+#include "globals/userroles.h"
+#include "views/forms/newprojectform.h"
 
 namespace Ui {
 class LoginLandingPage;
@@ -21,9 +24,15 @@ public:
 
 private:
     Ui::LoginLandingPage *ui;
+    user usr;
+    UserRoles roles;
+    NewProjectForm newproject;
 
 private slots:
     void button_pushed();
+    void createprojectBtnClicked();
+    void loadProjects();
+    void addCreateProjectBtn();
 };
 
 #endif // LOGINLANDINGPAGE_H

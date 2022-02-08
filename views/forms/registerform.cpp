@@ -1,4 +1,4 @@
-#include "registerform.h"
+#include "views/forms/registerform.h"
 #include "ui_registerform.h"
 #include "mainwindow.h"
 
@@ -7,6 +7,7 @@ RegisterForm::RegisterForm(QWidget *parent) :
     ui(new Ui::RegisterForm)
 {
     ui->setupUi(this);
+    ui->PinEntry->setValidator(new QIntValidator(0, 100, this));
     connect(ui->AlreadyHaveAcc, SIGNAL(released()), this, SLOT(onAlreadyGotAccountPressed()));
     connect(ui->RegisterBtn, SIGNAL(released()), this, SLOT(onRegisterPressed()));
 }
@@ -20,8 +21,7 @@ void RegisterForm::onAlreadyGotAccountPressed(){
 
 void RegisterForm::onRegisterPressed(){
     QMessageBox messageBox;
-    authenticationservice _auth;
-    if(_auth.registerUsr(ui->Firstname->text(), ui->Surname->text(), ui->Email->text(), ui->Password->text(), ui->ConfirmPass->text()) == 1){
+    if(_auth.registerUsr(ui->Firstname->text(), ui->Surname->text(), ui->Email->text(), ui->Password->text(), ui->ConfirmPass->text(), roles.getRole("employee"), ui->PinEntry->text()) == 1){
         messageBox.addButton("Login",QMessageBox::YesRole);
         messageBox.setText("Thankyou for signing up");
         messageBox.setWindowTitle("Success!");

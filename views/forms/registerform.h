@@ -2,6 +2,9 @@
 #define REGISTERFORM_H
 
 #include <QDialog>
+#include "globals/userroles.h"
+#include <QIntValidator>
+#include "services/authenticationservice.h"
 
 namespace Ui {
 class RegisterForm;
@@ -17,6 +20,8 @@ public:
 
 private:
     Ui::RegisterForm *ui;
+    UserRoles roles;
+    authenticationservice _auth;
 
 private slots:
     void onAlreadyGotAccountPressed();

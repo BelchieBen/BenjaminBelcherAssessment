@@ -7,7 +7,7 @@
 #include <ctime>
 #include <QMessageBox>
 #include <QSqlError>
-#include "taskstates.h"
+#include "globals/taskstates.h"
 
 namespace Ui {
 class NewTaskForm;

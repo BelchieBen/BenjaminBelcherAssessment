@@ -1,6 +1,6 @@
-#include "newprojectform.h"
+#include "views/forms/newprojectform.h"
 #include "ui_newprojectform.h"
-#include "projectdataservice.h"
+#include "services/projectdataservice.h"
 
 NewProjectForm::NewProjectForm(QWidget *parent) :
     QDialog(parent),
@@ -10,27 +10,18 @@ NewProjectForm::NewProjectForm(QWidget *parent) :
     connect(ui->CreateProjectBtn, SIGNAL(released()), this, SLOT(onCreateProjectBtnClicked()));
 
     createListMenus();
+    populateAvailableUsrsList();
 
-    // Populating the available users list with users from database
-    QSqlQuery q;
-    q.prepare("SELECT * from users");
-    if(q.exec()){
-        QString email;
-        while(q.next()){
-            email = q.value(1).toString();
-            ui->AvailableUsersList->addItem(email);
-        }
-    }
 }
 
 void NewProjectForm::onCreateProjectBtnClicked(){
-    ProjectDataService _dataService;
     QMessageBox _messageBox;
     QString title = ui->ProjTitle->text();
     QString desc = ui->ProjDesc->toPlainText();
     QString status = ui->StatusBox->currentText();
     QString manager = ui->ProjectManagerBox->currentText();
     QVector<QString> usrs;
+    usrs.append(usr.GetCurrentUserEmail());
     QListWidget *usrslist = ui->AssignedUsersList;
     int count = 0;
     for(auto item: usrslist->findItems("*",Qt::MatchWildcard)){
@@ -48,6 +39,7 @@ void NewProjectForm::onCreateProjectBtnClicked(){
             ui->StatusBox->setCurrentIndex(0);
             ui->ProjectManagerBox->setCurrentIndex(0);
             ui->AssignedUsersList->clear();
+            emit projectCreated();
         }
     }
     else{
@@ -80,6 +72,19 @@ void NewProjectForm::removeUser(){
     for(int i=0; i<list->selectedItems().size(); i++){
         QListWidgetItem *user = list->takeItem(list->currentRow());
         ui->AvailableUsersList->addItem(user);
+    }
+}
+
+void NewProjectForm::populateAvailableUsrsList(){
+    QSqlQuery q;
+    q.prepare("SELECT * FROM users EXCEPT SELECT * FROM users WHERE users.email = :currentUsr");
+    q.bindValue(":currentUsr", usr.GetCurrentUserEmail());
+    if(q.exec()){
+        QString email;
+        while(q.next()){
+            email = q.value(3).toString();
+            ui->AvailableUsersList->addItem(email);
+        }
     }
 }
 

@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "user.h"
+#include "models/user.h"
 
 #include <QApplication>
 

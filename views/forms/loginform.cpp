@@ -1,7 +1,7 @@
-#include "loginform.h"
+#include "views/forms/loginform.h"
 #include "ui_loginform.h"
-#include "user.h"
-#include "maindashboard.h"
+#include "models/user.h"
+#include "views/maindashboard.h"
 
 LoginForm::LoginForm(QWidget *parent) :
     QDialog(parent),
@@ -16,7 +16,6 @@ LoginForm::LoginForm(QWidget *parent) :
 void LoginForm::onLoginPressed(){
     QMessageBox popup;
     user usr;
-    authenticationservice _auth;
     int remMe = ui->RememberMe->isChecked();
     QString email = ui->Email->text();
     QString password = ui->Password->text();

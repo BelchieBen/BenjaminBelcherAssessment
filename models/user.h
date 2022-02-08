@@ -2,6 +2,7 @@
 #define USER_H
 #include <QString>
 #include <QSqlQuery>
+#include <QSqlError>
 #include <iostream>
 
 
@@ -15,6 +16,8 @@ private:
     QString password;
     int currentUser;
     int rememberMe;
+    QString role;
+    QString pin;
 
 public:
     user();
@@ -23,13 +26,17 @@ public:
         QString frstname,
         QString srname,
         QString eml,
-        int remMe
+        int remMe,
+        QString rle,
+        QString loginPin
         ){
         this->id = uid;
         this->firstname = frstname;
         this->surname = srname;
         this->email = eml;
         this->rememberMe = remMe;
+        this->role = rle;
+        this->pin = loginPin;
     }
 
     user getCurrentUser(int uid);
@@ -37,6 +44,10 @@ public:
     void removeCurrentUsr();
     bool isRememberMeTrue();
     void quickLogin();
+    QString GetCurrentUserEmail();
+    QString getUserRole();
+    user getCurrentUser();
+    QString getPin();
 };
 
 #endif // USER_H
