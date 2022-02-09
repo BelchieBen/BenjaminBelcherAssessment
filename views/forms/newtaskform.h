@@ -8,6 +8,8 @@
 #include <QMessageBox>
 #include <QSqlError>
 #include "globals/taskstates.h"
+#include "services/taskdataservice.h"
+#include "models/user.h"
 
 namespace Ui {
 class NewTaskForm;
@@ -24,6 +26,8 @@ public:
 private:
     Ui::NewTaskForm *ui;
     TaskStates taskStates;
+    TaskDataService _taskDataService;
+    user usr;
 
 private slots:
     void onCreateTaskBtnPressed();

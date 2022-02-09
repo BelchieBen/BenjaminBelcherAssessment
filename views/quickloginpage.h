@@ -6,6 +6,7 @@
 #include "services/authenticationservice.h"
 #include "views/loginlandingpage.h"
 #include <QMessageBox>
+#include "models/user.h"
 
 namespace Ui {
 class QuickLoginPage;
@@ -24,6 +25,7 @@ private:
     authenticationservice _auth;
     LoginLandingPage loginLandingPage;
     QMessageBox _messageBox;
+    user usr;
 
 private slots:
     void onLoginClicked();

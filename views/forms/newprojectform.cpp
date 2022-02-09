@@ -9,6 +9,8 @@ NewProjectForm::NewProjectForm(QWidget *parent) :
     ui->setupUi(this);
     connect(ui->CreateProjectBtn, SIGNAL(released()), this, SLOT(onCreateProjectBtnClicked()));
 
+    ui->ProjectManagerBox->addItem(usr.GetCurrentUserEmail());
+
     createListMenus();
     populateAvailableUsrsList();
 
@@ -18,7 +20,7 @@ void NewProjectForm::onCreateProjectBtnClicked(){
     QMessageBox _messageBox;
     QString title = ui->ProjTitle->text();
     QString desc = ui->ProjDesc->toPlainText();
-    QString status = ui->StatusBox->currentText();
+    QString status = "Not Started";
     QString manager = ui->ProjectManagerBox->currentText();
     QVector<QString> usrs;
     usrs.append(usr.GetCurrentUserEmail());
@@ -36,7 +38,6 @@ void NewProjectForm::onCreateProjectBtnClicked(){
             this->hide();
             ui->ProjTitle->setText("");
             ui->ProjDesc->setPlainText("");
-            ui->StatusBox->setCurrentIndex(0);
             ui->ProjectManagerBox->setCurrentIndex(0);
             ui->AssignedUsersList->clear();
             emit projectCreated();
@@ -88,7 +89,25 @@ void NewProjectForm::populateAvailableUsrsList(){
     }
 }
 
+void NewProjectForm::on_SrcUsers_textEdited(const QString &arg1)
+{
+    ui->AvailableUsersList->clear();
+    QSqlQuery q;
+    q.prepare("SELECT * FROM users WHERE email LIKE '%'||:search||'%' EXCEPT SELECT * FROM users WHERE users.email = :currentUsr");
+    q.bindValue(":search", ui->SrcUsers->text());
+    q.bindValue(":currentUsr", usr.GetCurrentUserEmail());
+    if(q.exec()){
+        while(q.next()){
+            ui->AvailableUsersList->addItem(q.value(3).toString());
+        }
+    }
+}
+
+
 NewProjectForm::~NewProjectForm()
 {
     delete ui;
 }
+
+
+

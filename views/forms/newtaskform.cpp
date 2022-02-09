@@ -1,6 +1,5 @@
 #include "views/forms/newtaskform.h"
 #include "ui_newtaskform.h"
-#include "services/taskdataservice.h"
 
 
 NewTaskForm::NewTaskForm(QWidget *parent) :
@@ -11,6 +10,7 @@ NewTaskForm::NewTaskForm(QWidget *parent) :
 
     QStringList effortPoints = (QStringList()<<"1"<<"2"<<"3"<<"5"<<"8"<<"10");
     QStringList priority = (QStringList()<<"Minor"<<"Medium"<<"Major");
+    ui->AssigneeBox->addItems(_taskDataService.populatingAssigneesList());
     ui->EffortBox->addItems(effortPoints);
     ui->PriorityBox->addItems(priority);
     connect(ui->CreateTaskBtn, SIGNAL(released()), this, SLOT(onCreateTaskBtnPressed()));
@@ -24,10 +24,9 @@ void NewTaskForm::onCreateTaskBtnPressed(){
     QString effort = ui->EffortBox->currentText();
     QString priority = ui->PriorityBox->currentText();
     QString project =  ui->ProjectBox->currentText();
-
-    TaskDataService _taskDataService;
+    QString assignee = ui->AssigneeBox->currentText();
     bool result;
-    result = _taskDataService.createTask(title, desc, effort, priority, project, taskStates.TodoState());
+    result = _taskDataService.createTask(title, desc, effort, priority, project, taskStates.TodoState(), assignee);
 
     QMessageBox messageBox;
 
@@ -50,7 +49,8 @@ void NewTaskForm::onCreateTaskBtnPressed(){
 
 void NewTaskForm::populateProjectBox(){
     QSqlQuery q;
-    q.prepare("SELECT * FROM projects");
+    q.prepare("SELECT * FROM projects WHERE projects.manager = :usr");
+    q.bindValue(":usr", usr.GetCurrentUserEmail());
     if(q.exec()){
         int count = 0;
         while(q.next()){

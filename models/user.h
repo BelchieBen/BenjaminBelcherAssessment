@@ -48,6 +48,7 @@ public:
     QString getUserRole();
     user getCurrentUser();
     QString getPin();
+    int getUserId(QString email);
 };
 
 #endif // USER_H

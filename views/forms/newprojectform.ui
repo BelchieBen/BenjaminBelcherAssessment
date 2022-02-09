@@ -55,16 +55,6 @@
       <widget class="QPlainTextEdit" name="ProjDesc"/>
      </item>
      <item>
-      <widget class="QLabel" name="StatusLbl">
-       <property name="text">
-        <string>Status</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="StatusBox"/>
-     </item>
-     <item>
       <widget class="QLabel" name="ManagerLbl">
        <property name="text">
         <string>Project Manager</string>

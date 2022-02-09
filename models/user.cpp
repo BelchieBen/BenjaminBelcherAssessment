@@ -75,7 +75,7 @@ user user::getCurrentUser(){
 
 QString user::GetCurrentUserEmail(){
     QSqlQuery q;
-    QString query = "SELECT * FROM currentUsr";
+    q.prepare("SELECT * FROM currentUsr");
     if(q.exec()){
         QString username;
         while(q.next()){
@@ -104,6 +104,19 @@ void user::setCurrentUser(user u){
     else {
         qDebug() << q.lastError().text();
     }
+}
+
+int user::getUserId(QString email){
+    int uId;
+    QSqlQuery q;
+    q.prepare("SELECT * from users WHERE email = :eml");
+    q.bindValue(":eml", email);
+    if(q.exec()){
+        while(q.next()){
+            uId = q.value(0).toInt();
+        }
+    }
+    return uId;
 }
 
 void user::removeCurrentUsr(){

@@ -11,11 +11,12 @@ MainDashboard::MainDashboard(QWidget *parent, int projectId) :
     this->projId = projectId;
     QString tle = _projDataService.getProjectTitle(projId);
     ui->BoardTitle->setText(tle);
-    connect(ui->CreateTask, SIGNAL(released()), this, SLOT(openCreateTask()));
-    connect(ui->CreateProjectBtn, SIGNAL(released()), this, SLOT(openCreateProject()));
+    createManagerBtns();
+
+
     connect(&newTask, SIGNAL(addedItem()), this, SLOT(loadTasks()));
     connect(this, SIGNAL(movedItem()), this, SLOT(loadTasks()));
-    connect(ui->SearchCurrentBtn, SIGNAL(released()), this, SLOT(loadListsFromSearch()));
+    //connect(ui->SearchCurrentBoard, SIGNAL(textEdited()), this, SLOT(loadListsFromSearch()));
     connect(ui->OtherProjectsBtn, SIGNAL(released()), this, SLOT(openProjectsDialog()));
 
     loadTasks();
@@ -43,23 +44,23 @@ void MainDashboard::loadTasks(){
     }
 }
 
-void MainDashboard::loadListsFromSearch(){
-    clearLists();
-    QSqlQuery q;
-    //QString query = "SELECT * FROM tasks WHERE title LIKE '%"+ui->SearchCurrentBoard->text()+"%'";
-    q.prepare("SELECT * FROM tasks WHERE title LIKE '%'||:search||'%'");
-    q.bindValue(":search", ui->SearchCurrentBoard->text());
-    if(q.exec()){
-        while(q.next()){
-            QString state = q.value(7).toString();
-            QString title = q.value(1).toString();
-            QString description = q.value(2).toString();
-            populateLists(state, title, description);
-        }
-    }
-    else
-        qDebug()<<q.lastError().text();
-}
+//void MainDashboard::loadListsFromSearch(){
+//    clearLists();
+//    QSqlQuery q;
+//    //QString query = "SELECT * FROM tasks WHERE title LIKE '%"+ui->SearchCurrentBoard->text()+"%'";
+//    q.prepare("SELECT * FROM tasks WHERE title LIKE '%'||:search||'%'");
+//    q.bindValue(":search", ui->SearchCurrentBoard->text());
+//    if(q.exec()){
+//        while(q.next()){
+//            QString state = q.value(7).toString();
+//            QString title = q.value(1).toString();
+//            QString description = q.value(2).toString();
+//            populateLists(state, title, description);
+//        }
+//    }
+//    else
+//        qDebug()<<q.lastError().text();
+//}
 
 void MainDashboard::openCreateProject(){
     newProject.setModal(true);
@@ -186,7 +187,7 @@ void MainDashboard::searchCurrentBoard(){
 
 void MainDashboard::openProjectsDialog(){
     LoginLandingPage otherProjects;
-    this->hide();
+
     otherProjects.setModal(true);
     otherProjects.exec();
 }
@@ -195,3 +196,38 @@ MainDashboard::~MainDashboard()
 {
     delete ui;
 }
+
+void MainDashboard::on_SearchCurrentBoard_textChanged(const QString &arg1)
+{
+    clearLists();
+    QSqlQuery q;
+    q.prepare("SELECT * FROM tasks WHERE title LIKE '%'||:search||'%' AND project = :proj");
+    q.bindValue(":proj", ui->BoardTitle->text());
+    q.bindValue(":search", ui->SearchCurrentBoard->text());
+    if(q.exec()){
+        while(q.next()){
+            QString state = q.value(7).toString();
+            QString title = q.value(1).toString();
+            QString description = q.value(2).toString();
+            populateLists(state, title, description);
+        }
+    }
+    else
+        qDebug()<<q.lastError().text();
+}
+
+void MainDashboard::openProjectSettings(){
+
+}
+
+void MainDashboard::createManagerBtns(){
+    if(usr.getUserRole() == roles.getRole("manager")){
+        QPushButton *CreateTask = new QPushButton("Create Task");
+        connect(CreateTask, SIGNAL(released()), this, SLOT(openCreateTask()));
+        QPushButton *CreateProjectBtn = new QPushButton("Create Project");
+        connect(CreateProjectBtn, SIGNAL(released()), this, SLOT(openCreateProject()));
+        ui->sidebarLayout->addWidget(CreateTask);
+        ui->sidebarLayout->addWidget(CreateProjectBtn);
+    }
+}
+

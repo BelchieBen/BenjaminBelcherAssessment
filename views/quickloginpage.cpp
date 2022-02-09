@@ -7,6 +7,7 @@ QuickLoginPage::QuickLoginPage(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->PinEntry->setValidator(new QIntValidator(0, 9999, this));
+    ui->TitleLbl->setText(usr.GetCurrentUserEmail());
     connect(ui->LoginBtn, SIGNAL(released()), this, SLOT(onLoginClicked()));
 }
 

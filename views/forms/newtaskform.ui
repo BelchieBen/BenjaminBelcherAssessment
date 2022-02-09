@@ -85,6 +85,16 @@
       <widget class="QComboBox" name="ProjectBox"/>
      </item>
      <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Assignee</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="AssigneeBox"/>
+     </item>
+     <item>
       <widget class="QPushButton" name="CreateTaskBtn">
        <property name="text">
         <string>Create Task</string>

@@ -6,7 +6,7 @@ LoginLandingPage::LoginLandingPage(QWidget *parent) :
     ui(new Ui::LoginLandingPage)
 {
     ui->setupUi(this);
-
+    ui->ButtonsLayout->layout();
     connect(&newproject, SIGNAL(projectCreated()), this, SLOT(loadProjects()));
     addCreateProjectBtn();
     loadProjects();
@@ -35,7 +35,24 @@ void LoginLandingPage::createprojectBtnClicked(){
     newproject.exec();
 }
 
+void clearLayout(QLayout* layout, bool deleteWidgets = true)
+{
+    while (QLayoutItem* item = layout->takeAt(0))
+    {
+        QWidget* widget;
+        if (  (deleteWidgets)
+              && (widget = item->widget())  ) {
+            delete widget;
+        }
+        if (QLayout* childLayout = item->layout()) {
+            clearLayout(childLayout, deleteWidgets);
+        }
+        delete item;
+    }
+}
+
 void LoginLandingPage::loadProjects(){
+    clearLayout(ui->ButtonsLayout);
     QSqlQuery q;
     q.prepare("SELECT * FROM projects INNER JOIN project_users ON project_users.project = projects.id WHERE project_users.user = :usr");
     q.bindValue(":usr", usr.GetCurrentUserEmail());
@@ -45,7 +62,7 @@ void LoginLandingPage::loadProjects(){
         while(q.next()){
             projectBtn = new QPushButton(q.value(1).toString());
             connect(projectBtn, SIGNAL(clicked()), this, SLOT(button_pushed()));
-            ui->verticalLayout->addWidget(projectBtn);
+            ui->ButtonsLayout->addWidget(projectBtn);
             count++;
         }
 
@@ -59,7 +76,7 @@ void LoginLandingPage::addCreateProjectBtn(){
     if(usr.getUserRole() == roles.getRole("manager")){
         QPushButton *newProjBtn = new QPushButton("Create a new project");
         connect(newProjBtn, SIGNAL(clicked()), this, SLOT(createprojectBtnClicked()));
-        ui->verticalLayout->addWidget(newProjBtn);
+        ui->CreateButtonLayout->addWidget(newProjBtn);
     }
 }
 

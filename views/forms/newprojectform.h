@@ -30,6 +30,8 @@ private slots:
     void assignUser();
     void removeUser();
     void populateAvailableUsrsList();
+    void on_SrcUsers_textEdited(const QString &arg1);
+
 signals:
     void projectCreated();
 };
