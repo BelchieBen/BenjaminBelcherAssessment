@@ -44,24 +44,6 @@ void MainDashboard::loadTasks(){
     }
 }
 
-//void MainDashboard::loadListsFromSearch(){
-//    clearLists();
-//    QSqlQuery q;
-//    //QString query = "SELECT * FROM tasks WHERE title LIKE '%"+ui->SearchCurrentBoard->text()+"%'";
-//    q.prepare("SELECT * FROM tasks WHERE title LIKE '%'||:search||'%'");
-//    q.bindValue(":search", ui->SearchCurrentBoard->text());
-//    if(q.exec()){
-//        while(q.next()){
-//            QString state = q.value(7).toString();
-//            QString title = q.value(1).toString();
-//            QString description = q.value(2).toString();
-//            populateLists(state, title, description);
-//        }
-//    }
-//    else
-//        qDebug()<<q.lastError().text();
-//}
-
 void MainDashboard::openCreateProject(){
     newProject.setModal(true);
     newProject.exec();
@@ -122,11 +104,13 @@ void MainDashboard::populateLists(QString state, QString title, QString descript
     QListWidget *inProgressList = ui->InProgressList;
     QListWidget *reviewList = ui->ReviewList;
     QListWidget *doneList = ui->DoneList;
+    QFont sansFont("Helvetica [Cronyx]", 22);
     if(state == "Todo"){
         todoList->setItemDelegate(new TaskDelegate(todoList));
         QListWidgetItem *item = new QListWidgetItem();
         item->setData(Qt::DisplayRole, title);
         item->setData(Qt::UserRole + 1, description);
+        item->setData(Qt::ToolTipRole, state);
         todoList->addItem(item);
     }
 

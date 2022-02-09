@@ -42,7 +42,7 @@ bool TaskDataService::createTask(QString title, QString desc, QString effort, QS
 
 bool TaskDataService::addUserToTask(int taskId, int userId){
     QSqlQuery q;
-    q.prepare("INSERT INTO task_users (task_id, user_id) VALUES (:tkId, :uId)");
+    q.prepare("INSERT INTO task_users (user_id, task_id) VALUES (:uId, :tkId)");
     q.bindValue("tkId", taskId);
     q.bindValue("uId", userId);
     if(q.exec()){

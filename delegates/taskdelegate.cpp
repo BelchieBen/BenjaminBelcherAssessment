@@ -57,6 +57,7 @@ void TaskDelegate::paint ( QPainter * painter, const QStyleOptionViewItem & opti
     QIcon ic = QIcon(qvariant_cast<QPixmap>(index.data(Qt::DecorationRole)));
     QString title = index.data(Qt::DisplayRole).toString();
     QString description = index.data(Qt::UserRole + 1).toString();
+    QString status = index.data(Qt::ToolTipRole).toString();
 
     int imageSpace = 10;
     if (!ic.isNull()) {
@@ -68,17 +69,22 @@ void TaskDelegate::paint ( QPainter * painter, const QStyleOptionViewItem & opti
 
     //TITLE
     r = option.rect.adjusted(imageSpace, 0, -10, -30);
-    painter->setFont( QFont( "Lucida Grande", 6, QFont::Normal ) );
-    painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignBottom|Qt::AlignLeft, title, &r);
+    painter->setFont( QFont( "Lucida Grande", 16, QFont::Normal ) );
+    painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignTop|Qt::AlignLeft, title, &r);
 
     //DESCRIPTION
     r = option.rect.adjusted(imageSpace, 30, -10, 0);
-    painter->setFont( QFont( "Lucida Grande", 5, QFont::Normal ) );
+    painter->setFont( QFont( "Lucida Grande", 12, QFont::Normal ) );
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignLeft, description, &r);
+
+    //STATUS
+    r = option.rect.adjusted(imageSpace, 30, -10, 0);
+    painter->setFont( QFont( "Lucida Grande", 9, QFont::Normal ) );
+    painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignBottom, status, &r);
 }
 
 QSize TaskDelegate::sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const{
-    return QSize(200, 60); // very dumb value
+    return QSize(200, 150); // very dumb value
 }
 
 TaskDelegate::~TaskDelegate()

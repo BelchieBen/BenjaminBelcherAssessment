@@ -191,6 +191,11 @@
                    <height>500</height>
                   </size>
                  </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>14</pointsize>
+                  </font>
+                 </property>
                 </widget>
                </item>
               </layout>
