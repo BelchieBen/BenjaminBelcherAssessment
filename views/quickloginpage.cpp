@@ -7,8 +7,10 @@ QuickLoginPage::QuickLoginPage(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->PinEntry->setValidator(new QIntValidator(0, 9999, this));
-    ui->TitleLbl->setText(usr.GetCurrentUserEmail());
+    ui->TitleLbl->setText("Welcome "+usr.GetCurrentUserEmail());
+    ui->NotCurentUsr->setText("Not "+usr.GetCurrentUserEmail()+"?");
     connect(ui->LoginBtn, SIGNAL(released()), this, SLOT(onLoginClicked()));
+    connect(ui->NotCurentUsr, SIGNAL(released()), this, SLOT(onNotCurrentUserClicked()));
 }
 
 void QuickLoginPage::onLoginClicked(){
@@ -21,6 +23,12 @@ void QuickLoginPage::onLoginClicked(){
     else{
         _messageBox.critical(0, "Error", "Incorrect PIN");
     }
+}
+
+void QuickLoginPage::onNotCurrentUserClicked(){
+    this->hide();
+    login.setModal(true);
+    login.exec();
 }
 
 QuickLoginPage::~QuickLoginPage()

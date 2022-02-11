@@ -14,6 +14,8 @@
 #include "services/taskdataservice.h"
 #include "models/user.h"
 #include "globals/userroles.h"
+#include "views/projectsettingspage.h"
+#include "services/taskdataservice.h"
 
 namespace Ui {
 class MainDashboard;
@@ -34,8 +36,10 @@ private:
     NewProjectForm newProject;
     TaskStates taskStates;
     ProjectDataService _projDataService;
+    TaskDataService _taskDataService;
     user usr;
     UserRoles roles;
+    QMessageBox _messageBox;
 
 
 private slots:
@@ -52,6 +56,7 @@ private slots:
     void openProjectsDialog();
     void openProjectSettings();
     void createManagerBtns();
+    void assignToMe();
 
     void on_SearchCurrentBoard_textChanged(const QString &arg1);
 

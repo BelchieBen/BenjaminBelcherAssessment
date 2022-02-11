@@ -16,6 +16,8 @@ public:
     bool insertProjUsers(QVector<QString> users, int project);
     int getProject(QString title);
     QString getProjectTitle(int id);
+    QList<QString> getProjectUsers(int projectId);
+    QList<QString> getAvailableUsers(int projectId);
 };
 
 #endif // PROJECTDATASERVICE_H

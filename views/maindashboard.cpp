@@ -16,7 +16,7 @@ MainDashboard::MainDashboard(QWidget *parent, int projectId) :
 
     connect(&newTask, SIGNAL(addedItem()), this, SLOT(loadTasks()));
     connect(this, SIGNAL(movedItem()), this, SLOT(loadTasks()));
-    //connect(ui->SearchCurrentBoard, SIGNAL(textEdited()), this, SLOT(loadListsFromSearch()));
+    connect(ui->ProjectSettings, SIGNAL(released()), this, SLOT(openProjectSettings()));
     connect(ui->OtherProjectsBtn, SIGNAL(released()), this, SLOT(openProjectsDialog()));
 
     loadTasks();
@@ -82,21 +82,39 @@ void MainDashboard::moveTaskToDone(){
     }
 }
 
+void MainDashboard::assignToMe(){
+    int taskId;
+    int uId;
+    QString email = usr.GetCurrentUserEmail();
+    QString test = ui->TaskList->currentItem()->text();
+    uId = usr.getUserId(email);
+    taskId = _taskDataService.getTaskId(test);
+    if(_taskDataService.addUserToTask(taskId, uId)){
+            qDebug() << "Assigned user to task from menu";
+    }
+    else{
+        _messageBox.critical(0,"Error", "Someone is already assigned to that task!");
+    }
+
+}
+
 void MainDashboard::createListMenus(){
     auto MoveToInProgress = new QAction("Move to in progress", this);
+    auto AssignUser = new QAction("Assign to me", this);
     connect(MoveToInProgress, SIGNAL(triggered()), this, SLOT(moveTaskToInProgress()));
+    connect(AssignUser, SIGNAL(triggered()), this, SLOT(assignToMe()));
     ui->TaskList->setContextMenuPolicy(Qt::ActionsContextMenu);
-    ui->TaskList->addActions({MoveToInProgress});
+    ui->TaskList->addActions({MoveToInProgress, AssignUser});
 
     auto MoveToReview = new QAction("Move to review", this);
     connect(MoveToReview, SIGNAL(triggered()), this, SLOT(moveTaskToReview()));
     ui->InProgressList->setContextMenuPolicy(Qt::ActionsContextMenu);
-    ui->InProgressList->addActions({MoveToReview});
+    ui->InProgressList->addActions({MoveToReview, AssignUser});
 
     auto MoveToDone = new QAction("Move to done", this);
     connect(MoveToDone, SIGNAL(triggered()), this, SLOT(moveTaskToDone()));
     ui->ReviewList->setContextMenuPolicy(Qt::ActionsContextMenu);
-    ui->ReviewList->addActions({MoveToDone});
+    ui->ReviewList->addActions({MoveToDone, AssignUser});
 }
 
 void MainDashboard::populateLists(QString state, QString title, QString description){
@@ -201,7 +219,10 @@ void MainDashboard::on_SearchCurrentBoard_textChanged(const QString &arg1)
 }
 
 void MainDashboard::openProjectSettings(){
-
+    QWidget *nullWd = nullptr;
+    ProjectSettingsPage _projectSettings(nullWd, projId);
+    _projectSettings.setModal(true);
+    _projectSettings.exec();
 }
 
 void MainDashboard::createManagerBtns(){

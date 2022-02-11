@@ -42,27 +42,33 @@ bool TaskDataService::createTask(QString title, QString desc, QString effort, QS
 
 bool TaskDataService::addUserToTask(int taskId, int userId){
     QSqlQuery q;
-    q.prepare("INSERT INTO task_users (user_id, task_id) VALUES (:uId, :tkId)");
-    q.bindValue("tkId", taskId);
-    q.bindValue("uId", userId);
-    if(q.exec()){
+    QString query = "INSERT INTO task_users (user_id, task_id) VALUES ("+QString::number(userId)+", "+QString::number(taskId)+")";
+//    q.prepare("INSERT INTO task_users (user_id, task_id) VALUES (:uId, :tkId)");
+//    q.bindValue("tkId", QString::number(userId));
+//    q.bindValue("uId", QString::number(taskId));
+    if(q.exec(query)){
         qDebug() << "Added user to task";
         return true;
     }
-    else
+    else{
         qDebug() << "Couldnt add user to task";
+        return false;
+    }
 }
 
 int TaskDataService::getTaskId(QString title){
+    int id = 0;
     QSqlQuery q;
-    q.prepare("SELECT * FROM tasks WHERE title = :tle");
-    q.bindValue(":tle", title);
-    int id;
-    if(q.exec()){
+    QString qry = "SELECT * FROM tasks WHERE tasks.title = '"+title+"'";
+//    q.prepare("SELECT * FROM tasks WHERE title = :tle");
+//    q.bindValue(":tle", title);
+    if(q.exec(qry)){
         while(q.next()){
             id = q.value(0).toInt();
         }
     }
+    else
+        qDebug() << q.lastError().text();
     return id;
 }
 

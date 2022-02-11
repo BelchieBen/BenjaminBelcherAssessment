@@ -7,6 +7,7 @@
 #include "views/loginlandingpage.h"
 #include <QMessageBox>
 #include "models/user.h"
+#include "views/forms/loginform.h"
 
 namespace Ui {
 class QuickLoginPage;
@@ -26,9 +27,11 @@ private:
     LoginLandingPage loginLandingPage;
     QMessageBox _messageBox;
     user usr;
+    LoginForm login;
 
 private slots:
     void onLoginClicked();
+    void onNotCurrentUserClicked();
 };
 
 #endif // QUICKLOGINPAGE_H

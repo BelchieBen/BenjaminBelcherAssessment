@@ -69,3 +69,41 @@ QString ProjectDataService::getProjectTitle(int id){
     else
         return "";
 }
+
+QList<QString> ProjectDataService::getProjectUsers(int projectId){
+    QString email;
+    QList<QString> users;
+    QSqlQuery q;
+    q.prepare("SELECT * FROM project_users WHERE project = :proj");
+    q.bindValue(":proj", projectId);
+    if(q.exec()){
+        while(q.next()){
+            email = q.value(1).toString();
+            users.append(email);
+        }
+    }
+    return users;
+}
+
+QList<QString> ProjectDataService::getAvailableUsers(int projectId){
+    QString email, availableUsrEml;
+    QList<QString> users;
+    QSqlQuery q, qry;
+    q.prepare("SELECT * FROM project_users WHERE project = :proj");
+    q.bindValue(":proj", projectId);
+    if(q.exec()){
+        while(q.next()){
+            email = q.value(1).toString();
+        }
+
+        qry.prepare("SELECT * FROM users EXCEPT SELECT * FROM users WHERE email = :eml");
+        qry.bindValue(":eml", email);
+        if(qry.exec()){
+            availableUsrEml = qry.value(3).toString();
+            users.append(availableUsrEml);
+        }
+
+    }
+    qDebug() << users;
+    return users;
+}

@@ -29,6 +29,7 @@ SOURCES += \
     views/loginlandingpage.cpp \
     views/maindashboard.cpp \
     views/profile.cpp \
+    views/projectsettingspage.cpp \
     views/quickloginpage.cpp
 
 HEADERS += \
@@ -51,6 +52,7 @@ HEADERS += \
     views/loginlandingpage.h \
     views/maindashboard.h \
     views/profile.h \
+    views/projectsettingspage.h \
     views/quickloginpage.h
 
 FORMS += \
@@ -64,6 +66,7 @@ FORMS += \
     views/loginlandingpage.ui \
     views/maindashboard.ui \
     views/profile.ui \
+    views/projectsettingspage.ui \
     views/quickloginpage.ui
 
 # Default rules for deployment.
