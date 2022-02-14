@@ -28,6 +28,9 @@
        <height>720</height>
       </size>
      </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
      <widget class="QWidget" name="page">
       <property name="styleSheet">
        <string notr="true"/>
@@ -265,7 +268,6 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="page_2"/>
     </widget>
    </item>
   </layout>

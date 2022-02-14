@@ -184,6 +184,19 @@ QString user::returnEmail(int uId){
     return email;
 }
 
+QString user::returnFirstname(){
+    return this->firstname;
+}
+QString user::returnSurname(){
+    return this->surname;
+}
+QString user::returnEmail(){
+    return this->email;
+}
+QString user::returnRole(){
+    return this->role;
+}
+
 void user::quickLogin(){
 
 }

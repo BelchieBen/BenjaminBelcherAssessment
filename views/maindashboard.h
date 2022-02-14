@@ -16,6 +16,7 @@
 #include "globals/userroles.h"
 #include "views/projectsettingspage.h"
 #include "services/taskdataservice.h"
+#include "views/profile.h"
 
 namespace Ui {
 class MainDashboard;
@@ -40,6 +41,7 @@ private:
     user usr;
     UserRoles roles;
     QMessageBox _messageBox;
+    Profile profile;
 
 
 private slots:
@@ -57,6 +59,8 @@ private slots:
     void openProjectSettings();
     void createManagerBtns();
     void assignToMe();
+    void openProfilePage();
+    void returnToMainDashboardFromProfile();
 
     void on_SearchCurrentBoard_textChanged(const QString &arg1);
 

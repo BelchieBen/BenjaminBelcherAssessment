@@ -2,6 +2,7 @@
 #define PROFILE_H
 
 #include <QWidget>
+#include "models/user.h"
 
 namespace Ui {
 class Profile;
@@ -17,6 +18,13 @@ public:
 
 private:
     Ui::Profile *ui;
+    user usr;
+
+private slots:
+    void returnToMainDashboard();
+    void populateTreeWidget();
+signals:
+    void returnToDashboard();
 };
 
 #endif // PROFILE_H

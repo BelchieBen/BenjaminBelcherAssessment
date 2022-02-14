@@ -8,6 +8,7 @@ MainDashboard::MainDashboard(QWidget *parent, int projectId) :
     ui(new Ui::MainDashboard)
 {
     ui->setupUi(this);
+    ui->stackedWidget->addWidget(&profile);
     this->projId = projectId;
     QString tle = _projDataService.getProjectTitle(projId);
     ui->BoardTitle->setText(tle);
@@ -18,6 +19,8 @@ MainDashboard::MainDashboard(QWidget *parent, int projectId) :
     connect(this, SIGNAL(movedItem()), this, SLOT(loadTasks()));
     connect(ui->ProjectSettings, SIGNAL(released()), this, SLOT(openProjectSettings()));
     connect(ui->OtherProjectsBtn, SIGNAL(released()), this, SLOT(openProjectsDialog()));
+    connect(ui->ProfileBtn, SIGNAL(released()), this, SLOT(openProfilePage()));
+    connect(&profile, SIGNAL(returnToDashboard()), this, SLOT(returnToMainDashboardFromProfile()));
 
     loadTasks();
     createListMenus();
@@ -239,5 +242,14 @@ void MainDashboard::createManagerBtns(){
         ui->sidebarLayout->addWidget(CreateTask);
         ui->sidebarLayout->addWidget(CreateProjectBtn);
     }
+}
+
+void MainDashboard::returnToMainDashboardFromProfile(){
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainDashboard::openProfilePage(){
+
+    ui->stackedWidget->setCurrentIndex(1);
 }
 

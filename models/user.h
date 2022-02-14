@@ -50,6 +50,10 @@ public:
     QString getPin();
     int getUserId(QString email);
     QString returnEmail(int uId);
+    QString returnFirstname();
+    QString returnSurname();
+    QString returnEmail();
+    QString returnRole();
 };
 
 #endif // USER_H
