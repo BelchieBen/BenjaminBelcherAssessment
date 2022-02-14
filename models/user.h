@@ -49,6 +49,7 @@ public:
     user getCurrentUser();
     QString getPin();
     int getUserId(QString email);
+    QString returnEmail(int uId);
 };
 
 #endif // USER_H

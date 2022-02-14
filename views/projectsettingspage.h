@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "services/projectdataservice.h"
+#include <QAction>
 
 namespace Ui {
 class ProjectSettingsPage;
@@ -23,6 +24,10 @@ private:
 
 private slots:
     void populateUsersLists();
+    void addNewUserToTask();
+    void createListMenus();
+    void removeUser();
+    void onSaveBtnClicked();
 };
 
 #endif // PROJECTSETTINGSPAGE_H

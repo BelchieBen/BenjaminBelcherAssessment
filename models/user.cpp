@@ -170,6 +170,20 @@ QString user::getPin(){
     return pin;
 }
 
+QString user::returnEmail(int uId){
+    QSqlQuery q;
+    QString email;
+    QString qry = "SELECT * FROM users where id ='"+QString::number(uId)+"'";
+    //q.prepare("SELECT * FROM users where id = :ii");
+    //q.bindValue(":eml", QString::number(uId));
+    if(q.exec(qry)){
+        while(q.next()){
+            email = q.value(3).toString();
+        }
+    }
+    return email;
+}
+
 void user::quickLogin(){
 
 }

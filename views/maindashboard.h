@@ -50,7 +50,7 @@ private slots:
     void moveTaskToInProgress();
     void moveTaskToReview();
     void moveTaskToDone();
-    void populateLists(QString state, QString title, QString description);
+    void populateLists(QString state, QString title, QString description, QString user);
     void clearLists();
     void searchCurrentBoard();
     void openProjectsDialog();

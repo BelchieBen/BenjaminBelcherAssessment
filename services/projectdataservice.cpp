@@ -89,21 +89,62 @@ QList<QString> ProjectDataService::getAvailableUsers(int projectId){
     QString email, availableUsrEml;
     QList<QString> users;
     QSqlQuery q, qry;
+    q.prepare("SELECT users.email FROM users LEFT JOIN project_users on users.email = project_users.user EXCEPT SELECT users.email FROM users LEFT JOIN project_users on users.email = project_users.user WHERE project_users.project = :projId");
+    q.bindValue(":projId", projectId);
+    if(q.exec()){
+        while(q.next()){
+            email = q.value(0).toString();
+            users.append(email);
+        }
+    }
+    qDebug() << users;
+    return users;
+}
+
+QList<QString> ProjectDataService::getCurrentUsers(int projectId){
+    QList<QString> users;
+    QSqlQuery q;
     q.prepare("SELECT * FROM project_users WHERE project = :proj");
     q.bindValue(":proj", projectId);
     if(q.exec()){
         while(q.next()){
-            email = q.value(1).toString();
+            users.append(q.value(1).toString());
         }
-
-        qry.prepare("SELECT * FROM users EXCEPT SELECT * FROM users WHERE email = :eml");
-        qry.bindValue(":eml", email);
-        if(qry.exec()){
-            availableUsrEml = qry.value(3).toString();
-            users.append(availableUsrEml);
-        }
-
     }
-    qDebug() << users;
     return users;
+}
+
+bool ProjectDataService::updateProjectTitle(int projectId, QString title){
+    QSqlQuery q;
+    q.prepare("UPDATE projects SET title = :tle WHERE id = :id");
+    q.bindValue(":tle", title);
+    q.bindValue(":id", projectId);
+    if(q.exec()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+bool ProjectDataService::deleteprojectUsers(int projId){
+    QSqlQuery q;
+    q.prepare("DELETE FROM project_users WHERE project = :proj");
+    q.bindValue(":proj", projId);
+    if(q.exec()){
+        qDebug() << "Removed old users";
+        return true;
+    }
+    return false;
+}
+
+bool ProjectDataService::updateProjectUsers(int projId, QVector<QString> currentUsers){
+    if(deleteprojectUsers(projId)){
+        if(insertProjUsers(currentUsers, projId)){
+            return true;
+        }
+    }
+    else{
+        return false;
+    }
 }

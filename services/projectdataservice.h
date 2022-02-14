@@ -18,6 +18,10 @@ public:
     QString getProjectTitle(int id);
     QList<QString> getProjectUsers(int projectId);
     QList<QString> getAvailableUsers(int projectId);
+    QList<QString> getCurrentUsers(int projectId);
+    bool updateProjectTitle(int projectId, QString title);
+    bool updateProjectUsers(int projId, QVector<QString> currentUsers);
+    bool deleteprojectUsers(int projId);
 };
 
 #endif // PROJECTDATASERVICE_H

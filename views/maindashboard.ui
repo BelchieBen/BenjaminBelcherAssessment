@@ -131,7 +131,7 @@
                    </size>
                   </property>
                   <property name="placeholderText">
-                   <string>Find tasks in</string>
+                   <string>Enter task title...</string>
                   </property>
                  </widget>
                 </item>

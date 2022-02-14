@@ -32,14 +32,15 @@ void MainDashboard::loadTasks(){
     clearLists();
     QString tle = _projDataService.getProjectTitle(projId);
     QSqlQuery q;
-    q.prepare("SELECT * FROM tasks WHERE project = :title");
+    q.prepare("SELECT * FROM tasks INNER JOIN task_users on tasks.id = task_users.task_id WHERE project = :title");
     q.bindValue(":title", tle);
     if(q.exec()){
         while(q.next()){
             QString state = q.value(7).toString();
+            int uId = q.value(8).toInt();
             QString title = q.value(1).toString();
             QString description = q.value(2).toString();
-            populateLists(state, title, description);
+            populateLists(state, title, description, usr.returnEmail(uId));
         }
     }
 }
@@ -117,7 +118,7 @@ void MainDashboard::createListMenus(){
     ui->ReviewList->addActions({MoveToDone, AssignUser});
 }
 
-void MainDashboard::populateLists(QString state, QString title, QString description){
+void MainDashboard::populateLists(QString state, QString title, QString description, QString user){
     QListWidget *todoList = ui->TaskList;
     QListWidget *inProgressList = ui->InProgressList;
     QListWidget *reviewList = ui->ReviewList;
@@ -128,7 +129,7 @@ void MainDashboard::populateLists(QString state, QString title, QString descript
         QListWidgetItem *item = new QListWidgetItem();
         item->setData(Qt::DisplayRole, title);
         item->setData(Qt::UserRole + 1, description);
-        item->setData(Qt::ToolTipRole, state);
+        item->setData(Qt::ToolTipRole, user);
         todoList->addItem(item);
     }
 
@@ -137,6 +138,7 @@ void MainDashboard::populateLists(QString state, QString title, QString descript
         QListWidgetItem *item = new QListWidgetItem();
         item->setData(Qt::DisplayRole, title);
         item->setData(Qt::UserRole + 1, description);
+        item->setData(Qt::ToolTipRole, user);
         inProgressList->addItem(item);
     }
 
@@ -145,6 +147,7 @@ void MainDashboard::populateLists(QString state, QString title, QString descript
         QListWidgetItem *item = new QListWidgetItem();
         item->setData(Qt::DisplayRole, title);
         item->setData(Qt::UserRole + 1, description);
+        item->setData(Qt::ToolTipRole, user);
         reviewList->addItem(item);
     }
 
@@ -153,6 +156,7 @@ void MainDashboard::populateLists(QString state, QString title, QString descript
         QListWidgetItem *item = new QListWidgetItem();
         item->setData(Qt::DisplayRole, title);
         item->setData(Qt::UserRole + 1, description);
+        item->setData(Qt::ToolTipRole, user);
         doneList->addItem(item);
     }
 }
@@ -203,15 +207,16 @@ void MainDashboard::on_SearchCurrentBoard_textChanged(const QString &arg1)
 {
     clearLists();
     QSqlQuery q;
-    q.prepare("SELECT * FROM tasks WHERE title LIKE '%'||:search||'%' AND project = :proj");
+    q.prepare("SELECT * FROM tasks INNER JOIN task_users on tasks.id = task_users.task_id WHERE title LIKE '%'||:search||'%' AND project = :proj");
     q.bindValue(":proj", ui->BoardTitle->text());
     q.bindValue(":search", ui->SearchCurrentBoard->text());
     if(q.exec()){
         while(q.next()){
             QString state = q.value(7).toString();
+            int uId = q.value(8).toInt();
             QString title = q.value(1).toString();
             QString description = q.value(2).toString();
-            populateLists(state, title, description);
+            populateLists(state, title, description, usr.returnEmail(uId));
         }
     }
     else
