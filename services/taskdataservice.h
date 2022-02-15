@@ -21,10 +21,11 @@ public:
     bool updateTaskStatus(QListWidgetItem task, QString state);
     bool addUserToTask(int taskId, int userId);
     int getTaskId(QString title);
-    QStringList populatingAssigneesList();
+    QStringList populatingAssigneesList(int projectId);
     QList<Task> tasksAssignedToUser(int uId, QString projectTitle);
     QList<Task> findAllTasksForUser(int uId);
     QList<QString> findProjectsUserIsIn(int uId);
+    Task findTaskById(int id);
 
 private:
     user usr;

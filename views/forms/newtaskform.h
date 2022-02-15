@@ -10,6 +10,7 @@
 #include "globals/taskstates.h"
 #include "services/taskdataservice.h"
 #include "models/user.h"
+#include "services/projectdataservice.h"
 
 namespace Ui {
 class NewTaskForm;
@@ -20,7 +21,7 @@ class NewTaskForm : public QDialog
     Q_OBJECT
 
 public:
-    explicit NewTaskForm(QWidget *parent = nullptr);
+    explicit NewTaskForm(QWidget *parent = nullptr, int projectId = 0);
     ~NewTaskForm();
 
 private:
@@ -28,10 +29,12 @@ private:
     TaskStates taskStates;
     TaskDataService _taskDataService;
     user usr;
+    int projId;
+    ProjectDataService _projectDataService;
 
 private slots:
     void onCreateTaskBtnPressed();
-    void populateProjectBox();
+    //void populateProjectBox();
 
 signals:
     void addedItem();

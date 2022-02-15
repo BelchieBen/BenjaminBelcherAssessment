@@ -19,11 +19,6 @@ void MainWindow::onLoginPressed(){
         this->hide();
         quickLoginPage.setModal(true);
         quickLoginPage.exec();
-//        MainDashboard dashboard;
-//        dashboard.setModal(true);
-//        dashboard.showFullScreen();
-//        dashboard.setWindowFlags(Qt::Window);
-//        dashboard.exec();
     }
     else{
         this->hide();

@@ -14,7 +14,8 @@ class Profile : public QWidget
     Q_OBJECT
 
 public:
-    explicit Profile(QWidget *parent = nullptr);
+    explicit Profile(QWidget *parent = nullptr);  
+    void populateTreeWidget(user u);
     ~Profile();
 
 private:
@@ -24,7 +25,6 @@ private:
 
 private slots:
     void returnToMainDashboard();
-    void populateTreeWidget(user u);
 signals:
     void returnToDashboard();
 };

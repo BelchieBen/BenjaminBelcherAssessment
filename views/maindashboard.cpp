@@ -14,8 +14,6 @@ MainDashboard::MainDashboard(QWidget *parent, int projectId) :
     ui->BoardTitle->setText(tle);
     createManagerBtns();
 
-
-    connect(&newTask, SIGNAL(addedItem()), this, SLOT(loadTasks()));
     connect(this, SIGNAL(movedItem()), this, SLOT(loadTasks()));
     connect(ui->ProjectSettings, SIGNAL(released()), this, SLOT(openProjectSettings()));
     connect(ui->OtherProjectsBtn, SIGNAL(released()), this, SLOT(openProjectsDialog()));
@@ -27,6 +25,9 @@ MainDashboard::MainDashboard(QWidget *parent, int projectId) :
 }
 
 void MainDashboard::openCreateTask(){
+    QWidget *nullWd = nullptr;
+    NewTaskForm newTask(nullWd, projId);
+    connect(&newTask, SIGNAL(addedItem()), this, SLOT(loadTasks()));
     newTask.setModal(true);
     newTask.exec();
 }
@@ -35,7 +36,7 @@ void MainDashboard::loadTasks(){
     clearLists();
     QString tle = _projDataService.getProjectTitle(projId);
     QSqlQuery q;
-    q.prepare("SELECT * FROM tasks INNER JOIN task_users on tasks.id = task_users.task_id WHERE project = :title");
+    q.prepare("SELECT * FROM tasks LEFT JOIN task_users on tasks.id = task_users.task_id WHERE project = :title");
     q.bindValue(":title", tle);
     if(q.exec()){
         int count = 0;
@@ -123,12 +124,12 @@ void MainDashboard::createListMenus(){
     auto MoveToReview = new QAction("Move to review", this);
     connect(MoveToReview, SIGNAL(triggered()), this, SLOT(moveTaskToReview()));
     ui->InProgressList->setContextMenuPolicy(Qt::ActionsContextMenu);
-    ui->InProgressList->addActions({MoveToReview, AssignUser});
+    ui->InProgressList->addActions({MoveToReview});
 
     auto MoveToDone = new QAction("Move to done", this);
     connect(MoveToDone, SIGNAL(triggered()), this, SLOT(moveTaskToDone()));
     ui->ReviewList->setContextMenuPolicy(Qt::ActionsContextMenu);
-    ui->ReviewList->addActions({MoveToDone, AssignUser});
+    ui->ReviewList->addActions({MoveToDone});
 }
 
 void MainDashboard::populateLists(QString state, QString title, QString description, QString user){
@@ -136,6 +137,9 @@ void MainDashboard::populateLists(QString state, QString title, QString descript
     QListWidget *inProgressList = ui->InProgressList;
     QListWidget *reviewList = ui->ReviewList;
     QListWidget *doneList = ui->DoneList;
+    if(user == ""){
+        user = "Unassigned";
+    }
     QFont sansFont("Helvetica [Cronyx]", 22);
     if(state == "Todo"){
         todoList->setItemDelegate(new TaskDelegate(todoList));
@@ -261,5 +265,38 @@ void MainDashboard::returnToMainDashboardFromProfile(){
 void MainDashboard::openProfilePage(){
 
     ui->stackedWidget->setCurrentIndex(1);
+    user u = usr.getCurrentUser();
+    profile.populateTreeWidget(u);
+}
+
+void MainDashboard::openTaskDetails(QListWidgetItem *item){
+    QWidget *nullWd = nullptr;
+    TaskDetails taskDetails(nullWd, item);
+    taskDetails.setModal(true);
+    taskDetails.exec();
+}
+
+
+void MainDashboard::on_TaskList_itemDoubleClicked(QListWidgetItem *item)
+{
+    openTaskDetails(item);
+}
+
+
+void MainDashboard::on_InProgressList_itemDoubleClicked(QListWidgetItem *item)
+{
+    openTaskDetails(item);
+}
+
+
+void MainDashboard::on_ReviewList_itemDoubleClicked(QListWidgetItem *item)
+{
+    openTaskDetails(item);
+}
+
+
+void MainDashboard::on_DoneList_itemDoubleClicked(QListWidgetItem *item)
+{
+    openTaskDetails(item);
 }
 

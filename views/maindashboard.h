@@ -17,6 +17,7 @@
 #include "views/projectsettingspage.h"
 #include "services/taskdataservice.h"
 #include "views/profile.h"
+#include "views/taskdetails.h"
 
 namespace Ui {
 class MainDashboard;
@@ -33,7 +34,6 @@ public:
 private:
     Ui::MainDashboard *ui;
     int projId;
-    NewTaskForm newTask;
     NewProjectForm newProject;
     TaskStates taskStates;
     ProjectDataService _projDataService;
@@ -61,14 +61,24 @@ private slots:
     void assignToMe();
     void openProfilePage();
     void returnToMainDashboardFromProfile();
+    void openTaskDetails(QListWidgetItem *item);
 
     void on_SearchCurrentBoard_textChanged(const QString &arg1);
+
+    void on_TaskList_itemDoubleClicked(QListWidgetItem *item);
+
+    void on_InProgressList_itemDoubleClicked(QListWidgetItem *item);
+
+    void on_ReviewList_itemDoubleClicked(QListWidgetItem *item);
+
+    void on_DoneList_itemDoubleClicked(QListWidgetItem *item);
 
 public slots:
     void loadTasks();
 
 signals:
     void movedItem();
+    void loadProfilePage(user u);
 };
 
 #endif // MAINDASHBOARD_H

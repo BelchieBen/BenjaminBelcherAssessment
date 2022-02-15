@@ -30,7 +30,8 @@ SOURCES += \
     views/maindashboard.cpp \
     views/profile.cpp \
     views/projectsettingspage.cpp \
-    views/quickloginpage.cpp
+    views/quickloginpage.cpp \
+    views/taskdetails.cpp
 
 HEADERS += \
     delegates/taskdelegate.h \
@@ -53,7 +54,8 @@ HEADERS += \
     views/maindashboard.h \
     views/profile.h \
     views/projectsettingspage.h \
-    views/quickloginpage.h
+    views/quickloginpage.h \
+    views/taskdetails.h
 
 FORMS += \
     mainwindow.ui \
@@ -67,7 +69,8 @@ FORMS += \
     views/maindashboard.ui \
     views/profile.ui \
     views/projectsettingspage.ui \
-    views/quickloginpage.ui
+    views/quickloginpage.ui \
+    views/taskdetails.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

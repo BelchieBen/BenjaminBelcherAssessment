@@ -30,8 +30,13 @@ bool TaskDataService::createTask(QString title, QString desc, QString effort, QS
     int userId = usr.getUserId(assingee);
 
     if(q.exec()){
-        int taskId = getTaskId(title);
-        addUserToTask(taskId, userId);
+        if(assingee == "Unassigned"){
+
+        }
+        else{
+            int taskId = getTaskId(title);
+            addUserToTask(taskId, userId);
+        }
         return true;
     }
     else{
@@ -88,14 +93,16 @@ bool TaskDataService::updateTaskStatus(QListWidgetItem task, QString state){
     }
 }
 
-QStringList TaskDataService::populatingAssigneesList(){
+QStringList TaskDataService::populatingAssigneesList(int projectId){
     QStringList assignees;
+    assignees.append("Unassigned");
     QString email;
     QSqlQuery q;
-    q.prepare("SELECT * FROM users");
+    q.prepare("SELECT * FROM project_users WHERE project = :proj");
+    q.bindValue(":proj", projectId);
     if(q.exec()){
         while(q.next()){
-            email = q.value(3).toString();
+            email = q.value(1).toString();
             assignees.append(email);
         }
     }
@@ -157,4 +164,17 @@ QList<QString> TaskDataService::findProjectsUserIsIn(int uId){
         }
     }
     return projects;
+}
+
+Task TaskDataService::findTaskById(int id){
+    QSqlQuery q;
+    Task t;
+    q.prepare("SELECT * FROM tasks INNER JOIN task_users on tasks.id = task_users.task_id WHERE task_users.task_id= :tskId");
+    q.bindValue(":tskId", id);
+    if(q.exec()){
+        while(q.next()){
+            t = Task(q.value(1).toString(), q.value(2).toString(),q.value(3).toString(),q.value(4).toString(),q.value(5).toString(),q.value(6).toString(),q.value(7).toString(), q.value(8).toInt());
+        }
+    }
+    return t;
 }
