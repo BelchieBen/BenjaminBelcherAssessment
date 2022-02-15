@@ -10,6 +10,7 @@
 #include <QVariant>
 #include <QListWidgetItem>
 #include "models/user.h"
+#include "models/task.h"
 
 
 class TaskDataService
@@ -21,6 +22,9 @@ public:
     bool addUserToTask(int taskId, int userId);
     int getTaskId(QString title);
     QStringList populatingAssigneesList();
+    QList<Task> tasksAssignedToUser(int uId, QString projectTitle);
+    QList<Task> findAllTasksForUser(int uId);
+    QList<QString> findProjectsUserIsIn(int uId);
 
 private:
     user usr;

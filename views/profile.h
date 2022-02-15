@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "models/user.h"
+#include "services/taskdataservice.h"
 
 namespace Ui {
 class Profile;
@@ -19,10 +20,11 @@ public:
 private:
     Ui::Profile *ui;
     user usr;
+    TaskDataService _taskDataService;
 
 private slots:
     void returnToMainDashboard();
-    void populateTreeWidget();
+    void populateTreeWidget(user u);
 signals:
     void returnToDashboard();
 };

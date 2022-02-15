@@ -38,12 +38,21 @@ void MainDashboard::loadTasks(){
     q.prepare("SELECT * FROM tasks INNER JOIN task_users on tasks.id = task_users.task_id WHERE project = :title");
     q.bindValue(":title", tle);
     if(q.exec()){
+        int count = 0;
         while(q.next()){
             QString state = q.value(7).toString();
             int uId = q.value(8).toInt();
             QString title = q.value(1).toString();
             QString description = q.value(2).toString();
             populateLists(state, title, description, usr.returnEmail(uId));
+            count ++;
+        }
+
+        if(count == 0){
+            qDebug() << "No tasks found";
+        }
+        else if(count >= 1){
+            qDebug() << "Found some tasks";
         }
     }
 }
@@ -95,6 +104,7 @@ void MainDashboard::assignToMe(){
     taskId = _taskDataService.getTaskId(test);
     if(_taskDataService.addUserToTask(taskId, uId)){
             qDebug() << "Assigned user to task from menu";
+            loadTasks();
     }
     else{
         _messageBox.critical(0,"Error", "Someone is already assigned to that task!");

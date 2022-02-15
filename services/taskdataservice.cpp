@@ -28,10 +28,10 @@ bool TaskDataService::createTask(QString title, QString desc, QString effort, QS
     q.bindValue(":prj", project);
     q.bindValue(":ste", state);
     int userId = usr.getUserId(assingee);
-    int taskId = getTaskId(title);
-    addUserToTask(taskId, userId);
 
     if(q.exec()){
+        int taskId = getTaskId(title);
+        addUserToTask(taskId, userId);
         return true;
     }
     else{
@@ -42,7 +42,7 @@ bool TaskDataService::createTask(QString title, QString desc, QString effort, QS
 
 bool TaskDataService::addUserToTask(int taskId, int userId){
     QSqlQuery q;
-    QString query = "INSERT INTO task_users (user_id, task_id) VALUES ("+QString::number(userId)+", "+QString::number(taskId)+")";
+    QString query = "INSERT OR REPLACE INTO task_users (user_id, task_id) VALUES ("+QString::number(userId)+", "+QString::number(taskId)+")";
 //    q.prepare("INSERT INTO task_users (user_id, task_id) VALUES (:uId, :tkId)");
 //    q.bindValue("tkId", QString::number(userId));
 //    q.bindValue("uId", QString::number(taskId));
@@ -51,6 +51,7 @@ bool TaskDataService::addUserToTask(int taskId, int userId){
         return true;
     }
     else{
+        qDebug() << q.lastError().text();
         qDebug() << "Couldnt add user to task";
         return false;
     }
@@ -99,4 +100,61 @@ QStringList TaskDataService::populatingAssigneesList(){
         }
     }
     return assignees;
+}
+
+QList<Task> TaskDataService::tasksAssignedToUser(int uId, QString projectTitle){
+    QList<Task> taskList;
+    QSqlQuery q;
+    q.prepare("SELECT * FROM tasks INNER JOIN task_users on tasks.id = task_users.task_id WHERE tasks.project = :proj");
+    q.bindValue(":proj", projectTitle);
+    if(q.exec()){
+        int count = 0;
+        while(q.next()){
+            Task t = Task(q.value(1).toString(), q.value(2).toString(),q.value(3).toString(),q.value(4).toString(),q.value(5).toString(),q.value(6).toString(),q.value(7).toString(), q.value(8).toInt());
+            taskList.append(t);
+            count ++;
+        }
+        if(count == 0){
+            qDebug() << "No tasks found for "+QString::number(uId);
+        }
+        else if(count >= 1){
+            qDebug() << "Tasks found for "+QString::number(uId);
+        }
+    }
+    return taskList;
+}
+
+QList<Task> TaskDataService::findAllTasksForUser(int uId){
+    QList<Task> taskList;
+    QSqlQuery q;
+    q.prepare("SELECT * FROM tasks INNER JOIN task_users on tasks.id = task_users.task_id WHERE task_users.user_id= :uid");
+    q.bindValue(":uid", uId);
+    if(q.exec()){
+        int count = 0;
+        while(q.next()){
+            Task t = Task(q.value(1).toString(), q.value(2).toString(),q.value(3).toString(),q.value(4).toString(),q.value(5).toString(),q.value(6).toString(),q.value(7).toString(), q.value(8).toInt());
+            taskList.append(t);
+            count ++;
+        }
+        if(count == 0){
+            qDebug() << "No tasks found for "+QString::number(uId);
+        }
+        else if(count >= 1){
+            qDebug() << "Tasks found for "+QString::number(uId);
+        }
+    }
+    return taskList;
+}
+
+QList<QString> TaskDataService::findProjectsUserIsIn(int uId){
+    QList<QString> projects;
+    QSqlQuery q;
+    q.prepare("SELECT * FROM projects INNER JOIN project_users on projects.id = project_users.project WHERE project_users.user = :usr");
+    q.bindValue(":usr", usr.returnEmail(uId));
+    if(q.exec()){
+        while(q.next()){
+            projects.append(q.value(1).toString());
+        }
+    }
+    return projects;
 }
