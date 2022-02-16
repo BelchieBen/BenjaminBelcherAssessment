@@ -9,12 +9,14 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    delegates/commentdelegate.cpp \
     delegates/taskdelegate.cpp \
     globals/taskstates.cpp \
     globals/userroles.cpp \
     main.cpp \
     mainwindow.cpp \
     models/task.cpp \
+    models/taskcomment.cpp \
     models/user.cpp \
     services/authenticationservice.cpp \
     services/dataservice.cpp \
@@ -29,16 +31,19 @@ SOURCES += \
     views/loginlandingpage.cpp \
     views/maindashboard.cpp \
     views/profile.cpp \
+    views/projectchat.cpp \
     views/projectsettingspage.cpp \
     views/quickloginpage.cpp \
     views/taskdetails.cpp
 
 HEADERS += \
+    delegates/commentdelegate.h \
     delegates/taskdelegate.h \
     globals/taskstates.h \
     globals/userroles.h \
     mainwindow.h \
     models/task.h \
+    models/taskcomment.h \
     models/user.h \
     services/authenticationservice.h \
     services/dataservice.h \
@@ -53,6 +58,7 @@ HEADERS += \
     views/loginlandingpage.h \
     views/maindashboard.h \
     views/profile.h \
+    views/projectchat.h \
     views/projectsettingspage.h \
     views/quickloginpage.h \
     views/taskdetails.h
@@ -68,6 +74,7 @@ FORMS += \
     views/loginlandingpage.ui \
     views/maindashboard.ui \
     views/profile.ui \
+    views/projectchat.ui \
     views/projectsettingspage.ui \
     views/quickloginpage.ui \
     views/taskdetails.ui

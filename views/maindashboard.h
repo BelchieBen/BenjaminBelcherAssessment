@@ -18,6 +18,7 @@
 #include "services/taskdataservice.h"
 #include "views/profile.h"
 #include "views/taskdetails.h"
+#include "views/projectchat.h"
 
 namespace Ui {
 class MainDashboard;
@@ -42,6 +43,7 @@ private:
     UserRoles roles;
     QMessageBox _messageBox;
     Profile profile;
+    ProjectChat *chatroom;
 
 
 private slots:
@@ -60,7 +62,8 @@ private slots:
     void createManagerBtns();
     void assignToMe();
     void openProfilePage();
-    void returnToMainDashboardFromProfile();
+    void openProjectChat();
+    void returnToMainDashboardFromPages();
     void openTaskDetails(QListWidgetItem *item);
 
     void on_SearchCurrentBoard_textChanged(const QString &arg1);

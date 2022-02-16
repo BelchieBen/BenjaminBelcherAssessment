@@ -146,6 +146,13 @@
                  </widget>
                 </item>
                 <item>
+                 <widget class="QPushButton" name="ProjectTimelineBtn">
+                  <property name="text">
+                   <string>Project Timeline</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QPushButton" name="OtherProjectsBtn">
                   <property name="text">
                    <string> Other Projects</string>

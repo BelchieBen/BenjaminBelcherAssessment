@@ -178,3 +178,43 @@ Task TaskDataService::findTaskById(int id){
     }
     return t;
 }
+
+bool TaskDataService::addCommentToTask(QString comment, int taskId){
+    QSqlQuery q;
+    user u = usr.getCurrentUser();
+    q.prepare("INSERT INTO task_comments (task_id, comment, date_created, author) VALUES (:tkId, :cmt, :created, :usr)");
+    q.bindValue(":tkId", taskId);
+    q.bindValue(":cmt", comment);
+    q.bindValue(":created", getTime());
+    q.bindValue(":usr", usr.getUserId(u.GetCurrentUserEmail()));
+    if(q.exec()){
+        qDebug() << "Added comment to task "+QString::number(taskId);
+        return true;
+    }
+    return false;
+
+}
+
+QList<TaskComment> TaskDataService::getTaskComments(int TaskId){
+    QSqlQuery q;
+    QDateTime qDt;
+    QList<TaskComment> comments;
+    q.prepare("SELECT * FROM task_comments WHERE task_id = :tkId");
+    q.bindValue(":tkId", TaskId);
+    if(q.exec()){
+        int count = 0;
+        while(q.next()){
+            qDt = QDateTime::fromString(q.value(3).toString());
+            TaskComment comment = TaskComment(q.value(0).toInt(), q.value(1).toInt(), q.value(2).toString(),qDt, q.value(4).toInt());
+            comments.append(comment);
+            count ++;
+        }
+        if(count == 0){
+            qDebug() << "No comments for "+QString::number(TaskId);
+        }
+        else{
+            qDebug()<< QString::number(count)+" comments where found for "+QString::number(TaskId);
+        }
+    }
+    return comments;
+}

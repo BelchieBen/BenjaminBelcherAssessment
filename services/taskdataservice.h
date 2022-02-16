@@ -11,6 +11,8 @@
 #include <QListWidgetItem>
 #include "models/user.h"
 #include "models/task.h"
+#include <QDateTime>
+#include "models/taskcomment.h"
 
 
 class TaskDataService
@@ -26,6 +28,8 @@ public:
     QList<Task> findAllTasksForUser(int uId);
     QList<QString> findProjectsUserIsIn(int uId);
     Task findTaskById(int id);
+    bool addCommentToTask(QString comment, int taskId);
+    QList<TaskComment> getTaskComments(int taskId);
 
 private:
     user usr;

@@ -8,8 +8,13 @@ MainDashboard::MainDashboard(QWidget *parent, int projectId) :
     ui(new Ui::MainDashboard)
 {
     ui->setupUi(this);
-    ui->stackedWidget->addWidget(&profile);
     this->projId = projectId;
+
+    chatroom = new ProjectChat(this, projId);
+
+    ui->stackedWidget->addWidget(&profile);
+    ui->stackedWidget->addWidget(chatroom);
+
     QString tle = _projDataService.getProjectTitle(projId);
     ui->BoardTitle->setText(tle);
     createManagerBtns();
@@ -18,7 +23,9 @@ MainDashboard::MainDashboard(QWidget *parent, int projectId) :
     connect(ui->ProjectSettings, SIGNAL(released()), this, SLOT(openProjectSettings()));
     connect(ui->OtherProjectsBtn, SIGNAL(released()), this, SLOT(openProjectsDialog()));
     connect(ui->ProfileBtn, SIGNAL(released()), this, SLOT(openProfilePage()));
-    connect(&profile, SIGNAL(returnToDashboard()), this, SLOT(returnToMainDashboardFromProfile()));
+    connect(ui->ProjectTimelineBtn, SIGNAL(released()), this, SLOT(openProjectChat()));
+    connect(&profile, SIGNAL(returnToDashboard()), this, SLOT(returnToMainDashboardFromPages()));
+    connect(chatroom, SIGNAL(returnToProjectDashboard()), this, SLOT(returnToMainDashboardFromPages()));
 
     loadTasks();
     createListMenus();
@@ -258,7 +265,7 @@ void MainDashboard::createManagerBtns(){
     }
 }
 
-void MainDashboard::returnToMainDashboardFromProfile(){
+void MainDashboard::returnToMainDashboardFromPages(){
     ui->stackedWidget->setCurrentIndex(0);
 }
 
@@ -267,6 +274,10 @@ void MainDashboard::openProfilePage(){
     ui->stackedWidget->setCurrentIndex(1);
     user u = usr.getCurrentUser();
     profile.populateTreeWidget(u);
+}
+
+void MainDashboard::openProjectChat(){
+    ui->stackedWidget->setCurrentIndex(2);
 }
 
 void MainDashboard::openTaskDetails(QListWidgetItem *item){

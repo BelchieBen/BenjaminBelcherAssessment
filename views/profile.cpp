@@ -103,7 +103,7 @@ void Profile::populateTreeWidget(user u){
 
         taskInfo->addStretch(1);
 
-        if(col>3){
+        if(col>2){
             col =0;
             row ++;
         }
