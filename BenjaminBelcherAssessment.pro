@@ -10,11 +10,13 @@ CONFIG += c++11
 
 SOURCES += \
     delegates/commentdelegate.cpp \
+    delegates/messagedelegate.cpp \
     delegates/taskdelegate.cpp \
     globals/taskstates.cpp \
     globals/userroles.cpp \
     main.cpp \
     mainwindow.cpp \
+    models/projectmessage.cpp \
     models/task.cpp \
     models/taskcomment.cpp \
     models/user.cpp \
@@ -22,6 +24,7 @@ SOURCES += \
     services/dataservice.cpp \
     services/projectdataservice.cpp \
     services/taskdataservice.cpp \
+    utils/time.cpp \
     utils/validator.cpp \
     views/forms/loginform.cpp \
     views/forms/newprojectform.cpp \
@@ -38,10 +41,12 @@ SOURCES += \
 
 HEADERS += \
     delegates/commentdelegate.h \
+    delegates/messagedelegate.h \
     delegates/taskdelegate.h \
     globals/taskstates.h \
     globals/userroles.h \
     mainwindow.h \
+    models/projectmessage.h \
     models/task.h \
     models/taskcomment.h \
     models/user.h \
@@ -49,6 +54,7 @@ HEADERS += \
     services/dataservice.h \
     services/projectdataservice.h \
     services/taskdataservice.h \
+    utils/time.h \
     utils/validator.h \
     views/forms/loginform.h \
     views/forms/newprojectform.h \

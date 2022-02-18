@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include "services/projectdataservice.h"
+#include "models/user.h"
+#include "models/projectmessage.h"
+#include "delegates/messagedelegate.h"
 
 namespace Ui {
 class ProjectChat;
@@ -20,8 +23,15 @@ private:
     Ui::ProjectChat *ui;
     int projectId;
     ProjectDataService _projDataService;
+    user usr;
+
 private slots:
     void returnToProject();
+    void sendMessageBtnPressed();
+    void loadMessages();
+    void loadProjectUsers();
+    void setProgressBarValue();
+
 signals:
     void returnToProjectDashboard();
 };

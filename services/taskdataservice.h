@@ -13,6 +13,7 @@
 #include "models/task.h"
 #include <QDateTime>
 #include "models/taskcomment.h"
+#include "utils/time.h"
 
 
 class TaskDataService
@@ -30,9 +31,11 @@ public:
     Task findTaskById(int id);
     bool addCommentToTask(QString comment, int taskId);
     QList<TaskComment> getTaskComments(int taskId);
+    QList<Task> fetchProjectTasks(QString projectTitle);
 
 private:
     user usr;
+    Time time;
 };
 
 #endif // TASKDATASERVICE_H

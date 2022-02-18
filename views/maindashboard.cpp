@@ -26,6 +26,7 @@ MainDashboard::MainDashboard(QWidget *parent, int projectId) :
     connect(ui->ProjectTimelineBtn, SIGNAL(released()), this, SLOT(openProjectChat()));
     connect(&profile, SIGNAL(returnToDashboard()), this, SLOT(returnToMainDashboardFromPages()));
     connect(chatroom, SIGNAL(returnToProjectDashboard()), this, SLOT(returnToMainDashboardFromPages()));
+    connect(this, SIGNAL(movedItem()), chatroom, SLOT(setProgressBarValue()));
 
     loadTasks();
     createListMenus();

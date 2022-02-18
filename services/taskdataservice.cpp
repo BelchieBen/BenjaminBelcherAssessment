@@ -7,15 +7,6 @@ TaskDataService::TaskDataService()
 
 }
 
-
-QString getTime(){
-    time_t now = time(0);
-    tm* localtm = localtime(&now);
-    std::string localTime = asctime(localtm);
-    QString qTime = QString::fromStdString(localTime);
-    return qTime;
-}
-
 bool TaskDataService::createTask(QString title, QString desc, QString effort, QString priority, QString project, QString state, QString assingee){
     QSqlQuery q;
     q.prepare( "INSERT INTO tasks (title, description, effort, priority, created, project, state) "
@@ -24,7 +15,7 @@ bool TaskDataService::createTask(QString title, QString desc, QString effort, QS
     q.bindValue(":desc", desc);
     q.bindValue(":eff", effort);
     q.bindValue(":pri", priority);
-    q.bindValue(":crted", getTime());
+    q.bindValue(":crted", time.getCurrentTime());
     q.bindValue(":prj", project);
     q.bindValue(":ste", state);
     int userId = usr.getUserId(assingee);
@@ -185,7 +176,7 @@ bool TaskDataService::addCommentToTask(QString comment, int taskId){
     q.prepare("INSERT INTO task_comments (task_id, comment, date_created, author) VALUES (:tkId, :cmt, :created, :usr)");
     q.bindValue(":tkId", taskId);
     q.bindValue(":cmt", comment);
-    q.bindValue(":created", getTime());
+    q.bindValue(":created", time.getCurrentTime());
     q.bindValue(":usr", usr.getUserId(u.GetCurrentUserEmail()));
     if(q.exec()){
         qDebug() << "Added comment to task "+QString::number(taskId);
@@ -217,4 +208,18 @@ QList<TaskComment> TaskDataService::getTaskComments(int TaskId){
         }
     }
     return comments;
+}
+
+QList<Task> TaskDataService::fetchProjectTasks(QString projectTitle){
+    QSqlQuery q;
+    QList<Task> tasks;
+    q.prepare("SELECT * FROM tasks WHERE project = :proj");
+    q.bindValue(":proj", projectTitle);
+    if(q.exec()){
+        while(q.next()){
+            Task task = Task(q.value(1).toString(), q.value(2).toString(), q.value(3).toString(), q.value(4).toString(), q.value(5).toString(),q.value(6).toString(), q.value(7).toString(), q.value(8).toInt());
+            tasks.append(task);
+        }
+    }
+    return tasks;
 }

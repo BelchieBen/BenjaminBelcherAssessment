@@ -148,3 +148,66 @@ bool ProjectDataService::updateProjectUsers(int projId, QVector<QString> current
         return false;
     }
 }
+
+bool ProjectDataService::sendProjectMessage(int projId, QString messageTitle, QString messageBody, int uId){
+    QSqlQuery q;
+    //QString qry = "INSERT INTO project_messages (title, body, created, project, user) VALUES ('"+messageTitle+"', '"+messageBody+"', '"+time.getCurrentTime()+"', '"+QString::number(projId)+"', '"+QString::number(uId)+"')";
+    q.prepare("INSERT INTO project_messages (title, body, created, project, user) VALUES (:tle, :bdy, :crtd, :projId, :uId)");
+    q.bindValue(":tle", messageTitle);
+    q.bindValue(":bdy", messageBody);
+    q.bindValue(":crtd", time.getCurrentTime());
+    q.bindValue(":projId", QString::number(projId));
+    q.bindValue(":uId", QString::number(uId));
+    if(q.exec()){
+        return true;
+    }
+    else{
+        qDebug() << q.lastError().text();
+    }
+    return false;
+}
+
+QList<ProjectMessage> ProjectDataService::fetchProjectMessages(int projId){
+    QList<ProjectMessage> messages;
+    QSqlQuery q;
+    q.prepare("SELECT * FROM project_messages WHERE project = :projId");
+    q.bindValue(":projId", projId);
+    if(q.exec()){
+        while(q.next()){
+            ProjectMessage message = ProjectMessage(q.value(0).toInt(), q.value(1).toString(), q.value(2).toString(), q.value(3).toString(), q.value(4).toInt(), q.value(5).toInt());
+            messages.append(message);
+        }
+    }
+    return messages;
+}
+
+int ProjectDataService::calculateProjectProgress(QString projectTitle){
+    QList<Task> tasksInProject = taskDataService.fetchProjectTasks(projectTitle);
+    QList<Task>::iterator i;
+    int todo = 0;
+    int progress = 0;
+    int review = 0;
+    int done = 0;
+    for(i = tasksInProject.begin(); i != tasksInProject.end(); ++i){
+        if(i->returnState() == states.TodoState()){
+            todo++;
+        }
+        if(i->returnState() == states.InProgressState()){
+            progress++;
+        }
+        if(i->returnState() == states.InReviewState()){
+            review++;
+        }
+        if(i->returnState() == states.InDoneState()){
+            done++;
+        }
+    }
+    int taskDonePercentage = 0;
+
+    if(done != 0){
+        int totalTasks = todo+progress+review+done;
+        taskDonePercentage =  done*100 /totalTasks;
+    }
+
+    return taskDonePercentage;
+}
