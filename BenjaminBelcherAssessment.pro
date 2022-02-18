@@ -12,6 +12,7 @@ SOURCES += \
     delegates/commentdelegate.cpp \
     delegates/messagedelegate.cpp \
     delegates/taskdelegate.cpp \
+    delegates/tasksearchresultdelegate.cpp \
     globals/taskstates.cpp \
     globals/userroles.cpp \
     main.cpp \
@@ -37,12 +38,14 @@ SOURCES += \
     views/projectchat.cpp \
     views/projectsettingspage.cpp \
     views/quickloginpage.cpp \
+    views/searchtasksallprojectsdialog.cpp \
     views/taskdetails.cpp
 
 HEADERS += \
     delegates/commentdelegate.h \
     delegates/messagedelegate.h \
     delegates/taskdelegate.h \
+    delegates/tasksearchresultdelegate.h \
     globals/taskstates.h \
     globals/userroles.h \
     mainwindow.h \
@@ -67,6 +70,7 @@ HEADERS += \
     views/projectchat.h \
     views/projectsettingspage.h \
     views/quickloginpage.h \
+    views/searchtasksallprojectsdialog.h \
     views/taskdetails.h
 
 FORMS += \
@@ -83,6 +87,7 @@ FORMS += \
     views/projectchat.ui \
     views/projectsettingspage.ui \
     views/quickloginpage.ui \
+    views/searchtasksallprojectsdialog.ui \
     views/taskdetails.ui
 
 # Default rules for deployment.

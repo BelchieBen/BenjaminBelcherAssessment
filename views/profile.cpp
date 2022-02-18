@@ -51,6 +51,7 @@ void Profile::populateTreeWidget(user u){
         QLabel *TaskPriorityLbl = new QLabel(taskW);
         QLabel *TaskProject = new QLabel(taskW);
         QLabel *TaskProjectLbl = new QLabel(taskW);
+        QPushButton *seeMore = new QPushButton(taskW);
 
         TaskTitle->setText(i->returnTitle());
         TaskTitle->setFont(QFont( "Lucida Grande", 16, QFont::Bold ));
@@ -101,6 +102,11 @@ void Profile::populateTreeWidget(user u){
         projectLayout->addStretch(1);
         taskInfo->addItem(projectLayout);
 
+        seeMore->setText("See more about "+i->returnTitle());
+        connect(seeMore, SIGNAL(released()), this, SLOT(sendSignal()));
+
+        taskInfo->addWidget(seeMore);
+
         taskInfo->addStretch(1);
 
         if(col>2){
@@ -113,42 +119,22 @@ void Profile::populateTreeWidget(user u){
 
     }
     ui->verticalLayout->addStretch(1);
-//    QSqlQuery q;
-//    q.prepare("SELECT * FROM projects INNER JOIN project_users on projects.id = project_users.project WHERE project_users.user = :usr");
-//    q.bindValue(":usr", u.returnEmail());
-//    QString projectTitle;
-//    if(q.exec()){
-//        while(q.next()){
-//            projectTitle = q.value(1).toString();
-//            QList<Task> tasks = _taskDataService.findAllTasksForUser(u.getUserId(u.returnEmail()));
-//            UserTasksByProject.append(tasks);
-//        }
-//    }
+}
 
-//    QTreeWidget *tree = ui->treeWidget;
-//    delete tree->takeTopLevelItem(0);
-//    QTreeWidgetItem *topLevel = new QTreeWidgetItem();
-//    topLevel->setText(0, "This the projects col");
-//    for (int i=0; i<5 ;i++ ) {
-//        QTreeWidgetItem *item = new QTreeWidgetItem();
-//        item->setText(i, "Task "+ QString::number(i+1));
-//        topLevel->addChild(item);
-//    }
-//    tree->setColumnCount(5);
-//    QList<QString> headers;
-//    headers.append("Testing1");
-//    headers.append("Testing2");
-//    headers.append("Testing3");
-//    headers.append("Testing4");
-//    headers.append("Testing5");
-//    tree->setHeaderLabels(headers);
+void Profile::openTaskDetailsFromProfile(Task *item){
+    QWidget *nullWd = nullptr;
+    TaskDetails taskDetails(nullWd, item);
+    taskDetails.setModal(true);
+    taskDetails.exec();
+}
 
-//    for(int i=0; i<5; i++)
-//    {
-//        QTreeWidgetItem * item = new QTreeWidgetItem();
-//        item->setText(i,"top-level " + QString::number(i+1));
-//        tree->addTopLevelItem(item);
-//    }
+void Profile::sendSignal(){
+    auto button = qobject_cast<QPushButton*>(sender());
+    Q_ASSERT(button);
+    QString title = button->text().remove(0,15);
+    int tId = _taskDataService.getTaskId(title);
+    Task t = _taskDataService.findTaskById(tId);
+    openTaskDetailsFromProfile(&t);
 }
 
 Profile::~Profile()

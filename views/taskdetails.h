@@ -17,11 +17,13 @@ class TaskDetails : public QDialog
 
 public:
     explicit TaskDetails(QWidget *parent = nullptr, QListWidgetItem *item = nullptr);
+    explicit TaskDetails(QWidget *parent = nullptr, Task *item = nullptr);
     ~TaskDetails();
 
 private:
     Ui::TaskDetails *ui;
     QListWidgetItem *task;
+    Task *taskT;
     TaskDataService _taskDataService;
     int taskId;
     QMessageBox _messageBox;
@@ -31,6 +33,7 @@ private slots:
     void populateTaskDetails();
     void addCommentToTask();
     void populateCommentBox();
+    void populateTaskDetailsUsingModel();
 };
 
 #endif // TASKDETAILS_H

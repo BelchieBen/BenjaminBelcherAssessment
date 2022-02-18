@@ -32,6 +32,7 @@ public:
     bool addCommentToTask(QString comment, int taskId);
     QList<TaskComment> getTaskComments(int taskId);
     QList<Task> fetchProjectTasks(QString projectTitle);
+    QList<Task> fetchAllTasks(QString search);
 
 private:
     user usr;

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SearchTasksAllProjectsDialog</class>
+ <widget class="QDialog" name="SearchTasksAllProjectsDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>550</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>400</width>
+    <height>550</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="Title">
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Search Results: </string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="YourSearchReturnedLbl">
+     <property name="text">
+      <string>Your search returned</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="SubHeader">
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Tasks</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QListWidget" name="SearchResults"/>
+   </item>
+   <item>
+    <widget class="QPushButton" name="CloseBtn">
+     <property name="text">
+      <string>Close</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

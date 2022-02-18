@@ -223,3 +223,17 @@ QList<Task> TaskDataService::fetchProjectTasks(QString projectTitle){
     }
     return tasks;
 }
+
+QList<Task> TaskDataService::fetchAllTasks(QString search){
+    QList<Task> tasks;
+    QSqlQuery q;
+    q.prepare("SELECT * FROM tasks WHERE title = :tle");
+    q.bindValue(":tle", search);
+    if(q.exec()){
+        while(q.next()){
+            Task t = Task(q.value(1).toString(), q.value(2).toString(), q.value(3).toString(), q.value(4).toString(), q.value(5).toString(),q.value(6).toString(), q.value(7).toString(), q.value(8).toInt());
+            tasks.append(t);
+        }
+    }
+    return tasks;
+}

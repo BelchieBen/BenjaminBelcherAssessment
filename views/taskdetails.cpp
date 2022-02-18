@@ -13,9 +13,30 @@ TaskDetails::TaskDetails(QWidget *parent, QListWidgetItem *item) :
     connect(ui->CommentBtn, SIGNAL(released()), this, SLOT(addCommentToTask()));
 }
 
+TaskDetails::TaskDetails(QWidget *parent, Task *item) :
+    QDialog(parent),
+    ui(new Ui::TaskDetails)
+{
+    ui->setupUi(this);
+    this->taskT = item;
+    populateTaskDetailsUsingModel();
+    this->taskId = _taskDataService.getTaskId(item->returnTitle());
+    populateCommentBox();
+    connect(ui->CommentBtn, SIGNAL(released()), this, SLOT(addCommentToTask()));
+}
+
 void TaskDetails::populateTaskDetails(){
     ui->TaskTitle->setText(task->text());
     int taskId = _taskDataService.getTaskId(task->text());
+    Task currentTask = _taskDataService.findTaskById(taskId);
+    ui->Description->setText(currentTask.returnDescription());
+    ui->Priority->setText(currentTask.returnPriority());
+    ui->Effort->setText(currentTask.returnEffort());
+}
+
+void TaskDetails::populateTaskDetailsUsingModel(){
+    ui->TaskTitle->setText(taskT->returnTitle());
+    int taskId = _taskDataService.getTaskId(taskT->returnTitle());
     Task currentTask = _taskDataService.findTaskById(taskId);
     ui->Description->setText(currentTask.returnDescription());
     ui->Priority->setText(currentTask.returnPriority());

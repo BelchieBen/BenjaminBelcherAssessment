@@ -4,7 +4,7 @@
 #include <QWidget>
 #include "models/user.h"
 #include "services/taskdataservice.h"
-
+#include "taskdetails.h"
 namespace Ui {
 class Profile;
 }
@@ -25,8 +25,11 @@ private:
 
 private slots:
     void returnToMainDashboard();
+    void openTaskDetailsFromProfile(Task *t);
+    void sendSignal();
 signals:
     void returnToDashboard();
+    void SeeMoreClicked(Task);
 };
 
 #endif // PROFILE_H
