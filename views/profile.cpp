@@ -15,11 +15,17 @@ Profile::Profile(QWidget *parent) :
     populateTreeWidget(u);
 
     connect(ui->MainDashboardBtn, SIGNAL(released()), this, SLOT(returnToMainDashboard()));
+    connect(ui->LogoutBtn, SIGNAL(released()), this, SLOT(logoutUser()));
 
 }
 
 void Profile::returnToMainDashboard(){
     emit returnToDashboard();
+}
+
+void Profile::logoutUser(){
+    usr.removeCurrentUsr();
+    this->hide();
 }
 
 void Profile::populateTreeWidget(user u){
