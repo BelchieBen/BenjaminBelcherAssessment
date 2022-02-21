@@ -23,6 +23,12 @@ void ProjectChat::returnToProject(){
 
 void ProjectChat::setProgressBarValue(){
      ui->projectProgress->setValue(_projDataService.calculateProjectProgress(_projDataService.getProjectTitle(projectId)));
+     if(ui->projectProgress->value() == 100){
+         if(usr.getUserRole() == roles.getRole("manager")){
+             QPushButton *completeProjectBtn = new QPushButton("Mark project as complete");
+             ui->widget->layout()->addWidget(completeProjectBtn);
+         }
+     }
 }
 
 void ProjectChat::sendMessageBtnPressed(){

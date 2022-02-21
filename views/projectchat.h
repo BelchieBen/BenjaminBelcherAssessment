@@ -6,6 +6,7 @@
 #include "models/user.h"
 #include "models/projectmessage.h"
 #include "delegates/messagedelegate.h"
+#include "globals/userroles.h"
 
 namespace Ui {
 class ProjectChat;
@@ -24,6 +25,7 @@ private:
     int projectId;
     ProjectDataService _projDataService;
     user usr;
+    UserRoles roles;
 
 private slots:
     void returnToProject();
