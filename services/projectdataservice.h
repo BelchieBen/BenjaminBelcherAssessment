@@ -34,6 +34,7 @@ private:
     Time time;
     TaskDataService taskDataService;
     TaskStates states;
+    EmailServerDetails details;
 };
 
 #endif // PROJECTDATASERVICE_H

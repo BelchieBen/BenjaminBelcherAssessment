@@ -21,6 +21,7 @@ int ProjectDataService::getProject(QString title){
 }
 
 bool ProjectDataService::insertProjUsers(QVector<QString> users, int project){
+    QString title = getProjectTitle(project);
     QVector<QString>::iterator loop;
     for(loop = users.begin(); loop != users.end(); loop++){
         QSqlQuery q;
@@ -31,6 +32,8 @@ bool ProjectDataService::insertProjUsers(QVector<QString> users, int project){
 
         if(q.exec()){
             qDebug() << "Added user";
+            EmailService* smtp = new EmailService(details.getUsername(), details.getPassword(), details.getServerAddress(), details.getPort());
+            smtp->sendMail(details.getUsername(), *loop, "You have been assigned to a project!", "The project you have been assigned to is: "+title);
         }
     }
     return true;

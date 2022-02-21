@@ -87,6 +87,7 @@ QString user::GetCurrentUserEmail(){
 }
 
 void user::setCurrentUser(user u){
+    removeCurrentUsr();
     QSqlQuery q;
     //QString qru = "INSERT INTO currentUsr (id, firstname, surname, email, rememberMe, role, pin) VALUES ('1','"+u.firstname+"','"+u.surname+"','"+u.email+"','"+QString::number(u.rememberMe)+"','"+u.role+"','"+u.pin+"')";
     q.prepare("INSERT INTO currentUsr (id, firstname, surname, email, rememberMe, role, pin) "
