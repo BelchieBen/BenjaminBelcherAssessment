@@ -7,7 +7,6 @@
 #include <QSqlError>
 #include "utils/validator.h"
 #include "models/user.h"
-
 using namespace std;
 
 class authenticationservice{

@@ -27,6 +27,8 @@ bool TaskDataService::createTask(QString title, QString desc, QString effort, QS
         else{
             int taskId = getTaskId(title);
             addUserToTask(taskId, userId);
+            EmailService* smtp = new EmailService(details.getUsername(), details.getPassword(), details.getServerAddress(), details.getPort());
+            smtp->sendMail(details.getUsername(), assingee, "You have been assigned to a task!", title);
         }
         return true;
     }

@@ -1,4 +1,4 @@
-QT += core gui sql
+QT += core gui sql network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,6 +13,7 @@ SOURCES += \
     delegates/messagedelegate.cpp \
     delegates/taskdelegate.cpp \
     delegates/tasksearchresultdelegate.cpp \
+    globals/emailserverdetails.cpp \
     globals/taskstates.cpp \
     globals/userroles.cpp \
     main.cpp \
@@ -23,6 +24,7 @@ SOURCES += \
     models/user.cpp \
     services/authenticationservice.cpp \
     services/dataservice.cpp \
+    services/emailservice.cpp \
     services/projectdataservice.cpp \
     services/taskdataservice.cpp \
     utils/time.cpp \
@@ -46,6 +48,7 @@ HEADERS += \
     delegates/messagedelegate.h \
     delegates/taskdelegate.h \
     delegates/tasksearchresultdelegate.h \
+    globals/emailserverdetails.h \
     globals/taskstates.h \
     globals/userroles.h \
     mainwindow.h \
@@ -55,6 +58,7 @@ HEADERS += \
     models/user.h \
     services/authenticationservice.h \
     services/dataservice.h \
+    services/emailservice.h \
     services/projectdataservice.h \
     services/taskdataservice.h \
     utils/time.h \

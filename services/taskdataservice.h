@@ -14,6 +14,8 @@
 #include <QDateTime>
 #include "models/taskcomment.h"
 #include "utils/time.h"
+#include "emailservice.h"
+#include "globals/emailserverdetails.h"
 
 
 class TaskDataService
@@ -37,6 +39,7 @@ public:
 private:
     user usr;
     Time time;
+    EmailServerDetails details;
 };
 
 #endif // TASKDATASERVICE_H
