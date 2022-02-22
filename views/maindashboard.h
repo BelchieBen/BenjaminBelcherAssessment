@@ -64,6 +64,7 @@ private slots:
     void openProfilePage();
     void openProjectChat();
     void returnToMainDashboardFromPages();
+    void logoutUser();
     void openTaskDetails(QListWidgetItem *item);
 
     void on_SearchCurrentBoard_textChanged(const QString &arg1);

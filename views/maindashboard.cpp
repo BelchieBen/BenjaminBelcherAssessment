@@ -25,6 +25,7 @@ MainDashboard::MainDashboard(QWidget *parent, int projectId) :
     connect(ui->ProfileBtn, SIGNAL(released()), this, SLOT(openProfilePage()));
     connect(ui->ProjectTimelineBtn, SIGNAL(released()), this, SLOT(openProjectChat()));
     connect(&profile, SIGNAL(returnToDashboard()), this, SLOT(returnToMainDashboardFromPages()));
+    connect(&profile, SIGNAL(logout()), this, SLOT(logoutUser()));
     connect(chatroom, SIGNAL(returnToProjectDashboard()), this, SLOT(returnToMainDashboardFromPages()));
     connect(this, SIGNAL(movedItem()), chatroom, SLOT(setProgressBarValue()));
 
@@ -286,6 +287,10 @@ void MainDashboard::openTaskDetails(QListWidgetItem *item){
     TaskDetails taskDetails(nullWd, item);
     taskDetails.setModal(true);
     taskDetails.exec();
+}
+
+void MainDashboard::logoutUser(){
+    this->hide();
 }
 
 

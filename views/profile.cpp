@@ -25,7 +25,7 @@ void Profile::returnToMainDashboard(){
 
 void Profile::logoutUser(){
     usr.removeCurrentUsr();
-    this->hide();
+    emit logout();
 }
 
 void Profile::populateTreeWidget(user u){

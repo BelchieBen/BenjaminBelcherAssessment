@@ -5,7 +5,6 @@
 #include "models/user.h"
 #include "services/taskdataservice.h"
 #include "taskdetails.h"
-#include "forms/loginform.h"
 
 namespace Ui {
 class Profile;
@@ -24,7 +23,6 @@ private:
     Ui::Profile *ui;
     user usr;
     TaskDataService _taskDataService;
-    LoginForm login;
 
 private slots:
     void returnToMainDashboard();
@@ -34,6 +32,7 @@ private slots:
 signals:
     void returnToDashboard();
     void SeeMoreClicked(Task);
+    void logout();
 };
 
 #endif // PROFILE_H
