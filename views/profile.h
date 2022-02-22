@@ -5,7 +5,7 @@
 #include "models/user.h"
 #include "services/taskdataservice.h"
 #include "taskdetails.h"
-#include "views/forms/loginform.h"
+#include "forms/loginform.h"
 
 namespace Ui {
 class Profile;

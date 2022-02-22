@@ -3,6 +3,10 @@
 
 #include <QString>
 
+/**
+* This is a utility class to get the current time at the time of execution.
+*/
+
 class Time
 {
 public:

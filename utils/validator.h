@@ -5,6 +5,9 @@
 #include <QMessageBox>
 #include <QRegularExpression>
 
+/**
+* This is a utility class that validates user inputs for the authentication service.
+*/
 
 class Validator
 {

@@ -7,7 +7,12 @@
 #include <QSqlError>
 #include "utils/validator.h"
 #include "models/user.h"
+
 using namespace std;
+
+/**
+* This class holds all the methods to authenticate a user and register a new user
+*/
 
 class authenticationservice{
 private:

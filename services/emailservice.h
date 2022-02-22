@@ -10,7 +10,9 @@
 #include <QtWidgets/QMessageBox>
 #include <QByteArray>
 
-
+/**
+* This class contains all the methods to connect to gmail's smtp server and send emails to project members.
+*/
 
 class EmailService : public QObject
 {

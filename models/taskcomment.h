@@ -4,6 +4,9 @@
 #include <QString>
 #include <QDateTime>
 
+/**
+* This class is the model for comments left on a task and holds all the relevent infomation about a comment
+*/
 
 class TaskComment
 {

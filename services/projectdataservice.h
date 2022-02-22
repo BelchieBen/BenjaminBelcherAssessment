@@ -11,6 +11,10 @@
 #include "globals/taskstates.h"
 #include "utils/time.h"
 
+/**
+* This class contains all the methods to handle the data opertions required to maintain projects in the application.
+*/
+
 
 class ProjectDataService
 {

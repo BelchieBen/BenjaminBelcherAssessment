@@ -5,6 +5,9 @@
 #include <QSqlError>
 #include <iostream>
 
+/**
+* This class is the user model and holds all the user information and relevent methods to help the user preform actions across the application
+*/
 
 class user
 {

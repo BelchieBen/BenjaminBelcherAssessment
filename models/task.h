@@ -3,6 +3,10 @@
 
 #include <QString>
 
+/**
+* This class is the model for a task and stores all the information relevent to a task
+*/
+
 class Task
 {
 public:

@@ -10,6 +10,10 @@ authenticationservice::authenticationservice(){
 
 
 int authenticationservice::login(QString eml, QString pssword, int rememberMe){
+    /**
+    * This method handles all the logic to authenticate a user and takes in the users email, password and if they want to stay logged in. \n
+    * If the user has successfully logged in then the method will return 1 to indicate success, if the user failed to log in then the method would return 0.
+    */
     if(QSqlDatabase::database().isOpen()){
         QSqlQuery q;
         QString query = "SELECT * FROM users WHERE email='"+eml+"' AND password='"+pssword+"'";
@@ -58,12 +62,15 @@ int authenticationservice::login(QString eml, QString pssword, int rememberMe){
 }
 
 int authenticationservice::registerUsr(QString firstname, QString surname, QString email, QString password, QString password2, QString role, QString pin){
+    /**
+    * This method handles the logic to register a new user and takes in all the fields on the registration form as arguments.\n
+    * If the user has successfully registered then the method will return 1, otherwise the method will return 0.
+    */
     if(QSqlDatabase::database().isOpen()){
         QMessageBox messageBox;
         Validator _validator;
         if(_validator.registrationValidation(firstname, surname, email, password, password2) == 1){
             QSqlQuery q;
-            //QString query = "INSERT INTO users (firstname, surname, email, password) VALUES ('"+firstname+"','"+surname+"','"+email+"','"+password+"')";
             q.prepare("INSERT INTO users (firstname, surname, email, password, role, pin) "
                       "VALUES (:fname, :sname, :eml, :pssword, :role, :pin)");
             q.bindValue(":fname", firstname);
@@ -92,6 +99,10 @@ int authenticationservice::registerUsr(QString firstname, QString surname, QStri
 }
 
 bool authenticationservice::quickLogin(QString pin){
+    /**
+    * This method handles the logic to authenticate a user using thier pin and will return true if authentication was successful. To preform the authentication a pin is required
+    * as an argument.
+    */
     if(pin == usr.getPin()){
         return true;
     }

@@ -17,6 +17,9 @@
 #include "emailservice.h"
 #include "globals/emailserverdetails.h"
 
+/**
+* This class is responsible for managing all the data operations that are required to create and maintain tasks.
+*/
 
 class TaskDataService
 {

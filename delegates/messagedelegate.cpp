@@ -6,6 +6,10 @@ MessageDelegate::MessageDelegate(QObject *parent)
 }
 
 void MessageDelegate::paint ( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const{
+    /**
+     * This method uses QPainter to draw the information I pass into it on to each QListWidgetItem, using the painter allows me to
+     * customise the styling such as the fonts and colors used.
+     */
     QRect r = option.rect;
 
     //Color: #C4C4C4
@@ -90,6 +94,9 @@ void MessageDelegate::paint ( QPainter * painter, const QStyleOptionViewItem & o
 }
 
 QSize MessageDelegate::sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const{
+    /**
+     * This method sets the size of each QListWidgetItem
+     */
     return QSize(200, 150); // very dumb value
 }
 

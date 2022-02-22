@@ -2,6 +2,9 @@
 
 EmailService::EmailService( const QString &user, const QString &pass, const QString &host, int port, int timeout )
 {
+    /**
+    * The constructor assigns the arguments to the class properties and connects all the methods to socket, which is a QSslSocket object.
+    */
     socket = new QSslSocket(this);
 
     connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
@@ -23,6 +26,9 @@ EmailService::EmailService( const QString &user, const QString &pass, const QStr
 
 void EmailService::sendMail(const QString &from, const QString &to, const QString &subject, const QString &body)
 {
+    /**
+    * This method sends emails from the application to recipients and takes in several arguments such as the from address, to address, the subject and the email body.
+    */
     message = "To: " + to + "\n";
     message.append("From: " + from + "\n");
     message.append("Subject: " + subject + "\n");
@@ -51,30 +57,42 @@ EmailService::~EmailService()
 }
 void EmailService::stateChanged(QAbstractSocket::SocketState socketState)
 {
-
+    /**
+    * This method outputs the connections current state to the console so I can track what is happening with the server.
+    */
     qDebug() <<"stateChanged " << socketState;
 }
 
 void EmailService::errorReceived(QAbstractSocket::SocketError socketError)
 {
+    /**
+    * This method outputs any errors that are recieved to the console
+    */
     qDebug() << "error " <<socketError;
 }
 
 void EmailService::disconnected()
 {
-
+    /**
+    * This method is ran when the connection is closed and if there is an error to why the connection has closed, it will display that too.
+    */
     qDebug() <<"disconneted";
     qDebug() << "error "  << socket->errorString();
 }
 
 void EmailService::connected()
 {
+    /**
+    * This method outputs connected to the console when the connection is established
+    */
     qDebug() << "Connected ";
 }
 
 void EmailService::readyRead()
 {
-
+    /**
+    * This method establishes a connection with the smtp server and handles all the possible responses from the server.
+    */
      qDebug() <<"readyRead";
     // SMTP is line-oriented
 

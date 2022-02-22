@@ -4,6 +4,10 @@
 #include <QString>
 #include <QDateTime>
 
+/**
+* This class is a model for a project message, the project message is what appears on the project timeline
+*/
+
 class ProjectMessage
 {
 public:

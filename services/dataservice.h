@@ -7,6 +7,9 @@
 #include <QDir>
 
 using namespace std;
+/**
+* This class is the service that handles connecting to the local database.
+*/
 
 class dataservice
 {

@@ -8,6 +8,9 @@ TaskDataService::TaskDataService()
 }
 
 bool TaskDataService::createTask(QString title, QString desc, QString effort, QString priority, QString project, QString state, QString assingee){
+    /**
+    * This method inserts a task into the database and takes every field from the UI form as an argument. If the task was inserted successfully then the method will return true.
+    */
     QSqlQuery q;
     q.prepare( "INSERT INTO tasks (title, description, effort, priority, created, project, state) "
             "VALUES (:tle, :desc, :eff, :pri, :crted, :prj, :ste)");
@@ -39,6 +42,10 @@ bool TaskDataService::createTask(QString title, QString desc, QString effort, QS
 }
 
 bool TaskDataService::addUserToTask(int taskId, int userId){
+    /**
+    * This method addds a user to a task by inserting thier User ID and the Task ID into a table called task_users. If the user could be inserted to the database then the method
+    * would return true.
+    */
     QSqlQuery q;
     QString query = "INSERT OR REPLACE INTO task_users (user_id, task_id) VALUES ("+QString::number(userId)+", "+QString::number(taskId)+")";
 //    q.prepare("INSERT INTO task_users (user_id, task_id) VALUES (:uId, :tkId)");
@@ -72,6 +79,9 @@ int TaskDataService::getTaskId(QString title){
 }
 
 bool TaskDataService::updateTaskStatus(QListWidgetItem task, QString state){
+    /**
+    * This method updates the status of a task when it is moved. The first argument is a QListWidgetItem and that is the task, the second argument is the new state of the task.
+    */
     QString titleStr = task.data(0).toString();
     QSqlQuery q;
     q.prepare("UPDATE tasks SET state = :sts WHERE title = :tle");
@@ -87,6 +97,10 @@ bool TaskDataService::updateTaskStatus(QListWidgetItem task, QString state){
 }
 
 QStringList TaskDataService::populatingAssigneesList(int projectId){
+    /**
+    * This method populates the list that displays all of the users assigned to a project. That project is determined by the Project ID argument. This method returns a QStringList
+    * of all the users email's.
+    */
     QStringList assignees;
     assignees.append("Unassigned");
     QString email;
@@ -103,6 +117,10 @@ QStringList TaskDataService::populatingAssigneesList(int projectId){
 }
 
 QList<Task> TaskDataService::tasksAssignedToUser(int uId, QString projectTitle){
+    /**
+    * This method returns a QList of tasks that a user is assigned to within a specific project. To use this method a User ID and Project Title must be specified in the arguments. If the user has any tasks
+    * assigned to them, a list of Task objects will be returned.
+    */
     QList<Task> taskList;
     QSqlQuery q;
     q.prepare("SELECT * FROM tasks INNER JOIN task_users on tasks.id = task_users.task_id WHERE tasks.project = :proj");
@@ -125,6 +143,10 @@ QList<Task> TaskDataService::tasksAssignedToUser(int uId, QString projectTitle){
 }
 
 QList<Task> TaskDataService::findAllTasksForUser(int uId){
+    /**
+    * This method returns a QList of Tasks that a user has assigned to them, reguardless of project. To use this method a User ID must be specified in the arguments.
+    * If the user has any tasks assigned to them, a list of Task objects will be returned.
+    */
     QList<Task> taskList;
     QSqlQuery q;
     q.prepare("SELECT * FROM tasks INNER JOIN task_users on tasks.id = task_users.task_id WHERE task_users.user_id= :uid");
@@ -147,6 +169,9 @@ QList<Task> TaskDataService::findAllTasksForUser(int uId){
 }
 
 QList<QString> TaskDataService::findProjectsUserIsIn(int uId){
+    /**
+    * This method returns a QList of project title's and these are all the projects a user is assigned to. The only argument is a User ID.
+    */
     QList<QString> projects;
     QSqlQuery q;
     q.prepare("SELECT * FROM projects INNER JOIN project_users on projects.id = project_users.project WHERE project_users.user = :usr");
@@ -160,6 +185,9 @@ QList<QString> TaskDataService::findProjectsUserIsIn(int uId){
 }
 
 Task TaskDataService::findTaskById(int id){
+    /**
+    * This method returns a Task object that is associated with a given Task ID in the database. This method is used when only a Task ID is known but more infomation about a task is needed.
+    */
     QSqlQuery q;
     Task t;
     q.prepare("SELECT * FROM tasks INNER JOIN task_users on tasks.id = task_users.task_id WHERE task_users.task_id= :tskId");
@@ -173,6 +201,9 @@ Task TaskDataService::findTaskById(int id){
 }
 
 bool TaskDataService::addCommentToTask(QString comment, int taskId){
+    /**
+    * This method inserts a comment to the task_comments table in the database, if the comment is added successfully then the method will return true.
+    */
     QSqlQuery q;
     user u = usr.getCurrentUser();
     q.prepare("INSERT INTO task_comments (task_id, comment, date_created, author) VALUES (:tkId, :cmt, :created, :usr)");
@@ -189,6 +220,9 @@ bool TaskDataService::addCommentToTask(QString comment, int taskId){
 }
 
 QList<TaskComment> TaskDataService::getTaskComments(int TaskId){
+    /**
+    * This method gets all the comments added to a given task, this method returns a QList of TaskComment's.
+    */
     QSqlQuery q;
     QDateTime qDt;
     QList<TaskComment> comments;
@@ -213,6 +247,9 @@ QList<TaskComment> TaskDataService::getTaskComments(int TaskId){
 }
 
 QList<Task> TaskDataService::fetchProjectTasks(QString projectTitle){
+    /**
+    * This method gets all the tasks in a given project which is determined by the Project Title argument, these tasks are returned as a QList.
+    */
     QSqlQuery q;
     QList<Task> tasks;
     q.prepare("SELECT * FROM tasks WHERE project = :proj");
@@ -227,6 +264,9 @@ QList<Task> TaskDataService::fetchProjectTasks(QString projectTitle){
 }
 
 QList<Task> TaskDataService::fetchAllTasks(QString search){
+    /**
+    * This method gets all the tasks from the database that match the search passed in as an argument. These tasks are returned as a QList.
+    */
     QList<Task> tasks;
     QSqlQuery q;
     q.prepare("SELECT * FROM tasks WHERE title = :tle");

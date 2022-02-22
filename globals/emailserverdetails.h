@@ -3,6 +3,11 @@
 
 #include "QString"
 
+/**
+ * This class acts as a global information store for the authentication details regarding the Email client. This information will not change throughout the applications lifeycle
+ * so by holding it staticly in one place it increases the integrity of my application.
+ */
+
 class EmailServerDetails
 {
 public:
