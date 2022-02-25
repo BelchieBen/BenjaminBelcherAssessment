@@ -323,7 +323,6 @@ void MainDashboard::on_DoneList_itemDoubleClicked(QListWidgetItem *item)
 
 void MainDashboard::searchAllProjectsForTasks()
 {
-    clearLists();
     QList<Task> tasks;
     QSqlQuery q;
     q.prepare("SELECT * FROM tasks LEFT JOIN task_users on tasks.id = task_users.task_id WHERE title LIKE '%'||:search||'%'");
