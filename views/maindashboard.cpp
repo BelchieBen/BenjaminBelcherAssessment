@@ -27,6 +27,7 @@ MainDashboard::MainDashboard(QWidget *parent, int projectId) :
     connect(&profile, SIGNAL(returnToDashboard()), this, SLOT(returnToMainDashboardFromPages()));
     connect(&profile, SIGNAL(logout()), this, SLOT(logoutUser()));
     connect(chatroom, SIGNAL(returnToProjectDashboard()), this, SLOT(returnToMainDashboardFromPages()));
+    connect(ui->SearchBtn, SIGNAL(released()), this, SLOT(searchAllProjectsForTasks()));
     connect(this, SIGNAL(movedItem()), chatroom, SLOT(setProgressBarValue()));
 
     loadTasks();
@@ -317,5 +318,28 @@ void MainDashboard::on_ReviewList_itemDoubleClicked(QListWidgetItem *item)
 void MainDashboard::on_DoneList_itemDoubleClicked(QListWidgetItem *item)
 {
     openTaskDetails(item);
+}
+
+
+void MainDashboard::searchAllProjectsForTasks()
+{
+    clearLists();
+    QList<Task> tasks;
+    QSqlQuery q;
+    q.prepare("SELECT * FROM tasks LEFT JOIN task_users on tasks.id = task_users.task_id WHERE title LIKE '%'||:search||'%'");
+    q.bindValue(":search", ui->SearchBar->text());
+    if(q.exec()){
+        while(q.next()){
+            Task t = Task(q.value(1).toString(), q.value(2).toString(), q.value(3).toString(),  q.value(4).toString(), q.value(5).toString(), q.value(6).toString(), q.value(7).toString(), q.value(8).toInt());
+            tasks.append(t);
+        }
+    }
+    else
+        qDebug()<<q.lastError().text();
+
+    QWidget *nullWd = nullptr;
+    SearchTasksAllProjectsDialog searchPopup(nullWd, tasks);
+    searchPopup.setModal(true);
+    searchPopup.exec();
 }
 

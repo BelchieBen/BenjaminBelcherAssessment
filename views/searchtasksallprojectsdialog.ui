@@ -47,23 +47,25 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="SubHeader">
-     <property name="font">
-      <font>
-       <pointsize>11</pointsize>
-      </font>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="widgetResizable">
+      <bool>true</bool>
      </property>
-     <property name="text">
-      <string>Tasks</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QListWidget" name="SearchResults">
-     <property name="styleSheet">
-      <string notr="true">border-radius:4px;
-padding:4px;</string>
-     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>380</width>
+        <height>435</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <layout class="QVBoxLayout" name="TaskList"/>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
    <item>

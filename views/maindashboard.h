@@ -19,6 +19,7 @@
 #include "views/profile.h"
 #include "views/taskdetails.h"
 #include "views/projectchat.h"
+#include "views/searchtasksallprojectsdialog.h"
 
 namespace Ui {
 class MainDashboard;
@@ -76,6 +77,8 @@ private slots:
     void on_ReviewList_itemDoubleClicked(QListWidgetItem *item);
 
     void on_DoneList_itemDoubleClicked(QListWidgetItem *item);
+
+    void searchAllProjectsForTasks();
 
 public slots:
     void loadTasks();

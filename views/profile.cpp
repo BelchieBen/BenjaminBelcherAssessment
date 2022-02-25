@@ -60,49 +60,49 @@ void Profile::populateTreeWidget(user u){
         QPushButton *seeMore = new QPushButton(taskW);
 
         TaskTitle->setText(i->returnTitle());
-        TaskTitle->setFont(QFont( "Lucida Grande", 16, QFont::Bold ));
+        TaskTitle->setFont(QFont( "Gilroy", 16, QFont::Bold ));
         taskInfo->addWidget(TaskTitle);
 
         TaskDescriptionLbl->setText("Description: ");
-        TaskDescriptionLbl->setFont(QFont( "Lucida Grande", 11, QFont::Bold ));
+        TaskDescriptionLbl->setFont(QFont( "Gilroy", 11, QFont::Bold ));
         TaskDescription->setText(i->returnDescription());
-        TaskDescription->setFont(QFont( "Lucida Grande", 10, QFont::Normal ));
+        TaskDescription->setFont(QFont( "Gilroy", 10, QFont::Normal ));
         descLayout->addWidget(TaskDescriptionLbl);
         descLayout->addWidget(TaskDescription);
         descLayout->addStretch(1);
         taskInfo->addItem(descLayout);
 
         TaskStateLbl->setText("State: ");
-        TaskStateLbl->setFont(QFont( "Lucida Grande", 11, QFont::Bold ));
+        TaskStateLbl->setFont(QFont( "Gilroy", 11, QFont::Bold ));
         TaskState->setText(i->returnState());
-        TaskState->setFont(QFont( "Lucida Grande", 10, QFont::Normal ));
+        TaskState->setFont(QFont( "Gilroy", 10, QFont::Normal ));
         stateLayout->addWidget(TaskStateLbl);
         stateLayout->addWidget(TaskState);
         stateLayout->addStretch(1);
         taskInfo->addItem(stateLayout);
 
         TaskEffortLbl->setText("Effort: ");
-        TaskEffortLbl->setFont(QFont( "Lucida Grande", 11, QFont::Bold ));
+        TaskEffortLbl->setFont(QFont( "Gilroy", 11, QFont::Bold ));
         TaskEffort->setText(i->returnEffort());
-        TaskEffort->setFont(QFont( "Lucida Grande", 10, QFont::Normal ));
+        TaskEffort->setFont(QFont( "Gilroy", 10, QFont::Normal ));
         effortLayout->addWidget(TaskEffortLbl);
         effortLayout->addWidget(TaskEffort);
         effortLayout->addStretch(1);
         taskInfo->addItem(effortLayout);
 
         TaskPriorityLbl->setText("Priority: ");
-        TaskPriorityLbl->setFont(QFont( "Lucida Grande", 11, QFont::Bold ));
+        TaskPriorityLbl->setFont(QFont( "Gilroy", 11, QFont::Bold ));
         TaskPriority->setText(i->returnPriority());
-        TaskPriority->setFont(QFont( "Lucida Grande", 10, QFont::Normal ));
+        TaskPriority->setFont(QFont( "Gilroy", 10, QFont::Normal ));
         priorityLayout->addWidget(TaskPriorityLbl);
         priorityLayout->addWidget(TaskPriority);
         priorityLayout->addStretch(1);
         taskInfo->addItem(priorityLayout);
 
         TaskProjectLbl->setText("Project: ");
-        TaskProjectLbl->setFont(QFont( "Lucida Grande", 11, QFont::Bold ));
+        TaskProjectLbl->setFont(QFont( "Gilroy", 11, QFont::Bold ));
         TaskProject->setText(i->returnProject());
-        TaskProject->setFont(QFont( "Lucida Grande", 10, QFont::Normal ));
+        TaskProject->setFont(QFont( "Gilroy", 10, QFont::Normal ));
         projectLayout->addWidget(TaskProjectLbl);
         projectLayout->addWidget(TaskProject);
         projectLayout->addStretch(1);

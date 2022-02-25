@@ -2,9 +2,11 @@
 #define SEARCHTASKSALLPROJECTSDIALOG_H
 
 #include <QDialog>
+#include <QtWidgets>
 #include "services/taskdataservice.h"
 #include "models/task.h"
 #include "delegates/tasksearchresultdelegate.h"
+#include "views/taskdetails.h"
 
 namespace Ui {
 class SearchTasksAllProjectsDialog;
@@ -15,18 +17,20 @@ class SearchTasksAllProjectsDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit SearchTasksAllProjectsDialog(QWidget *parent = nullptr, QString search = "");
+    explicit SearchTasksAllProjectsDialog(QWidget *parent = nullptr, QList<Task> tasks = {});
     ~SearchTasksAllProjectsDialog();
 
     const QString &getSearch() const;
 
 private:
     Ui::SearchTasksAllProjectsDialog *ui;
-    QString search;
+    QList<Task> tasks;
     TaskDataService _taskDataService;
 
 private slots:
-    void getSearchResults(QString term);
+    void createTaskWidget();
+    void closeDialog();
+    void openTask();
 };
 
 #endif // SEARCHTASKSALLPROJECTSDIALOG_H
