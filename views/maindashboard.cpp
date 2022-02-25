@@ -132,14 +132,18 @@ void MainDashboard::createListMenus(){
     ui->TaskList->addActions({MoveToInProgress, AssignUser});
 
     auto MoveToReview = new QAction("Move to review", this);
+    auto UnassignFromProgress = new QAction("Unassign", this);
     connect(MoveToReview, SIGNAL(triggered()), this, SLOT(moveTaskToReview()));
+    connect(UnassignFromProgress, SIGNAL(triggered()), this, SLOT(unassignFromProgress()));
     ui->InProgressList->setContextMenuPolicy(Qt::ActionsContextMenu);
-    ui->InProgressList->addActions({MoveToReview});
+    ui->InProgressList->addActions({MoveToReview, UnassignFromProgress});
 
     auto MoveToDone = new QAction("Move to done", this);
+    auto UnassignFromReview = new QAction("Unassign", this);
     connect(MoveToDone, SIGNAL(triggered()), this, SLOT(moveTaskToDone()));
+    connect(UnassignFromReview, SIGNAL(triggered()), this, SLOT(unassignFromReview()));
     ui->ReviewList->setContextMenuPolicy(Qt::ActionsContextMenu);
-    ui->ReviewList->addActions({MoveToDone});
+    ui->ReviewList->addActions({MoveToDone, UnassignFromReview});
 }
 
 void MainDashboard::populateLists(QString state, QString title, QString description, QString user){
@@ -193,6 +197,28 @@ void MainDashboard::clearLists(){
     ui->InProgressList->clear();
     ui->ReviewList->clear();
     ui->DoneList->clear();
+}
+
+void MainDashboard::unassignFromProgress(){
+    QListWidget *list = ui->InProgressList;
+    TaskDataService _taskDataService;
+    for(int i=0; i<list->selectedItems().size(); i++){
+        QListWidgetItem *task = list->takeItem(list->currentRow());
+        if(_taskDataService.updateTaskStatus(*task, taskStates.TodoState())){
+            emit movedItem();
+        }
+    }
+}
+
+void MainDashboard::unassignFromReview(){
+    QListWidget *list = ui->ReviewList;
+    TaskDataService _taskDataService;
+    for(int i=0; i<list->selectedItems().size(); i++){
+        QListWidgetItem *task = list->takeItem(list->currentRow());
+        if(_taskDataService.updateTaskStatus(*task, taskStates.TodoState())){
+            emit movedItem();
+        }
+    }
 }
 
 void MainDashboard::onAddTestTaskClicked(){

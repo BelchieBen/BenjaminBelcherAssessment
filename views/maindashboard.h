@@ -67,6 +67,8 @@ private slots:
     void returnToMainDashboardFromPages();
     void logoutUser();
     void openTaskDetails(QListWidgetItem *item);
+    void unassignFromProgress();
+    void unassignFromReview();
 
     void on_SearchCurrentBoard_textChanged(const QString &arg1);
 

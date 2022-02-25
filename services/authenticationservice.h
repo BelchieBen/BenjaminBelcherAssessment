@@ -8,16 +8,14 @@
 #include "utils/validator.h"
 #include "models/user.h"
 
-using namespace std;
-
 /**
 * This class holds all the methods to authenticate a user and register a new user
 */
 
 class authenticationservice{
 private:
-    string email;
-    string password;
+    std::string email;
+    std::string password;
     user usr;
 
 public:

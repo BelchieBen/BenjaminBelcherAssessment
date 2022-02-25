@@ -34,23 +34,23 @@ int authenticationservice::login(QString eml, QString pssword, int rememberMe){
             }
 
             if(count==1){
-                cout << "Foud user!";
+                std::cout << "Foud user!";
                 user usr(id, fname, sname, eml, rememberMe, usrRle, pin);
                 usr.setCurrentUser(usr);
                 return 1;
             }
             else if(count>1){
-                cout << "Duplicate username and password" << endl;
+                std::cout << "Duplicate username and password" << std::endl;
                 return 0;
             }
             else if(count<1){
-                cout << "Username and password is not correct" << endl;
+                std::cout << "Username and password is not correct" << std::endl;
                 return 0;
             }
         }
         else {
             qDebug() << q.lastError().text();
-            cout << "Error with query";
+            std::cout << "Error with query";
             return 0;
         }
     }
@@ -80,12 +80,12 @@ int authenticationservice::registerUsr(QString firstname, QString surname, QStri
             q.bindValue(":role", role);
             q.bindValue(":pin", pin);
             if(q.exec()){
-                cout << "Added user" << endl;
+                std::cout << "Added user" << std::endl;
                 return 1;
             }
             else{
                 qDebug() << q.lastError().text();
-                cout << "Failed to add user" << endl;
+                std::cout << "Failed to add user" << std::endl;
                 return 0;
             }
         }
