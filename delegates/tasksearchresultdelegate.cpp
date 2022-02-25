@@ -75,27 +75,27 @@ void TaskSearchResultDelegate::paint ( QPainter * painter, const QStyleOptionVie
 
     //TASK TITLE
     r = option.rect.adjusted(imageSpace, 0, -10, -30);
-    painter->setFont( QFont( "Lucida Grande", 12, QFont::Normal ) );
+    painter->setFont( QFont( "Gilroy", 12, QFont::Bold ) );
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignTop|Qt::AlignLeft|Qt::TextWrapAnywhere, title, &r);
 
     //TASK DESCRIPTION
     r = option.rect.adjusted(imageSpace, 30, -10, 0);
-    painter->setFont( QFont( "Lucida Grande", 10, QFont::Normal ) );
+    painter->setFont( QFont( "Gilroy", 10, QFont::Medium ) );
     painter->drawText(r.left(), r.top(), r.width(), r.height(),Qt::AlignLeft|Qt::TextWrapAnywhere, description, &r);
 
     //TASK STATUS
     r = option.rect.adjusted(imageSpace, 30, -10, 0);
-    painter->setFont( QFont( "Lucida Grande", 8, QFont::Normal ) );
+    painter->setFont( QFont( "Gilroy", 8, QFont::Normal ) );
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignVCenter|Qt::AlignLeft, status, &r);
 
     //TASK PROJECT
     r = option.rect.adjusted(imageSpace, 30, -10, 0);
-    painter->setFont( QFont( "Lucida Grande", 8, QFont::Normal ) );
+    painter->setFont( QFont( "Gilroy", 8, QFont::Normal ) );
     painter->drawText(r.left(), r.top(), r.width(), r.height(),  Qt::AlignBottom|Qt::AlignLeft, project, &r);
 
     //TASK USER
     r = option.rect.adjusted(imageSpace, 30, -10, 0);
-    painter->setFont( QFont( "Lucida Grande", 8, QFont::Normal ) );
+    painter->setFont( QFont( "Gilroy", 8, QFont::Normal ) );
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignBottom|Qt::AlignRight, user, &r);
 }
 

@@ -6,21 +6,75 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>400</width>
     <height>600</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>800</width>
+    <width>400</width>
     <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>568</width>
+    <height>931</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="2" column="0">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label_3">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Login</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="RememberMe">
+     <property name="styleSheet">
+      <string notr="true">border-radius:4px;</string>
+     </property>
+     <property name="text">
+      <string>Rember me</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QLabel" name="label_2">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -33,7 +87,15 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="0">
+   <item>
+    <widget class="QLineEdit" name="Email">
+     <property name="styleSheet">
+      <string notr="true">border-radius:4px;
+padding:4px</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QLabel" name="label">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -46,38 +108,18 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="0">
+   <item>
     <widget class="QLineEdit" name="Password">
+     <property name="styleSheet">
+      <string notr="true">border-radius:4px;
+padding:4px;</string>
+     </property>
      <property name="echoMode">
       <enum>QLineEdit::Password</enum>
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
-    <widget class="QLineEdit" name="Email"/>
-   </item>
-   <item row="8" column="0">
-    <widget class="QPushButton" name="NewHereBtn">
-     <property name="text">
-      <string>New Here?</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="LoginTitle">
-     <property name="text">
-      <string>Login</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="0">
-    <widget class="QPushButton" name="LoginBtn">
-     <property name="text">
-      <string>Login</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="0">
+   <item>
     <spacer name="horizontalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -93,12 +135,50 @@
      </property>
     </spacer>
    </item>
-   <item row="1" column="0">
-    <widget class="QCheckBox" name="RememberMe">
+   <item>
+    <widget class="QPushButton" name="LoginBtn">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(5, 109, 120);
+color: rgb(255, 255, 255);
+border-radius:8px;
+padding-top:4px;
+padding-bottom:4px;
+padding-left:25px;
+padding-right:25px;</string>
+     </property>
      <property name="text">
-      <string>Rember me</string>
+      <string>Login</string>
      </property>
     </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="NewHereBtn">
+     <property name="styleSheet">
+      <string notr="true">background-color:rgb(227, 0, 114);
+color: rgb(255, 255, 255);
+border-radius:8px;
+padding-top:4px;
+padding-bottom:4px;
+padding-left:25px;
+padding-right:25px;</string>
+     </property>
+     <property name="text">
+      <string>New Here?</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>

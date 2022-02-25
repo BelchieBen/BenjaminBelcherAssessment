@@ -74,22 +74,22 @@ void MessageDelegate::paint ( QPainter * painter, const QStyleOptionViewItem & o
 
     //TITLE
     r = option.rect.adjusted(imageSpace, 0, -10, -30);
-    painter->setFont( QFont( "Lucida Grande", 16, QFont::Normal ) );
+    painter->setFont( QFont( "Gilroy", 16, QFont::Medium ) );
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignTop|Qt::AlignLeft, title, &r);
 
     //BODY
     r = option.rect.adjusted(imageSpace, 30, -10, 0);
-    painter->setFont( QFont( "Lucida Grande", 10, QFont::Normal ) );
+    painter->setFont( QFont( "Gilroy", 12, QFont::Medium ) );
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignLeft|Qt::TextWrapAnywhere, body, &r);
 
-    //DESCRIPTION
+    //DATE
     r = option.rect.adjusted(imageSpace, 30, -10, 0);
-    painter->setFont( QFont( "Lucida Grande", 12, QFont::Normal ) );
+    painter->setFont( QFont( "Gilroy", 11, QFont::Normal ) );
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignBottom|Qt::AlignLeft, description, &r);
 
-    //STATUS
+    //USER
     r = option.rect.adjusted(imageSpace, 30, -10, 0);
-    painter->setFont( QFont( "Lucida Grande", 9, QFont::Normal ) );
+    painter->setFont( QFont( "Gilroy", 9, QFont::Normal ) );
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignBottom| Qt::AlignRight, status, &r);
 }
 

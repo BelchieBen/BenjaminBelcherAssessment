@@ -33,6 +33,13 @@
     </widget>
    </item>
    <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="PriorityLbl">
@@ -82,6 +89,10 @@
        <height>100</height>
       </size>
      </property>
+     <property name="styleSheet">
+      <string notr="true">border-radius:4px;
+padding:4px;</string>
+     </property>
     </widget>
    </item>
    <item>
@@ -98,6 +109,10 @@
    </item>
    <item>
     <widget class="QListWidget" name="listWidget">
+     <property name="styleSheet">
+      <string notr="true">border-radius:4px;
+padding:4px;</string>
+     </property>
      <property name="spacing">
       <number>0</number>
      </property>
@@ -105,6 +120,10 @@
    </item>
    <item>
     <widget class="QLineEdit" name="CommentInput">
+     <property name="styleSheet">
+      <string notr="true">border-radius:4px;
+padding:4px;</string>
+     </property>
      <property name="maxLength">
       <number>100</number>
      </property>
@@ -115,6 +134,15 @@
    </item>
    <item>
     <widget class="QPushButton" name="CommentBtn">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(5, 109, 120);
+color: rgb(255, 255, 255);
+border-radius:8px;
+padding-top:4px;
+padding-bottom:4px;
+padding-left:25px;
+padding-right:25px;</string>
+     </property>
      <property name="text">
       <string>Comment</string>
      </property>

@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>684</width>
-    <height>515</height>
+    <width>1361</width>
+    <height>1223</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
@@ -43,6 +43,15 @@
      </item>
      <item>
       <widget class="QPushButton" name="MainDashboardBtn">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(5, 109, 120);
+color: rgb(255, 255, 255);
+border-radius:8px;
+padding-top:4px;
+padding-bottom:4px;
+padding-left:25px;
+padding-right:25px;</string>
+       </property>
        <property name="text">
         <string>Main Dashboard</string>
        </property>
@@ -50,6 +59,16 @@
      </item>
      <item>
       <widget class="QPushButton" name="LogoutBtn">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(227, 0, 114);
+color: rgb(255, 255, 255);
+
+border-radius:8px;
+padding-top:4px;
+padding-bottom:4px;
+padding-left:25px;
+padding-right:25px;</string>
+       </property>
        <property name="text">
         <string>Logout</string>
        </property>
@@ -81,7 +100,7 @@
         <widget class="QLabel" name="label_2">
          <property name="font">
           <font>
-           <pointsize>11</pointsize>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="text">
@@ -117,7 +136,7 @@
         <widget class="QLabel" name="label_3">
          <property name="font">
           <font>
-           <pointsize>11</pointsize>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="text">
@@ -153,7 +172,7 @@
         <widget class="QLabel" name="label_4">
          <property name="font">
           <font>
-           <pointsize>11</pointsize>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="text">
@@ -189,7 +208,7 @@
         <widget class="QLabel" name="label_5">
          <property name="font">
           <font>
-           <pointsize>11</pointsize>
+           <pointsize>12</pointsize>
           </font>
          </property>
          <property name="text">
@@ -240,7 +259,41 @@
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="MyTasks" rowminimumheight="0" columnminimumwidth="0"/>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="minimumSize">
+      <size>
+       <width>1280</width>
+       <height>400</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>400</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border:none;</string>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1343</width>
+        <height>400</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QGridLayout" name="MyTasks" rowminimumheight="0" columnminimumwidth="0"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
    </item>
   </layout>
  </widget>

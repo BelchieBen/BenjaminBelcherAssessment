@@ -142,7 +142,7 @@ void MainDashboard::createListMenus(){
 }
 
 void MainDashboard::populateLists(QString state, QString title, QString description, QString user){
-    QListWidget *todoList = ui->TaskList;
+   QListWidget *todoList = ui->TaskList;
     QListWidget *inProgressList = ui->InProgressList;
     QListWidget *reviewList = ui->ReviewList;
     QListWidget *doneList = ui->DoneList;
@@ -233,7 +233,7 @@ void MainDashboard::on_SearchCurrentBoard_textChanged(const QString &arg1)
 {
     clearLists();
     QSqlQuery q;
-    q.prepare("SELECT * FROM tasks INNER JOIN task_users on tasks.id = task_users.task_id WHERE title LIKE '%'||:search||'%' AND project = :proj");
+    q.prepare("SELECT * FROM tasks LEFT JOIN task_users on tasks.id = task_users.task_id WHERE title LIKE '%'||:search||'%' AND project = :proj");
     q.bindValue(":proj", ui->BoardTitle->text());
     q.bindValue(":search", ui->SearchCurrentBoard->text());
     if(q.exec()){
@@ -259,8 +259,10 @@ void MainDashboard::openProjectSettings(){
 void MainDashboard::createManagerBtns(){
     if(usr.getUserRole() == roles.getRole("manager")){
         QPushButton *CreateTask = new QPushButton("Create Task");
+        CreateTask->setStyleSheet("background-color: #5D6977; color: rgb(255, 255, 255); border-radius:8px; padding:4px");
         connect(CreateTask, SIGNAL(released()), this, SLOT(openCreateTask()));
         QPushButton *CreateProjectBtn = new QPushButton("Create Project");
+        CreateProjectBtn->setStyleSheet("background-color: #5D6977; color: rgb(255, 255, 255); border-radius:8px; padding:4px");
         connect(CreateProjectBtn, SIGNAL(released()), this, SLOT(openCreateProject()));
         ui->sidebarLayout->addWidget(CreateTask);
         ui->sidebarLayout->addWidget(CreateProjectBtn);

@@ -35,8 +35,8 @@ void Profile::populateTreeWidget(user u){
     int col = 0;
     int row = 0;
     for(i = tasks.begin(); i != tasks.end(); ++i){
-        QWidget *taskW = new QWidget();
-        taskW->setStyleSheet("background-color: teal");
+        QFrame *taskW = new QFrame();
+        taskW->setStyleSheet("QFrame {background-color: #dbdbdb; border-radius:10px}");
         taskW->setMaximumHeight(200);
 
         QVBoxLayout *taskInfo = new QVBoxLayout(taskW);
@@ -109,6 +109,7 @@ void Profile::populateTreeWidget(user u){
         taskInfo->addItem(projectLayout);
 
         seeMore->setText("See more about "+i->returnTitle());
+        seeMore->setStyleSheet("QPushButton {color: #056D78; background-color:transparent;}");
         connect(seeMore, SIGNAL(released()), this, SLOT(sendSignal()));
 
         taskInfo->addWidget(seeMore);

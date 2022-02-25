@@ -26,11 +26,18 @@
       <widget class="QLabel" name="label">
        <property name="font">
         <font>
-         <pointsize>14</pointsize>
+         <pointsize>16</pointsize>
         </font>
        </property>
        <property name="text">
         <string>Create Task</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -42,7 +49,12 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="Title"/>
+      <widget class="QLineEdit" name="Title">
+       <property name="styleSheet">
+        <string notr="true">border-radius:4px;
+padding:4px;</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QLabel" name="DescLbl">
@@ -52,7 +64,12 @@
       </widget>
      </item>
      <item>
-      <widget class="QPlainTextEdit" name="Description"/>
+      <widget class="QPlainTextEdit" name="Description">
+       <property name="styleSheet">
+        <string notr="true">border-radius:4px;
+padding:4px;</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QLabel" name="EffortLbl">
@@ -62,7 +79,12 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="EffortBox"/>
+      <widget class="QComboBox" name="EffortBox">
+       <property name="styleSheet">
+        <string notr="true">border-radius:4px;
+padding:4px;</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QLabel" name="PriorityLbl">
@@ -72,7 +94,12 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="PriorityBox"/>
+      <widget class="QComboBox" name="PriorityBox">
+       <property name="styleSheet">
+        <string notr="true">border-radius:4px;
+padding:4px;</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QLabel" name="label_2">
@@ -82,10 +109,24 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="AssigneeBox"/>
+      <widget class="QComboBox" name="AssigneeBox">
+       <property name="styleSheet">
+        <string notr="true">border-radius:4px;
+padding:4px;</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="CreateTaskBtn">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(5, 109, 120);
+color: rgb(255, 255, 255);
+border-radius:8px;
+padding-top:4px;
+padding-bottom:4px;
+padding-left:25px;
+padding-right:25px;</string>
+       </property>
        <property name="text">
         <string>Create Task</string>
        </property>

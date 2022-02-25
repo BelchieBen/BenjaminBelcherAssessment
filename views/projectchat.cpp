@@ -8,8 +8,9 @@ ProjectChat::ProjectChat(QWidget *parent, int projId) :
     ui->setupUi(this);
     this->projectId = projId;
     QString projectTitle = _projDataService.getProjectTitle(projectId);
-    ui->BackToProjectBtn->setText("Back to "+projectTitle);
+    ui->BackToProjectBtn->setText("Back to dashboard");
     ui->TitleLbl->setText(projectTitle);
+    ui->projectProgress->setStyleSheet("QProgressBar::chunk {background: #005936;}");
     connect(ui->BackToProjectBtn, SIGNAL(released()), this, SLOT(returnToProject()));
     connect(ui->SendBtn, SIGNAL(released()), this, SLOT(sendMessageBtnPressed()));
     loadMessages();
@@ -26,6 +27,7 @@ void ProjectChat::setProgressBarValue(){
      if(ui->projectProgress->value() == 100){
          if(usr.getUserRole() == roles.getRole("manager")){
              QPushButton *completeProjectBtn = new QPushButton("Mark project as complete");
+             completeProjectBtn->setStyleSheet("background-color: #005936; color: rgb(255, 255, 255); border-radius:8px; padding:4px");
              ui->widget->layout()->addWidget(completeProjectBtn);
          }
      }

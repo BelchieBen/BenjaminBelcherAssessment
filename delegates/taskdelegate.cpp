@@ -26,33 +26,33 @@ void TaskDelegate::paint ( QPainter * painter, const QStyleOptionViewItem & opti
 
     if(option.state & QStyle::State_Selected){
         QLinearGradient gradientSelected(r.left(),r.top(),r.left(),r.height()+r.top());
-        gradientSelected.setColorAt(0.0, QColor::fromRgb(119,213,247));
-        gradientSelected.setColorAt(0.9, QColor::fromRgb(27,134,183));
-        gradientSelected.setColorAt(1.0, QColor::fromRgb(0,120,174));
+        gradientSelected.setColorAt(0.0, QColor::fromRgb(27,131,139));
+        gradientSelected.setColorAt(0.9, QColor::fromRgb(27,131,139));
+        gradientSelected.setColorAt(1.0, QColor::fromRgb(27,131,139));
         painter->setBrush(gradientSelected);
-        painter->drawRect(r);
+          painter->drawRect(r);
 
         //BORDER
-        painter->setPen(lineMarkedPen);
-        painter->drawLine(r.topLeft(),r.topRight());
-        painter->drawLine(r.topRight(),r.bottomRight());
-        painter->drawLine(r.bottomLeft(),r.bottomRight());
-        painter->drawLine(r.topLeft(),r.bottomLeft());
+//        painter->setPen(lineMarkedPen);
+//        painter->drawLine(r.topLeft(),r.topRight());
+//        painter->drawLine(r.topRight(),r.bottomRight());
+//        painter->drawLine(r.bottomLeft(),r.bottomRight());
+//        painter->drawLine(r.topLeft(),r.bottomLeft());
 
         painter->setPen(fontMarkedPen);
 
     } else {
         //BACKGROUND
                     //ALTERNATING COLORS
-        painter->setBrush( (index.row() % 2) ? Qt::white : QColor(252,252,252) );
+        painter->setBrush( (index.row() % 2) ? QColor(221, 224, 227) : QColor(221, 224, 227) );
         painter->drawRect(r);
 
         //BORDER
-        painter->setPen(linePen);
-        painter->drawLine(r.topLeft(),r.topRight());
-        painter->drawLine(r.topRight(),r.bottomRight());
-        painter->drawLine(r.bottomLeft(),r.bottomRight());
-        painter->drawLine(r.topLeft(),r.bottomLeft());
+//        painter->setPen(linePen);
+//        painter->drawLine(r.topLeft(),r.topRight());
+//        painter->drawLine(r.topRight(),r.bottomRight());
+//        painter->drawLine(r.bottomLeft(),r.bottomRight());
+//        painter->drawLine(r.topLeft(),r.bottomLeft());
 
         painter->setPen(fontPen);
     }
@@ -73,17 +73,17 @@ void TaskDelegate::paint ( QPainter * painter, const QStyleOptionViewItem & opti
 
     //TITLE
     r = option.rect.adjusted(imageSpace, 0, -10, -30);
-    painter->setFont( QFont( "Lucida Grande", 16, QFont::Normal ) );
+    painter->setFont( QFont( "Gilroy", 16, QFont::Bold ) );
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignTop|Qt::AlignLeft, title, &r);
 
     //DESCRIPTION
     r = option.rect.adjusted(imageSpace, 30, -10, 0);
-    painter->setFont( QFont( "Lucida Grande", 12, QFont::Normal ) );
+    painter->setFont( QFont( "Gilroy", 12, QFont::Medium ) );
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignLeft, description, &r);
 
     //STATUS
     r = option.rect.adjusted(imageSpace, 30, -10, 0);
-    painter->setFont( QFont( "Lucida Grande", 9, QFont::Normal ) );
+    painter->setFont( QFont( "Gilroy", 9, QFont::Normal ) );
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignBottom, status, &r);
 }
 

@@ -65,6 +65,11 @@
              <height>16777215</height>
             </size>
            </property>
+           <property name="styleSheet">
+            <string notr="true">border-radius:6px;
+paddding-top:4px;
+padding-bottom:4px</string>
+           </property>
            <property name="placeholderText">
             <string>Find a task in any project</string>
            </property>
@@ -72,6 +77,17 @@
          </item>
          <item>
           <widget class="QPushButton" name="SearchBtn">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(5, 109, 120);
+color: rgb(255, 255, 255);
+border-radius:8px;
+padding-top:4px;
+padding-bottom:4px;
+padding-left:25px;
+padding-right:25px;
+
+</string>
+           </property>
            <property name="text">
             <string>Search</string>
            </property>
@@ -79,6 +95,16 @@
          </item>
          <item>
           <widget class="QPushButton" name="ProfileBtn">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(227, 0, 114);
+color: rgb(255, 255, 255);
+
+border-radius:8px;
+padding-top:4px;
+padding-bottom:4px;
+padding-left:25px;
+padding-right:25px;</string>
+           </property>
            <property name="text">
             <string>Profile</string>
            </property>
@@ -133,6 +159,12 @@
                     <height>16777215</height>
                    </size>
                   </property>
+                  <property name="styleSheet">
+                   <string notr="true">border-radius:4px;
+
+paddding-top:4px;
+padding-bottom:4px;</string>
+                  </property>
                   <property name="placeholderText">
                    <string>Enter task title...</string>
                   </property>
@@ -140,6 +172,13 @@
                 </item>
                 <item>
                  <widget class="QPushButton" name="ProjectSettings">
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(47, 64, 81);
+color: rgb(255, 255, 255);
+
+border-radius:8px;
+padding:4px</string>
+                  </property>
                   <property name="text">
                    <string>Project Settings</string>
                   </property>
@@ -147,6 +186,13 @@
                 </item>
                 <item>
                  <widget class="QPushButton" name="ProjectTimelineBtn">
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(47, 64, 81);
+color: rgb(255, 255, 255);
+
+border-radius:8px;
+padding:4px</string>
+                  </property>
                   <property name="text">
                    <string>Project Timeline</string>
                   </property>
@@ -154,6 +200,13 @@
                 </item>
                 <item>
                  <widget class="QPushButton" name="OtherProjectsBtn">
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(47, 64, 81);
+color: rgb(255, 255, 255);
+
+border-radius:8px;
+padding:4px</string>
+                  </property>
                   <property name="text">
                    <string> Other Projects</string>
                   </property>
@@ -206,6 +259,9 @@
                    <pointsize>14</pointsize>
                   </font>
                  </property>
+                 <property name="styleSheet">
+                  <string notr="true">border-radius:6px;</string>
+                 </property>
                 </widget>
                </item>
               </layout>
@@ -225,7 +281,12 @@
                 </widget>
                </item>
                <item>
-                <widget class="QListWidget" name="InProgressList"/>
+                <widget class="QListWidget" name="InProgressList">
+                 <property name="styleSheet">
+                  <string notr="true">border-radius:6px;
+</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -244,7 +305,11 @@
                 </widget>
                </item>
                <item>
-                <widget class="QListWidget" name="ReviewList"/>
+                <widget class="QListWidget" name="ReviewList">
+                 <property name="styleSheet">
+                  <string notr="true">border-radius:6px;</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
@@ -263,7 +328,11 @@
                 </widget>
                </item>
                <item>
-                <widget class="QListWidget" name="DoneList"/>
+                <widget class="QListWidget" name="DoneList">
+                 <property name="styleSheet">
+                  <string notr="true">border-radius:6px;</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>

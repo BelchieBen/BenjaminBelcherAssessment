@@ -52,6 +52,10 @@
      </item>
      <item>
       <widget class="QLineEdit" name="PinEntry">
+       <property name="styleSheet">
+        <string notr="true">border-radius:4px;
+padding:4px;</string>
+       </property>
        <property name="inputMethodHints">
         <set>Qt::ImhDigitsOnly|Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData</set>
        </property>
@@ -62,6 +66,15 @@
      </item>
      <item>
       <widget class="QPushButton" name="LoginBtn">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(5, 109, 120);
+color: rgb(255, 255, 255);
+border-radius:8px;
+padding-top:4px;
+padding-bottom:4px;
+padding-left:25px;
+padding-right:25px;</string>
+       </property>
        <property name="text">
         <string>Login</string>
        </property>
@@ -72,7 +85,7 @@
        <property name="styleSheet">
         <string notr="true">QPushButton{
 background-color: transparent;
-color:rgb(85, 85, 255)
+color:#E30072
 }</string>
        </property>
        <property name="text">

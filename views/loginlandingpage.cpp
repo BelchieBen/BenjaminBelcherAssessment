@@ -61,6 +61,7 @@ void LoginLandingPage::loadProjects(){
         int count = 0;
         while(q.next()){
             projectBtn = new QPushButton(q.value(1).toString());
+            projectBtn->setStyleSheet("background-color: #2F4051; color: rgb(255, 255, 255); border-radius:8px; padding:4px");
             connect(projectBtn, SIGNAL(clicked()), this, SLOT(button_pushed()));
             ui->ButtonsLayout->addWidget(projectBtn);
             count++;
@@ -75,6 +76,7 @@ void LoginLandingPage::loadProjects(){
 void LoginLandingPage::addCreateProjectBtn(){
     if(usr.getUserRole() == roles.getRole("manager")){
         QPushButton *newProjBtn = new QPushButton("Create a new project");
+        newProjBtn->setStyleSheet("background-color: #056D78; color: rgb(255, 255, 255); border-radius:8px; padding:4px");
         connect(newProjBtn, SIGNAL(clicked()), this, SLOT(createprojectBtnClicked()));
         ui->CreateButtonLayout->addWidget(newProjBtn);
     }

@@ -73,17 +73,17 @@ void CommentDelegate::paint ( QPainter * painter, const QStyleOptionViewItem & o
 
     //TITLE
     r = option.rect.adjusted(imageSpace, 0, -10, -30);
-    painter->setFont( QFont( "Lucida Grande", 11, QFont::Normal ) );
+    painter->setFont( QFont( "Gilroy", 11, QFont::Medium ) );
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignTop|Qt::AlignLeft|Qt::TextWrapAnywhere, title, &r);
 
     //DESCRIPTION
     r = option.rect.adjusted(imageSpace, 30, -10, 0);
-    painter->setFont( QFont( "Lucida Grande", 10, QFont::Normal ) );
+    painter->setFont( QFont( "Gilroy", 10, QFont::Normal ) );
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignBottom|Qt::AlignLeft, description, &r);
 
     //STATUS
     r = option.rect.adjusted(imageSpace, 30, -10, 0);
-    painter->setFont( QFont( "Lucida Grande", 8, QFont::Normal ) );
+    painter->setFont( QFont( "Gilroy", 8, QFont::Normal ) );
     painter->drawText(r.left(), r.top(), r.width(), r.height(), Qt::AlignBottom|Qt::AlignRight, status, &r);
 }
 
