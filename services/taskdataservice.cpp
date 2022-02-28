@@ -48,11 +48,13 @@ bool TaskDataService::addUserToTask(int taskId, int userId){
     */
     QSqlQuery q;
     QString query = "INSERT OR REPLACE INTO task_users (user_id, task_id) VALUES ("+QString::number(userId)+", "+QString::number(taskId)+")";
-//    q.prepare("INSERT INTO task_users (user_id, task_id) VALUES (:uId, :tkId)");
-//    q.bindValue("tkId", QString::number(userId));
-//    q.bindValue("uId", QString::number(taskId));
+    QString email = usr.returnEmail(userId);
+    Task t = findTaskById(taskId);
+    QString taskT = t.returnTitle();
     if(q.exec(query)){
         qDebug() << "Added user to task";
+        EmailService* smtp = new EmailService(details.getUsername(), details.getPassword(), details.getServerAddress(), details.getPort());
+        smtp->sendMail(details.getUsername(), email, "You have been assigned to a task!", "The task you have been assigned is "+taskT);
         return true;
     }
     else{
