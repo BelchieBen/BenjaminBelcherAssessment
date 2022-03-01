@@ -96,6 +96,17 @@ padding:4px;</string>
     </widget>
    </item>
    <item>
+    <layout class="QVBoxLayout" name="EditLayout">
+     <item>
+      <widget class="Line" name="line_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <widget class="QLabel" name="CommentsLbl">
      <property name="font">
       <font>

@@ -6,6 +6,7 @@
 #include "services/taskdataservice.h"
 #include "delegates/commentdelegate.h"
 #include "models/user.h"
+#include "globals/userroles.h"
 
 namespace Ui {
 class TaskDetails;
@@ -28,12 +29,15 @@ private:
     int taskId;
     QMessageBox _messageBox;
     user usr;
+    UserRoles roles;
 
 private slots:
     void populateTaskDetails();
     void addCommentToTask();
     void populateCommentBox();
     void populateTaskDetailsUsingModel();
+    void createManagerBtns();
+    void editTask();
 };
 
 #endif // TASKDETAILS_H

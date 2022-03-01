@@ -10,6 +10,7 @@ TaskDetails::TaskDetails(QWidget *parent, QListWidgetItem *item) :
     populateTaskDetails();
     this->taskId = _taskDataService.getTaskId(item->text());
     populateCommentBox();
+    createManagerBtns();
     connect(ui->CommentBtn, SIGNAL(released()), this, SLOT(addCommentToTask()));
 }
 
@@ -41,6 +42,36 @@ void TaskDetails::populateTaskDetailsUsingModel(){
     ui->Description->setText(currentTask.returnDescription());
     ui->Priority->setText(currentTask.returnPriority());
     ui->Effort->setText(currentTask.returnEffort());
+}
+
+void TaskDetails::createManagerBtns()
+{
+    Task t;
+    QString email;
+    QString taskTitle = task->data(0).toString();
+    if(taskTitle != ""){
+        int taskId = _taskDataService.getTaskId(taskTitle);
+        t = _taskDataService.findTaskById(taskId);
+        email = usr.returnEmail(t.returnUser());
+    }
+    else{
+        email = usr.returnEmail(taskT->returnUser());
+    }
+
+    if(usr.getUserRole() == roles.getRole("manager") || usr.GetCurrentUserEmail() == email){
+        QPushButton *EditTask = new QPushButton("Edit Task");
+        EditTask->setStyleSheet("background-color:rgb(227, 0, 114); color: rgb(255, 255, 255); border-radius:8px; padding-top:4px; padding-bottom:4px; padding-left:25px; padding-right:25px;");
+        connect(EditTask, SIGNAL(released()), this, SLOT(openCreateTask()));
+        QPushButton *CreateProjectBtn = new QPushButton("Create Project");
+        CreateProjectBtn->setStyleSheet("background-color: #5D6977; color: rgb(255, 255, 255); border-radius:8px; padding:4px");
+        connect(CreateProjectBtn, SIGNAL(released()), this, SLOT(editTask()));
+        ui->EditLayout->insertWidget(0,EditTask);
+    }
+}
+
+void TaskDetails::editTask()
+{
+
 }
 
 void TaskDetails::addCommentToTask(){
