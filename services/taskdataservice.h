@@ -39,6 +39,7 @@ public:
     QList<Task> fetchProjectTasks(QString projectTitle);
     QList<Task> fetchAllTasks(QString search);
     bool removeTaskAssignee(int taskId);
+    bool updateTaskDetails(int taskId, QString priority, QString effort, QString description);
 
 private:
     user usr;

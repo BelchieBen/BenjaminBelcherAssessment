@@ -293,3 +293,18 @@ bool TaskDataService::removeTaskAssignee(int taskId)
     }
     return false;
 }
+
+bool TaskDataService::updateTaskDetails(int taskId, QString priority, QString effort, QString description)
+{
+    QSqlQuery q;
+    q.prepare("UPDATE tasks SET description = :dsc, effort = :efrt, priority = :prty WHERE id = :id");
+    q.bindValue(":dsc", description);
+    q.bindValue(":efrt", effort);
+    q.bindValue(":prty", priority);
+    q.bindValue(":id", taskId);
+    if(q.exec()){
+        qDebug() << "Updated task details";
+        return true;
+    }
+    return false;
+}

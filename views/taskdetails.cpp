@@ -9,9 +9,15 @@ TaskDetails::TaskDetails(QWidget *parent, QListWidgetItem *item) :
     this->task = item;
     populateTaskDetails();
     this->taskId = _taskDataService.getTaskId(item->text());
+    QStringList effortPoints = (QStringList()<<"1"<<"2"<<"3"<<"5"<<"8"<<"10");
+    QStringList priority = (QStringList()<<"Minor"<<"Medium"<<"Major");
+    ui->EffortBox->addItems(effortPoints);
+    ui->PriorityBox->addItems(priority);
     populateCommentBox();
     createManagerBtns();
     connect(ui->CommentBtn, SIGNAL(released()), this, SLOT(addCommentToTask()));
+    connect(ui->SaveBtn, SIGNAL(released()), this, SLOT(saveTask()));
+    connect(this, SIGNAL(updatedTask()), this, SLOT(populateTaskDetails()));
 }
 
 TaskDetails::TaskDetails(QWidget *parent, Task *item) :
@@ -46,12 +52,11 @@ void TaskDetails::populateTaskDetailsUsingModel(){
 
 void TaskDetails::createManagerBtns()
 {
-    Task t;
     QString email;
     QString taskTitle = task->data(0).toString();
     if(taskTitle != ""){
         int taskId = _taskDataService.getTaskId(taskTitle);
-        t = _taskDataService.findTaskById(taskId);
+        Task t = _taskDataService.findTaskById(taskId);
         email = usr.returnEmail(t.returnUser());
     }
     else{
@@ -61,17 +66,25 @@ void TaskDetails::createManagerBtns()
     if(usr.getUserRole() == roles.getRole("manager") || usr.GetCurrentUserEmail() == email){
         QPushButton *EditTask = new QPushButton("Edit Task");
         EditTask->setStyleSheet("background-color:rgb(227, 0, 114); color: rgb(255, 255, 255); border-radius:8px; padding-top:4px; padding-bottom:4px; padding-left:25px; padding-right:25px;");
-        connect(EditTask, SIGNAL(released()), this, SLOT(openCreateTask()));
-        QPushButton *CreateProjectBtn = new QPushButton("Create Project");
-        CreateProjectBtn->setStyleSheet("background-color: #5D6977; color: rgb(255, 255, 255); border-radius:8px; padding:4px");
-        connect(CreateProjectBtn, SIGNAL(released()), this, SLOT(editTask()));
+        connect(EditTask, SIGNAL(released()), this, SLOT(editTask()));
         ui->EditLayout->insertWidget(0,EditTask);
     }
 }
 
 void TaskDetails::editTask()
 {
+    ui->stackedWidget->setCurrentIndex(1);
+}
 
+void TaskDetails::saveTask()
+{
+    if(_taskDataService.updateTaskDetails(taskId, ui->PriorityBox->currentText(), ui->EffortBox->currentText(), ui->DescriptionTxtBox->toPlainText())){
+        emit updatedTask();
+        ui->stackedWidget->setCurrentIndex(0);
+    }
+    else{
+         _messageBox.critical(0,"Error", "Could not update the task");
+    }
 }
 
 void TaskDetails::addCommentToTask(){

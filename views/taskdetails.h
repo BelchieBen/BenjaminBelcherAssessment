@@ -38,6 +38,10 @@ private slots:
     void populateTaskDetailsUsingModel();
     void createManagerBtns();
     void editTask();
+    void saveTask();
+
+signals:
+    void updatedTask();
 };
 
 #endif // TASKDETAILS_H
