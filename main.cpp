@@ -6,6 +6,8 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    //QWindow::setIcon();
     QFont font("Gilroy");
     font.setWeight(QFont::Medium);
     a.setFont(font);

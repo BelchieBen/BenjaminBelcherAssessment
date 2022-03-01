@@ -204,8 +204,12 @@ void MainDashboard::unassignFromProgress(){
     TaskDataService _taskDataService;
     for(int i=0; i<list->selectedItems().size(); i++){
         QListWidgetItem *task = list->takeItem(list->currentRow());
+        QString taskTle = task->data(0).toString();
+        int taskId = _taskDataService.getTaskId(taskTle);
         if(_taskDataService.updateTaskStatus(*task, taskStates.TodoState())){
-            emit movedItem();
+            if(_taskDataService.removeTaskAssignee(taskId)){
+                emit movedItem();
+            }
         }
     }
 }
@@ -215,8 +219,12 @@ void MainDashboard::unassignFromReview(){
     TaskDataService _taskDataService;
     for(int i=0; i<list->selectedItems().size(); i++){
         QListWidgetItem *task = list->takeItem(list->currentRow());
+        QString taskTle = task->data(0).toString();
+        int taskId = _taskDataService.getTaskId(taskTle);
         if(_taskDataService.updateTaskStatus(*task, taskStates.TodoState())){
-            emit movedItem();
+            if(_taskDataService.removeTaskAssignee(taskId)){
+                emit movedItem();
+            }
         }
     }
 }

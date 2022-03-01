@@ -281,3 +281,15 @@ QList<Task> TaskDataService::fetchAllTasks(QString search){
     }
     return tasks;
 }
+
+bool TaskDataService::removeTaskAssignee(int taskId)
+{
+    QSqlQuery q;
+    q.prepare("UPDATE task_users SET user_id = NULL WHERE task_id = :id");
+    q.bindValue(":id", taskId);
+    if(q.exec()){
+        qDebug()<<"Unassigned user from task";
+        return true;
+    }
+    return false;
+}

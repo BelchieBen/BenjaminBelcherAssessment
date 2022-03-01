@@ -38,6 +38,7 @@ public:
     QList<TaskComment> getTaskComments(int taskId);
     QList<Task> fetchProjectTasks(QString projectTitle);
     QList<Task> fetchAllTasks(QString search);
+    bool removeTaskAssignee(int taskId);
 
 private:
     user usr;
