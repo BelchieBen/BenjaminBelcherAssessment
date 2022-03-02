@@ -16,6 +16,11 @@ ProjectChat::ProjectChat(QWidget *parent, int projId) :
     loadMessages();
     loadProjectUsers();
     setProgressBarValue();
+
+    if(_projDataService.isProjectComplete(projectId)){
+        completeProjectBtn->setEnabled(false);
+        completeProjectBtn->setStyleSheet("background-color: #5D6977; color: rgb(255, 255, 255); border-radius:8px; padding:4px");
+    }
 }
 
 void ProjectChat::returnToProject(){
@@ -26,11 +31,27 @@ void ProjectChat::setProgressBarValue(){
      ui->projectProgress->setValue(_projDataService.calculateProjectProgress(_projDataService.getProjectTitle(projectId)));
      if(ui->projectProgress->value() == 100){
          if(usr.getUserRole() == roles.getRole("manager")){
-             QPushButton *completeProjectBtn = new QPushButton("Mark project as complete");
+             completeProjectBtn = new QPushButton("Mark project as complete");
+             connect(completeProjectBtn, SIGNAL(released()), this, SLOT(markProjectAsComplete()));
              completeProjectBtn->setStyleSheet("background-color: #005936; color: rgb(255, 255, 255); border-radius:8px; padding:4px");
              ui->widget->layout()->addWidget(completeProjectBtn);
          }
      }
+}
+
+void ProjectChat::markProjectAsComplete()
+{
+    if(_projDataService.updateProjectStatus(projectId, states.getState("Completed"))){
+        QList<QString> currentUsers = _projDataService.getCurrentUsers(projectId);
+        QList<QString>::iterator i;
+        for(i = currentUsers.begin(); i != currentUsers.end(); ++i){
+            EmailService* smtp = new EmailService(details.getUsername(), details.getPassword(), details.getServerAddress(), details.getPort());
+            smtp->sendMail(details.getUsername(), *i, ui->TitleLbl->text()+" is now complete!", "This project has been marked as complete by your project manager.");
+        }
+        completeProjectBtn->setEnabled(false);
+        completeProjectBtn->setStyleSheet("background-color: #5D6977; color: rgb(255, 255, 255); border-radius:8px; padding:4px");
+        emit projectComplete();
+    }
 }
 
 void ProjectChat::sendMessageBtnPressed(){

@@ -26,6 +26,9 @@ private:
     ProjectDataService _projDataService;
     user usr;
     UserRoles roles;
+    ProjectStates states;
+    EmailServerDetails details;
+    QPushButton *completeProjectBtn;
 
 private slots:
     void returnToProject();
@@ -33,9 +36,11 @@ private slots:
     void loadMessages();
     void loadProjectUsers();
     void setProgressBarValue();
+    void markProjectAsComplete();
 
 signals:
     void returnToProjectDashboard();
+    void projectComplete();
 };
 
 #endif // PROJECTCHAT_H

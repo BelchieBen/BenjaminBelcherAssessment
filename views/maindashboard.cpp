@@ -10,6 +10,8 @@ MainDashboard::MainDashboard(QWidget *parent, int projectId) :
     ui->setupUi(this);
     this->projId = projectId;
 
+    handleProjectComplete();
+
     chatroom = new ProjectChat(this, projId);
 
     ui->stackedWidget->addWidget(&profile);
@@ -29,6 +31,7 @@ MainDashboard::MainDashboard(QWidget *parent, int projectId) :
     connect(chatroom, SIGNAL(returnToProjectDashboard()), this, SLOT(returnToMainDashboardFromPages()));
     connect(ui->SearchBtn, SIGNAL(released()), this, SLOT(searchAllProjectsForTasks()));
     connect(this, SIGNAL(movedItem()), chatroom, SLOT(setProgressBarValue()));
+    connect(chatroom, SIGNAL(projectComplete()), this, SLOT(handleProjectComplete()));
 
     loadTasks();
     createListMenus();
@@ -79,6 +82,9 @@ void MainDashboard::moveTaskToInProgress(){
     for(int i=0; i<list->selectedItems().size(); i++){
         QListWidgetItem *task = list->takeItem(list->currentRow());
         if(_taskDataService.updateTaskStatus(*task, taskStates.InProgressState())){
+            if(_projDataService.isProjectNotStarted(projId)){
+                _projDataService.updateProjectStatus(projId, projectStates.getState("InProgress"));
+            }
             emit movedItem();
         }
     }
@@ -229,6 +235,17 @@ void MainDashboard::unassignFromReview(){
     }
 }
 
+void MainDashboard::handleProjectComplete()
+{
+    if(_projDataService.isProjectComplete(projId)){
+        CreateTask->setEnabled(false);
+        CreateTask->setStyleSheet("background-color: #5D6977; color: rgb(255, 255, 255); border-radius:8px; padding:4px");
+
+        CreateProjectBtn->setEnabled(false);
+        CreateProjectBtn->setStyleSheet("background-color: #5D6977; color: rgb(255, 255, 255); border-radius:8px; padding:4px");
+    }
+}
+
 void MainDashboard::onAddTestTaskClicked(){
 
 
@@ -293,10 +310,10 @@ void MainDashboard::openProjectSettings(){
 
 void MainDashboard::createManagerBtns(){
     if(usr.getUserRole() == roles.getRole("manager")){
-        QPushButton *CreateTask = new QPushButton("Create Task");
+        CreateTask = new QPushButton("Create Task");
         CreateTask->setStyleSheet("background-color: #5D6977; color: rgb(255, 255, 255); border-radius:8px; padding:4px");
         connect(CreateTask, SIGNAL(released()), this, SLOT(openCreateTask()));
-        QPushButton *CreateProjectBtn = new QPushButton("Create Project");
+        CreateProjectBtn = new QPushButton("Create Project");
         CreateProjectBtn->setStyleSheet("background-color: #5D6977; color: rgb(255, 255, 255); border-radius:8px; padding:4px");
         connect(CreateProjectBtn, SIGNAL(released()), this, SLOT(openCreateProject()));
         ui->sidebarLayout->addWidget(CreateTask);

@@ -261,3 +261,53 @@ int ProjectDataService::calculateProjectProgress(QString projectTitle){
 
     return taskDonePercentage;
 }
+
+bool ProjectDataService::isProjectNotStarted(int projectId)
+{
+    QString state;
+    QSqlQuery q;
+    q.prepare("SELECT * from projects WHERE id = :id");
+    q.bindValue(":id", projectId);
+    if(q.exec()){
+        while(q.next()){
+            state = q.value(3).toString();
+            if(state == projectStates.getState("NotStarted")){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool ProjectDataService::updateProjectStatus(int projetId, QString status)
+{
+    QSqlQuery q;
+    q.prepare("UPDATE projects SET status = :stus WHERE id = :id");
+    q.bindValue(":id", projetId);
+    q.bindValue(":stus", status);
+    if(q.exec()){
+        qDebug() << "Project status updated";
+        return true;
+    }
+    else{
+        qDebug() << "Project status not changed";
+        qDebug() << q.lastError().text();
+        return false;
+    }
+    return false;
+}
+
+bool ProjectDataService::isProjectComplete(int projectId)
+{
+    QSqlQuery q;
+    q.prepare("SELECT status FROM projects WHERE id = :id");
+    q.bindValue(":id", projectId);
+    if(q.exec()){
+        while(q.next()){
+            if(q.value(0).toString() == projectStates.getState("Completed")){
+                return true;
+            }
+        }
+    }
+    return false;
+}

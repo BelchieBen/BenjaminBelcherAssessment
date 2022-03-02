@@ -14,6 +14,7 @@ SOURCES += \
     delegates/taskdelegate.cpp \
     delegates/tasksearchresultdelegate.cpp \
     globals/emailserverdetails.cpp \
+    globals/projectstates.cpp \
     globals/taskstates.cpp \
     globals/userroles.cpp \
     main.cpp \
@@ -39,6 +40,7 @@ SOURCES += \
     views/profile.cpp \
     views/projectchat.cpp \
     views/projectsettingspage.cpp \
+    views/projectwidget.cpp \
     views/quickloginpage.cpp \
     views/searchtasksallprojectsdialog.cpp \
     views/taskdetails.cpp
@@ -49,6 +51,7 @@ HEADERS += \
     delegates/taskdelegate.h \
     delegates/tasksearchresultdelegate.h \
     globals/emailserverdetails.h \
+    globals/projectstates.h \
     globals/taskstates.h \
     globals/userroles.h \
     mainwindow.h \
@@ -73,6 +76,7 @@ HEADERS += \
     views/profile.h \
     views/projectchat.h \
     views/projectsettingspage.h \
+    views/projectwidget.h \
     views/quickloginpage.h \
     views/searchtasksallprojectsdialog.h \
     views/taskdetails.h
@@ -90,6 +94,7 @@ FORMS += \
     views/profile.ui \
     views/projectchat.ui \
     views/projectsettingspage.ui \
+    views/projectwidget.ui \
     views/quickloginpage.ui \
     views/searchtasksallprojectsdialog.ui \
     views/taskdetails.ui

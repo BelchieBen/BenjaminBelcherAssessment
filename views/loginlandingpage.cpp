@@ -6,7 +6,7 @@ LoginLandingPage::LoginLandingPage(QWidget *parent) :
     ui(new Ui::LoginLandingPage)
 {
     ui->setupUi(this);
-    ui->ButtonsLayout->layout();
+    //ui->ButtonsLayout->layout();
     connect(&newproject, SIGNAL(projectCreated()), this, SLOT(loadProjects()));
     addCreateProjectBtn();
     loadProjects();
@@ -52,19 +52,30 @@ void clearLayout(QLayout* layout, bool deleteWidgets = true)
 }
 
 void LoginLandingPage::loadProjects(){
-    clearLayout(ui->ButtonsLayout);
+    //clearLayout(ui->ButtonsLayout);
     QSqlQuery q;
     q.prepare("SELECT * FROM projects INNER JOIN project_users ON project_users.project = projects.id WHERE project_users.user = :usr");
     q.bindValue(":usr", usr.GetCurrentUserEmail());
     if(q.exec()){
-        QPushButton *projectBtn;
+        //QPushButton *projectBtn;
+        int col = 0;
+        int row = 0;
         int count = 0;
         while(q.next()){
-            projectBtn = new QPushButton(q.value(1).toString());
-            projectBtn->setStyleSheet("background-color: #2F4051; color: rgb(255, 255, 255); border-radius:8px; padding:4px");
-            connect(projectBtn, SIGNAL(clicked()), this, SLOT(button_pushed()));
-            ui->ButtonsLayout->addWidget(projectBtn);
-            count++;
+            ProjectWidget *widget = new ProjectWidget(this, q.value(0).toInt(),q.value(1).toString(), q.value(2).toString(), q.value(3).toString(), q.value(4).toString());
+            connect(widget, SIGNAL(openProject(int)), this, SLOT(handleOpenProject(int)));
+//            projectBtn = new QPushButton(q.value(1).toString());
+//            projectBtn->setStyleSheet("background-color: #2F4051; color: rgb(255, 255, 255); border-radius:8px; padding:4px");
+//            connect(projectBtn, SIGNAL(clicked()), this, SLOT(button_pushed()));
+//            ui->ButtonsLayout->addWidget(projectBtn);
+            if(col>2){
+                col =0;
+                row ++;
+            }
+
+            ui->Projects->addWidget(widget, row, col);
+            col ++;
+            count ++;
         }
 
         if(count == 0){
@@ -78,8 +89,19 @@ void LoginLandingPage::addCreateProjectBtn(){
         QPushButton *newProjBtn = new QPushButton("Create a new project");
         newProjBtn->setStyleSheet("background-color: #056D78; color: rgb(255, 255, 255); border-radius:8px; padding:4px");
         connect(newProjBtn, SIGNAL(clicked()), this, SLOT(createprojectBtnClicked()));
-        ui->CreateButtonLayout->addWidget(newProjBtn);
+        ui->CreateBtnLayout->addWidget(newProjBtn);
     }
+}
+
+void LoginLandingPage::handleOpenProject(int id)
+{
+    QWidget *nullWd = nullptr;
+    this->hide();
+    MainDashboard dashboard(nullWd, id);
+    dashboard.setModal(true);
+    dashboard.showFullScreen();
+    dashboard.setWindowFlags(Qt::Window);
+    dashboard.exec();
 }
 
 LoginLandingPage::~LoginLandingPage()

@@ -148,6 +148,7 @@ void user::removeCurrentUsr(){
     }
     else{
         std::cout << "Couldnt remove current user" << std::endl;
+        qDebug() << q.lastError().text();
     }
 }
 

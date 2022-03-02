@@ -9,6 +9,7 @@
 #include "models/projectmessage.h"
 #include "services/taskdataservice.h"
 #include "globals/taskstates.h"
+#include "globals/projectstates.h"
 #include "utils/time.h"
 
 /**
@@ -33,12 +34,16 @@ public:
     bool sendProjectMessage(int projId, QString messageTitle, QString messageBody, int uId);
     QList<ProjectMessage> fetchProjectMessages(int projId);
     int calculateProjectProgress(QString projectTitle);
+    bool isProjectNotStarted(int projectId);
+    bool updateProjectStatus(int projetId, QString status);
+    bool isProjectComplete(int projectId);
 
 private:
     Time time;
-    TaskDataService taskDataService;
     TaskStates states;
+    ProjectStates projectStates;
     EmailServerDetails details;
+    TaskDataService taskDataService;
 };
 
 #endif // PROJECTDATASERVICE_H

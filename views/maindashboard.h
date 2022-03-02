@@ -45,6 +45,9 @@ private:
     QMessageBox _messageBox;
     Profile profile;
     ProjectChat *chatroom;
+    ProjectStates projectStates;
+    QPushButton *CreateTask;
+    QPushButton *CreateProjectBtn;
 
 
 private slots:
@@ -69,6 +72,7 @@ private slots:
     void openTaskDetails(QListWidgetItem *item);
     void unassignFromProgress();
     void unassignFromReview();
+    void handleProjectComplete();
 
     void on_SearchCurrentBoard_textChanged(const QString &arg1);
 

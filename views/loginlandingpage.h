@@ -9,6 +9,7 @@
 #include "models/user.h"
 #include "globals/userroles.h"
 #include "views/forms/newprojectform.h"
+#include "views/projectwidget.h"
 
 namespace Ui {
 class LoginLandingPage;
@@ -33,6 +34,7 @@ private slots:
     void createprojectBtnClicked();
     void loadProjects();
     void addCreateProjectBtn();
+    void handleOpenProject(int id);
 };
 
 #endif // LOGINLANDINGPAGE_H
