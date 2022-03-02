@@ -322,6 +322,7 @@ void MainDashboard::openProjectChat(){
 void MainDashboard::openTaskDetails(QListWidgetItem *item){
     QWidget *nullWd = nullptr;
     TaskDetails taskDetails(nullWd, item);
+    connect(&taskDetails, SIGNAL(updatedTask()), this, SLOT(loadTasks()));
     taskDetails.setModal(true);
     taskDetails.exec();
 }
