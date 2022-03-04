@@ -10,7 +10,7 @@ MainDashboard::MainDashboard(QWidget *parent, int projectId) :
     ui->setupUi(this);
     this->projId = projectId;
 
-    handleProjectComplete();
+
 
     chatroom = new ProjectChat(this, projId);
 
@@ -20,6 +20,7 @@ MainDashboard::MainDashboard(QWidget *parent, int projectId) :
     QString tle = _projDataService.getProjectTitle(projId);
     ui->BoardTitle->setText(tle);
     createManagerBtns();
+    handleProjectComplete();
 
     connect(this, SIGNAL(movedItem()), this, SLOT(loadTasks()));
     connect(ui->ProjectSettings, SIGNAL(released()), this, SLOT(openProjectSettings()));
