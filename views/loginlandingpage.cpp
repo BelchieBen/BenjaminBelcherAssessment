@@ -54,7 +54,7 @@ void clearLayout(QLayout* layout, bool deleteWidgets = true)
 void LoginLandingPage::loadProjects(){
     //clearLayout(ui->ButtonsLayout);
     QSqlQuery q;
-    q.prepare("SELECT * FROM projects INNER JOIN project_users ON project_users.project = projects.id WHERE project_users.user = :usr");
+    q.prepare("SELECT * FROM projects INNER JOIN project_users ON project_users.project = projects.id WHERE project_users.user = :usr ORDER BY id DESC");
     q.bindValue(":usr", usr.GetCurrentUserEmail());
     if(q.exec()){
         //QPushButton *projectBtn;

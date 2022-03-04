@@ -7,7 +7,7 @@ RegisterForm::RegisterForm(QWidget *parent) :
     ui(new Ui::RegisterForm)
 {
     ui->setupUi(this);
-    ui->PinEntry->setValidator(new QIntValidator(0, 100, this));
+    ui->PinEntry->setValidator(new QIntValidator(0, 9999, this));
     connect(ui->AlreadyHaveAcc, SIGNAL(released()), this, SLOT(onAlreadyGotAccountPressed()));
     connect(ui->RegisterBtn, SIGNAL(released()), this, SLOT(onRegisterPressed()));
 }

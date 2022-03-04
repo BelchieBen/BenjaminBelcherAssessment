@@ -194,6 +194,12 @@ padding:4px;</string>
       <string notr="true">border-radius:4px;
 padding:4px;</string>
      </property>
+     <property name="maxLength">
+      <number>4</number>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
+     </property>
     </widget>
    </item>
    <item>
